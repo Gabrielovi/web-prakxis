@@ -1,21 +1,192 @@
-<section style="padding: 80px 0; background-color: white;">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prakxis — Comunicación y Divulgación Científica</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --principal: #0d9488; /* Teal Científico */
+            --secundario: #2dd4bf; /* Mint Amigable */
+            --oscuro: #1e293b;
+            --texto: #475569;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--texto);
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navegación Limpia (Sin dropdowns molestos) */
+        nav {
+            padding: 20px 0;
+            background: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .navbar-brand img {
+            height: 45px;
+        }
+
+        .nav-link {
+            color: var(--oscuro) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--principal) !important;
+        }
+
+        /* Sección Hero (El "gancho" visual) */
+        .hero {
+            background: linear-gradient(135deg, var(--principal) 0%, var(--secundario) 100%);
+            color: var(--blanco);
+            padding: 120px 0;
+            text-align: center;
+            border-bottom-right-radius: 100px; /* Toque de diseño suave */
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .btn-custom {
+            background-color: var(--blanco);
+            color: var(--principal);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            background-color: #f8fafc;
+            color: var(--oscuro);
+        }
+
+        /* Tarjetas de Servicios */
+        .service-card {
+            padding: 40px;
+            border-radius: 20px;
+            background: var(--blanco);
+            border: 1px solid #f1f5f9;
+            transition: 0.4s;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .icon-box {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--oscuro);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #f8fafc;
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4" style="padding: 20px;">
-                    <div style="font-size: 40px; margin-bottom: 15px;">🌐</div>
-                    <h3 style="color: #0d9488; font-weight: 700;">Estrategias de Conexión</h3>
-                    <p style="color: #64748b;">No solo informamos, creamos puentes. Diseñamos planes de comunicación que transforman investigaciones complejas en hitos sociales y culturales.</p>
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" alt="Prakxis" onerror="this.style.display='none'">
+                <span style="font-weight: 700; color: var(--principal); font-size: 24px;">PRAKXIS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" style="background: var(--principal); color: white !important; border-radius: 25px; padding: 8px 20px;">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Ciencia que Conecta</h1>
+            <p>Transformamos el conocimiento científico en historias humanas, visuales y accesibles para todo el mundo.</p>
+            <a href="#servicios" class="btn-custom">Descubre lo que hacemos</a>
+        </div>
+    </header>
+
+    <section id="servicios" class="py-5 my-5">
+        <div class="container text-center">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="icon-box">📢</div>
+                        <h3>Estrategias</h3>
+                        <p>Diseñamos puentes entre laboratorios y la sociedad con planes de comunicación a medida.</p>
+                    </div>
                 </div>
-                <div class="col-md-4" style="padding: 20px;">
-                    <div style="font-size: 40px; margin-bottom: 15px;">🎨</div>
-                    <h3 style="color: #0d9488; font-weight: 700;">Narrativas Visuales</h3>
-                    <p style="color: #64748b;">Si se puede ver, se puede entender. Creamos infografías, videos y recursos digitales que hacen que la ciencia sea visualmente irresistible.</p>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="icon-box">🎨</div>
+                        <h3>Diseño Visual</h3>
+                        <p>Infografías y videos que explican conceptos complejos de forma simple y estética.</p>
+                    </div>
                 </div>
-                <div class="col-md-4" style="padding: 20px;">
-                    <div style="font-size: 40px; margin-bottom: 15px;">🧬</div>
-                    <h3 style="color: #0d9488; font-weight: 700;">Identidad de Proyecto</h3>
-                    <p style="color: #64748b;">Le damos alma a tu innovación. Desarrollamos marcas para laboratorios, startups y centros científicos que proyectan confianza y futuro.</p>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="icon-box">🚀</div>
+                        <h3>Divulgación</h3>
+                        <p>Llevamos tu investigación a medios, redes sociales y plataformas digitales de alto impacto.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <footer>
+        <div class="container">
+            <p style="font-weight: 700; color: var(--principal);">PRAKXIS — 2024</p>
+            <p>Comunicación para la ciencia y la tecnología.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
