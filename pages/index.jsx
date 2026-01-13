@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import Hero1 from '../components/Hero/Hero1';
 import { heroData } from '../components/Hero/HeroData';
 import HeaderTransparentLight from '../components/Header/HeaderTransparentLight';
 
 const IndexBusiness = () => {
+    // REFERENCIAS Y ESTADOS PARA EL MOTOR DE EMAIL
+    const form = useRef();
+    const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
+    const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
+
     const headerData = {
         menuItems: [
             { text: 'Inicio', href: '/' },
@@ -37,6 +43,30 @@ const IndexBusiness = () => {
             icon: "fas fa-microscope"
         }
     ];
+
+    // FUNCIÓN DE ENVÍO DEFINITIVA
+    const handleSubmit = (e) => {
+        if (e) e.preventDefault();
+        setSubmitButtonText('Enviando...');
+        setStatusMessage({ type: '', text: '' });
+
+        emailjs.sendForm(
+            'service_69w8h6p', 
+            'template_87y5vfq', 
+            form.current, 
+            'W6v_Mh_9vSg_M1lXn'
+        )
+        .then(() => {
+            setSubmitButtonText('Enviar mensaje');
+            setStatusMessage({ type: 'success', text: '¡Mensaje enviado con éxito!' });
+            form.current.reset();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            setSubmitButtonText('Enviar mensaje');
+            setStatusMessage({ type: 'error', text: 'Error al enviar. Inténtalo de nuevo.' });
+        });
+    };
 
     return (
         <div className="main-page-wrapper">
@@ -118,7 +148,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN CONTACTO */}
+                {/* SECCIÓN CONTACTO CORREGIDA */}
                 <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27', color: '#fff' }}>
                     <div className="container">
                         <div className="row justify-content-center">
@@ -127,19 +157,26 @@ const IndexBusiness = () => {
                                 <p style={{ opacity: '0.9' }}>Cuéntanos sobre tu proyecto y descubramos cómo la narrativa puede potenciar tu ciencia.</p>
                             </div>
                             <div className="col-lg-7">
-                                <form className="p-4 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
+                                <form ref={form} onSubmit={handleSubmit} className="p-4 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
                                     <div className="mb-3">
-                                        <input type="text" className="form-control form-input" placeholder="Tu nombre" />
+                                        <input type="text" name="from_name" className="form-control form-input" placeholder="Tu nombre" required />
                                     </div>
                                     <div className="mb-3">
-                                        <input type="email" className="form-control form-input" placeholder="Tu email" />
+                                        <input type="email" name="reply_to" className="form-control form-input" placeholder="Tu email" required />
                                     </div>
                                     <div className="mb-4">
-                                        <textarea className="form-control form-input" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+                                        <textarea name="message" className="form-control form-input" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
                                     </div>
+                                    
                                     <button type="submit" className="btn w-100 py-3" style={{ backgroundColor: '#7ba293', color: '#fff', borderRadius: '30px', fontWeight: 'bold' }}>
-                                        Enviar mensaje
+                                        {submitButtonText}
                                     </button>
+
+                                    {statusMessage.text && (
+                                        <div className="text-center mt-3" style={{ color: statusMessage.type === 'success' ? 'green' : 'red', fontWeight: 'bold' }}>
+                                            {statusMessage.text}
+                                        </div>
+                                    )}
                                 </form>
                             </div>
                         </div>
@@ -175,8 +212,8 @@ const IndexBusiness = () => {
                     border-radius: 30px; padding: 8px; font-weight: bold; text-decoration: none;
                 }
                 .form-input {
-                    background-color: #f8f9fa; border: 1px solid #eee; padding: 12px 20px; border-radius: 10px;
-                    width: 100%;
+                    background-color: #f8f9fa !important; border: 1px solid #eee !important; padding: 12px 20px !important; border-radius: 10px !important;
+                    width: 100%; color: #333 !important;
                 }
                 .form-input:focus {
                     outline: none; border-color: #7ba293; box-shadow: 0 0 0 2px rgba(123, 162, 147, 0.2);
