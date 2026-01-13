@@ -10,59 +10,50 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
         e.preventDefault();
         setSubmitButtonText('Enviando...');
 
+        // Estos IDs deben ser EXACTAMENTE los de tu panel de EmailJS
         emailjs.sendForm(
-            'service_69w8h6p',   // Tu Service ID
-            'template_87y5vfq',  // Tu Template ID
+            'service_69w8h6p',   
+            'template_87y5vfq',  
             form.current,
-            'W6v_Mh_9vSg_M1lXn'   // Tu Public Key
+            'W6v_Mh_9vSg_M1lXn'  
         )
-        .then((result) => {
+        .then(() => {
             setSubmitStatus('success');
             setSubmitButtonText('Enviar mensaje');
-            form.current.reset(); 
-        }, (error) => {
+            form.current.reset();
+        })
+        .catch((error) => {
+            console.error('FAILED...', error);
             setSubmitStatus('error');
             setSubmitButtonText('Enviar mensaje');
-            console.log("Error de EmailJS:", error);
         });
     };
 
     return (
         <div className="section-spacing pb-0">
             <div className="container">
-                {removeTitle ?? (
-                    <h1 className="display-3 fw-medium text-center">
-                        ¿Listo para <span className="text-highlight-gradient-1">conectar?</span>
-                    </h1>
-                )}
+                <h1 className="display-3 fw-medium text-center">¿Listo para conectar?</h1>
                 <div className="row g-5 mt-1">
                     <div className="col-12 col-lg-8 offset-lg-2">
                         <div className="contact-form">
-                            <form ref={form} className="form-border-radius" id="contactform" onSubmit={handleSubmit}>
-                                <div className="row gx-3 gy-0">
-                                    <div className="col-12 col-md-6">
-                                        <input type="text" name="name" placeholder="Nombre" required />
+                            {/* IMPORTANTE: El atributo 'ref' debe estar aquí */}
+                            <form ref={form} id="contactform" onSubmit={handleSubmit}>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <input type="text" name="from_name" placeholder="Nombre" required />
                                     </div>
-                                    <div className="col-12 col-md-6">
-                                        <input type="email" name="email" placeholder="Email" required />
+                                    <div className="col-md-6">
+                                        <input type="email" name="reply_to" placeholder="Email" required />
                                     </div>
                                 </div>
                                 <textarea name="message" placeholder="Tu mensaje" required></textarea>
-                                <button
-                                    className={`button button-lg button-rounded ${dark ? 'button-dark' : 'button-gradient-1'} button-hover-slide`}
-                                    type="submit"
-                                    style={{width: '100%'}}
-                                >
-                                    <span data-text={submitButtonText}>{submitButtonText}</span>
+                                <button className="button button-lg button-gradient-1" type="submit">
+                                    <span>{submitButtonText}</span>
                                 </button>
                             </form>
-                            <div className="submit-result mt-3 text-center">
-                                {submitStatus === 'success' && (
-                                    <span style={{color: '#90EE90'}}>¡Gracias! Tu mensaje ha sido enviado.</span>
-                                )}
-                                {submitStatus === 'error' && (
-                                    <span style={{color: '#FF6347'}}>Algo salió mal. Por favor intenta de nuevo.</span>
-                                )}
+                            <div className="text-center mt-3">
+                                {submitStatus === 'success' && <span style={{color: 'green'}}>¡Mensaje enviado con éxito!</span>}
+                                {submitStatus === 'error' && <span style={{color: 'red'}}>Error al enviar. Revisa la consola.</span>}
                             </div>
                         </div>
                     </div>
@@ -73,4 +64,3 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
 };
 
 export default Contact1;
-// cambio de prueba
