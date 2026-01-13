@@ -64,3 +64,5 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
 };
 
 export default Contact1;
+
+// Versión final corregida
