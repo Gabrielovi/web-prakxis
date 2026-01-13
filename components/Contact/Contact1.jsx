@@ -4,11 +4,11 @@ import emailjs from '@emailjs/browser';
 const Contact1 = ({ data, italic, removeTitle, dark }) => {
     const form = useRef();
     const [submitStatus, setSubmitStatus] = useState(null);
-    const [submitButtonText, setSubmitButtonText] = useState('Send Message');
+    const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSubmitButtonText('Sending...');
+        setSubmitButtonText('Enviando...');
 
         emailjs.sendForm(
             'service_69w8h6p',   // Tu Service ID
@@ -18,11 +18,12 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
         )
         .then((result) => {
             setSubmitStatus('success');
-            setSubmitButtonText('Send Message');
-            form.current.reset(); // Limpia el formulario
+            setSubmitButtonText('Enviar mensaje');
+            form.current.reset(); 
         }, (error) => {
             setSubmitStatus('error');
-            setSubmitButtonText('Send Message');
+            setSubmitButtonText('Enviar mensaje');
+            console.log("Error de EmailJS:", error);
         });
     };
 
@@ -30,57 +31,37 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
         <div className="section-spacing pb-0">
             <div className="container">
                 {removeTitle ?? (
-                    italic ? (
-                        <h1 className="display-3 fw-normal font-family-tertiary fst-italic text-dark-30 text-center">Get in Touch</h1>
-                    ) : dark ? (
-                        <h1 className="display-3 fw-semi-bold uppercase text-center">Get in Touch</h1>
-                    ) : (
-                        <h1 className="display-3 fw-medium text-center">
-                            Get in <span className="text-highlight-gradient-1">Touch</span>
-                        </h1>
-                    )
+                    <h1 className="display-3 fw-medium text-center">
+                        ¿Listo para <span className="text-highlight-gradient-1">conectar?</span>
+                    </h1>
                 )}
                 <div className="row g-5 mt-1">
-                    <div className="col-12 col-lg-4">
-                        <h5>Phone</h5>
-                        {data.phoneNumbers.map((phone, index) => (
-                            <p key={index}>{phone}</p>
-                        ))}
-                        <div className="mt-3 mt-lg-4">
-                            <h5>Email</h5>
-                            <span>{data.email}</span>
-                        </div>
-                        <div className="mt-3 mt-lg-4">
-                            <h5>Address</h5>
-                            <span>{data.address}</span>
-                        </div>
-                    </div>
-                    <div className="col-12 col-lg-8">
+                    <div className="col-12 col-lg-8 offset-lg-2">
                         <div className="contact-form">
                             <form ref={form} className="form-border-radius" id="contactform" onSubmit={handleSubmit}>
                                 <div className="row gx-3 gy-0">
                                     <div className="col-12 col-md-6">
-                                        <input type="text" name="name" placeholder="Name" required />
+                                        <input type="text" name="name" placeholder="Nombre" required />
                                     </div>
                                     <div className="col-12 col-md-6">
-                                        <input type="email" name="email" placeholder="E-Mail" required />
+                                        <input type="email" name="email" placeholder="Email" required />
                                     </div>
                                 </div>
-                                <input type="text" name="subject" placeholder="Subject" required />
-                                <textarea name="message" placeholder="Message" required></textarea>
+                                <textarea name="message" placeholder="Tu mensaje" required></textarea>
                                 <button
                                     className={`button button-lg button-rounded ${dark ? 'button-dark' : 'button-gradient-1'} button-hover-slide`}
                                     type="submit"
+                                    style={{width: '100%'}}
                                 >
                                     <span data-text={submitButtonText}>{submitButtonText}</span>
                                 </button>
                             </form>
-                            <div className="submit-result">
+                            <div className="submit-result mt-3 text-center">
                                 {submitStatus === 'success' && (
-                                    <span id="success" style={{color: 'green'}}>¡Gracias! Tu mensaje ha sido enviado con éxito.</span>
+                                    <span style={{color: '#90EE90'}}>¡Gracias! Tu mensaje ha sido enviado.</span>
                                 )}
                                 {submitStatus === 'error' && (
-                                    <span id="error" style={{color: 'red'}}>Algo salió mal. ¡Por favor intenta de nuevo!</span>
+                                    <span style={{color: '#FF6347'}}>Algo salió mal. Por favor intenta de nuevo.</span>
                                 )}
                             </div>
                         </div>
