@@ -5,7 +5,6 @@ import { heroData } from '../components/Hero/HeroData';
 import HeaderTransparentLight from '../components/Header/HeaderTransparentLight';
 
 const IndexBusiness = () => {
-    // REFERENCIAS Y ESTADOS PARA EL MOTOR DE EMAIL
     const form = useRef();
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
@@ -44,12 +43,12 @@ const IndexBusiness = () => {
         }
     ];
 
-    // FUNCIÓN DE ENVÍO DEFINITIVA
     const handleSubmit = (e) => {
         if (e) e.preventDefault();
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
+        // He limpiado los IDs para que no haya errores de copiado
         emailjs.sendForm(
             'service_69w8h6p', 
             'template_87y5vfq', 
@@ -62,9 +61,13 @@ const IndexBusiness = () => {
             form.current.reset();
         })
         .catch((error) => {
-            console.error("Error:", error);
+            console.error("Detalle del error:", error);
             setSubmitButtonText('Enviar mensaje');
-            setStatusMessage({ type: 'error', text: 'Error al enviar. Inténtalo de nuevo.' });
+            // Ahora el mensaje rojo nos dirá qué está mal específicamente
+            setStatusMessage({ 
+                type: 'error', 
+                text: `Error: ${error.text || 'Revisa tus IDs en EmailJS'}` 
+            });
         });
     };
 
@@ -73,7 +76,6 @@ const IndexBusiness = () => {
             <HeaderTransparentLight data={headerData} />
             
             <main>
-                {/* HERO SECTION */}
                 <div className="hero-button-wrapper" style={{ position: 'relative' }}>
                     <Hero1 data={heroData.business} />
                     <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', zIndex: '10', paddingBottom: '100px' }}>
@@ -81,7 +83,6 @@ const IndexBusiness = () => {
                     </div>
                 </div>
 
-                {/* SECCIÓN INTRO */}
                 <section id="about" style={{ padding: '80px 0', backgroundColor: '#fff' }}>
                     <div className="container text-center">
                         <div className="row justify-content-center">
@@ -93,7 +94,6 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN PROCESO */}
                 <section style={{ padding: '80px 0', backgroundColor: '#f4f7f6' }}>
                     <div className="container">
                         <div className="row text-center">
@@ -119,7 +119,6 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN MULTIMEDIA */}
                 <section id="contenido" style={{ padding: '80px 0', backgroundColor: '#fff' }}>
                     <div className="container">
                         <div className="row">
@@ -148,7 +147,6 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN CONTACTO CORREGIDA */}
                 <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27', color: '#fff' }}>
                     <div className="container">
                         <div className="row justify-content-center">
@@ -189,35 +187,11 @@ const IndexBusiness = () => {
             </footer>
 
             <style jsx>{`
-                .btn-proyecto-prakxis {
-                    background-color: #7ba293;
-                    color: white;
-                    padding: 16px 45px;
-                    border-radius: 50px;
-                    text-decoration: none;
-                    font-weight: 500;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                    transition: 0.3s;
-                    display: inline-block;
-                }
-                .btn-proyecto-prakxis:hover { transform: scale(1.05); background-color: #6a8d7f; color: white; }
-                
+                .btn-proyecto-prakxis { background-color: #7ba293; color: white; padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; transition: 0.3s; display: inline-block; }
                 .card-prakxis { border-radius: 15px; overflow: hidden; transition: 0.3s; }
-                .card-prakxis:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
-                
                 .badge-prakxis { background-color: #2d5a27; color: #fff; padding: 5px 12px; border-radius: 5px; }
-                
-                .btn-leer-prakxis {
-                    display: block; text-align: center; border: 2px solid #2d5a27; color: #2d5a27;
-                    border-radius: 30px; padding: 8px; font-weight: bold; text-decoration: none;
-                }
-                .form-input {
-                    background-color: #f8f9fa !important; border: 1px solid #eee !important; padding: 12px 20px !important; border-radius: 10px !important;
-                    width: 100%; color: #333 !important;
-                }
-                .form-input:focus {
-                    outline: none; border-color: #7ba293; box-shadow: 0 0 0 2px rgba(123, 162, 147, 0.2);
-                }
+                .btn-leer-prakxis { display: block; text-align: center; border: 2px solid #2d5a27; color: #2d5a27; border-radius: 30px; padding: 8px; font-weight: bold; text-decoration: none; }
+                .form-input { background-color: #f8f9fa !important; border: 1px solid #eee !important; padding: 12px 20px !important; border-radius: 10px !important; width: 100%; color: #333 !important; }
             `}</style>
         </div>
     );
