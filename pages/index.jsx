@@ -48,12 +48,12 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // He limpiado los IDs para que no haya errores de copiado
+        // IDs ACTUALIZADOS SEGÚN TUS CAPTURAS
         emailjs.sendForm(
-            'service_69w8h6p', 
-            'template_87y5vfq', 
+            'service_f4cmbfs',      // Tu Service ID real
+            'template_o2v2x2p',     // Tu Template ID real
             form.current, 
-            'W6v_Mh_9vSg_M1lXn'
+            'C78_XN9Y_f_t_8-t9'     // Tu Public Key real
         )
         .then(() => {
             setSubmitButtonText('Enviar mensaje');
@@ -63,10 +63,9 @@ const IndexBusiness = () => {
         .catch((error) => {
             console.error("Detalle del error:", error);
             setSubmitButtonText('Enviar mensaje');
-            // Ahora el mensaje rojo nos dirá qué está mal específicamente
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Revisa tus IDs en EmailJS'}` 
+                text: `Error: ${error.text || 'Revisa la conexión'}` 
             });
         });
     };
