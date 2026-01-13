@@ -7,10 +7,13 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // Si el evento existe, evitamos que recargue la página
+        if (e && e.preventDefault) e.preventDefault();
+        
+        console.log("¡Click detectado! Iniciando envío..."); 
         setSubmitButtonText('Enviando...');
 
-        // Estos IDs deben ser EXACTAMENTE los de tu panel de EmailJS
+        // Los IDs que ya verificamos que son correctos
         emailjs.sendForm(
             'service_69w8h6p',   
             'template_87y5vfq',  
@@ -18,12 +21,13 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
             'W6v_Mh_9vSg_M1lXn'  
         )
         .then(() => {
+            console.log("¡ENVÍO EXITOSO!");
             setSubmitStatus('success');
             setSubmitButtonText('Enviar mensaje');
-            form.current.reset();
+            if (form.current) form.current.reset();
         })
         .catch((error) => {
-            console.error('FAILED...', error);
+            console.error('ERROR EN EL ENVÍO:', error);
             setSubmitStatus('error');
             setSubmitButtonText('Enviar mensaje');
         });
@@ -36,8 +40,8 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
                 <div className="row g-5 mt-1">
                     <div className="col-12 col-lg-8 offset-lg-2">
                         <div className="contact-form">
-                            {/* IMPORTANTE: El atributo 'ref' debe estar aquí */}
-                            <form ref={form} id="contactform" onSubmit={handleSubmit}>
+                            {/* Vinculamos el formulario a la referencia 'form' */}
+                            <form ref={form} id="contactform">
                                 <div className="row">
                                     <div className="col-md-6">
                                         <input type="text" name="from_name" placeholder="Nombre" required />
@@ -47,13 +51,21 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
                                     </div>
                                 </div>
                                 <textarea name="message" placeholder="Tu mensaje" required></textarea>
-                                <button className="button button-lg button-gradient-1" type="submit">
+                                
+                                {/* Botón con onClick forzado y zIndex para que nada lo tape */}
+                                <button 
+                                    className="button button-lg button-gradient-1" 
+                                    type="button" 
+                                    onClick={() => handleSubmit()}
+                                    style={{ zIndex: 9999, position: 'relative', cursor: 'pointer' }}
+                                >
                                     <span>{submitButtonText}</span>
                                 </button>
                             </form>
+
                             <div className="text-center mt-3">
-                                {submitStatus === 'success' && <span style={{color: 'green'}}>¡Mensaje enviado con éxito!</span>}
-                                {submitStatus === 'error' && <span style={{color: 'red'}}>Error al enviar. Revisa la consola.</span>}
+                                {submitStatus === 'success' && <span style={{color: 'green', fontWeight: 'bold'}}>¡Mensaje enviado con éxito!</span>}
+                                {submitStatus === 'error' && <span style={{color: 'red', fontWeight: 'bold'}}>Error al enviar. Revisa la consola.</span>}
                             </div>
                         </div>
                     </div>
@@ -64,8 +76,3 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
 };
 
 export default Contact1;
-
-// Versión final corregida
-
-
-// Sincronización final v2
