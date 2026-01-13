@@ -1,48 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact1 = ({ data, italic, removeTitle, dark }) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: '',
-        subject: '',
-    });
-
+    const form = useRef();
     const [submitStatus, setSubmitStatus] = useState(null);
     const [submitButtonText, setSubmitButtonText] = useState('Send Message');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
         setSubmitButtonText('Sending...');
 
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.status === 200) {
-                setSubmitStatus('success');
-            } else {
-                setSubmitStatus('error');
-            }
-        } catch (error) {
-            setSubmitStatus('error');
-        } finally {
+        emailjs.sendForm(
+            'service_69w8h6p',   // Tu Service ID
+            'template_87y5vfq',  // Tu Template ID
+            form.current,
+            'W6v_Mh_9vSg_M1lXn'   // Tu Public Key
+        )
+        .then((result) => {
+            setSubmitStatus('success');
             setSubmitButtonText('Send Message');
-        }
+            form.current.reset(); // Limpia el formulario
+        }, (error) => {
+            setSubmitStatus('error');
+            setSubmitButtonText('Send Message');
+        });
     };
 
     return (
@@ -76,47 +57,17 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
                     </div>
                     <div className="col-12 col-lg-8">
                         <div className="contact-form">
-                            <form className="form-border-radius" method="post" id="contactform" onSubmit={handleSubmit}>
+                            <form ref={form} className="form-border-radius" id="contactform" onSubmit={handleSubmit}>
                                 <div className="row gx-3 gy-0">
                                     <div className="col-12 col-md-6">
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            placeholder="Name"
-                                            required
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                        />
+                                        <input type="text" name="name" placeholder="Name" required />
                                     </div>
                                     <div className="col-12 col-md-6">
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            placeholder="E-Mail"
-                                            required
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                        />
+                                        <input type="email" name="email" placeholder="E-Mail" required />
                                     </div>
                                 </div>
-                                <input
-                                    type="text"
-                                    id="subject"
-                                    name="subject"
-                                    placeholder="Subject"
-                                    required
-                                    value={formData.subject}
-                                    onChange={handleChange}
-                                />
-                                <textarea
-                                    name="message"
-                                    id="message"
-                                    placeholder="Message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                ></textarea>
+                                <input type="text" name="subject" placeholder="Subject" required />
+                                <textarea name="message" placeholder="Message" required></textarea>
                                 <button
                                     className={`button button-lg button-rounded ${dark ? 'button-dark' : 'button-gradient-1'} button-hover-slide`}
                                     type="submit"
@@ -126,10 +77,10 @@ const Contact1 = ({ data, italic, removeTitle, dark }) => {
                             </form>
                             <div className="submit-result">
                                 {submitStatus === 'success' && (
-                                    <span id="success">Thank you! Your Message has been sent.</span>
+                                    <span id="success" style={{color: 'green'}}>¡Gracias! Tu mensaje ha sido enviado con éxito.</span>
                                 )}
                                 {submitStatus === 'error' && (
-                                    <span id="error">Something went wrong. Please try again!</span>
+                                    <span id="error" style={{color: 'red'}}>Algo salió mal. ¡Por favor intenta de nuevo!</span>
                                 )}
                             </div>
                         </div>

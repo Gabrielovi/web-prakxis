@@ -21,6 +21,8 @@ export default function App({ Component, pageProps }) {
       {loading ? (
         <React.Fragment>
           <Head>
+            <title>Prakxis | Ciencia y Narrativa en Acción</title>
+            <meta name="description" content="Transformamos el conocimiento complejo en historias humanas, visuales y accesibles para conectar la ciencia con las personas." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="shortcut icon" href={mainData.favicon.src} />
           </Head>
