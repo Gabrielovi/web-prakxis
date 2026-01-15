@@ -9,9 +9,9 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
-    // Inicialización de seguridad al cargar
+    // LLAVE REAL EXTRAÍDA DE TU CAPTURA 12.00.40
     useEffect(() => {
-        emailjs.init("C78_XN9Y_f_t_8-t9");
+        emailjs.init("xByhZborPqwkBlFf7");
     }, []);
 
     const headerData = {
@@ -53,12 +53,15 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // MÉTODO DIRECTO PARA EVITAR "ACCOUNT NOT FOUND"
+        // USANDO TUS CREDENCIALES REALES:
+        // Service: service_f4cmbfs
+        // Template: template_o2v2x2p
+        // Key: xByhZborPqwkBlFf7
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
             e.target, 
-            'C78_XN9Y_f_t_8-t9'
+            'xByhZborPqwkBlFf7'
         )
         .then(() => {
             setSubmitButtonText('Enviar mensaje');
@@ -70,7 +73,7 @@ const IndexBusiness = () => {
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Verifica los IDs en EmailJS'}` 
+                text: `Error: ${error.text || 'Hubo un fallo en el envío'}` 
             });
         });
     };
