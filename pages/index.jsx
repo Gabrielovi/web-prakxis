@@ -17,13 +17,16 @@ const IndexBusiness = () => {
             titulo: "UFRO presentó plataforma georreferenciada de salud pública",
             url: "https://contactosalud.cl/ufro-presento-plataforma-georreferenciada-de-salud-publica-a-municipios-e-instituciones-regionales/",
             medio: "Contacto Salud",
-            img: "/images/prensa/ufro_salud.jpg" // Ruta donde pondrás la imagen
+            // Ruta local + una imagen de internet de respaldo (por si no has subido la local)
+            img: "/images/prensa/ufro_salud.jpg",
+            fallback: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
         },
         {
             titulo: "Nuevo libro 'Del despojo surge la esperanza'",
             url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233",
             medio: "Araucanía Noticias",
-            img: "/images/prensa/libro_despojo.jpg" // Ruta donde pondrás la imagen
+            img: "/images/prensa/libro_despojo.jpg",
+            fallback: "https://images.unsplash.com/photo-1452423668729-43a98052d3ee?auto=format&fit=crop&w=800&q=80"
         }
     ];
 
@@ -47,41 +50,44 @@ const IndexBusiness = () => {
             </nav>
 
             <main>
-                {/* HERO NEGRO */}
                 <section style={{ padding: '120px 20px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
                     <h1 style={{ fontSize: '3.5rem', color: colors.accent, fontWeight: 'bold' }}>Ciencia que conecta</h1>
                     <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '10px' }}>Narrativas visuales con rigor científico.</p>
                 </section>
 
-                {/* 1. PRENSA (FONDO BLANCO) */}
                 <section id="prensa" style={{ padding: '80px 20px', maxWidth: '1100px', margin: '0 auto' }}>
                     <h2 style={{ color: colors.bgDark, marginBottom: '40px', fontSize: '1.8rem', borderLeft: `5px solid ${colors.accent}`, paddingLeft: '15px' }}>Reportajes de Prensa</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}>
                         {notasPrensa.map((nota, i) => (
-                            <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="card-nota" style={{ backgroundColor: 'white', borderRadius: '15px', textDecoration: 'none', overflow: 'hidden', border: `1px solid ${colors.border}`, display: 'block' }}>
-                                <div style={{ height: '180px', backgroundColor: '#eee' }}>
-                                    <img src={nota.img} alt={nota.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="card-nota" style={{ backgroundColor: 'white', borderRadius: '15px', textDecoration: 'none', overflow: 'hidden', border: `1px solid ${colors.border}`, display: 'block', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+                                <div style={{ height: '200px', backgroundColor: '#eee' }}>
+                                    <img 
+                                        src={nota.img} 
+                                        alt={nota.titulo} 
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                        onError={(e) => { e.target.src = nota.fallback; }} // Si no encuentra la local, usa la web
+                                    />
                                 </div>
                                 <div style={{ padding: '20px' }}>
-                                    <small style={{ color: colors.neon, fontWeight: 'bold' }}>{nota.medio}</small>
-                                    <h3 style={{ color: colors.textDark, marginTop: '10px', fontSize: '1.1rem' }}>{nota.titulo}</h3>
+                                    <small style={{ color: colors.neon, fontWeight: 'bold', textTransform: 'uppercase' }}>{nota.medio}</small>
+                                    <h3 style={{ color: colors.textDark, marginTop: '10px', fontSize: '1.1rem', lineHeight: '1.4' }}>{nota.titulo}</h3>
                                 </div>
                             </a>
                         ))}
                     </div>
                 </section>
 
-                {/* 2. DISEÑO (FONDO GRIS TENUE) */}
+                {/* ESPACIO DISEÑO */}
                 <section id="diseno" style={{ padding: '80px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
                         <h2 style={{ color: colors.bgDark, marginBottom: '20px' }}>Diseño y Visualización</h2>
-                        <div style={{ height: '300px', backgroundColor: 'white', borderRadius: '20px', border: `1px solid ${colors.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                             <span style={{ color: colors.border }}>[ Galería de Portafolio ]</span>
+                        <div style={{ height: '300px', backgroundColor: 'white', borderRadius: '20px', border: `1px solid ${colors.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: colors.border }}>
+                             [ Galería de Portafolio ]
                         </div>
                     </div>
                 </section>
 
-                {/* 3. AUDIOVISUAL (FONDO BLANCO) */}
+                {/* ESPACIO AUDIOVISUAL */}
                 <section id="audiovisual" style={{ padding: '80px 20px', maxWidth: '1100px', margin: '0 auto' }}>
                     <h2 style={{ color: colors.bgDark, marginBottom: '40px', fontSize: '1.8rem' }}>Producción Audiovisual</h2>
                     <div style={{ display: 'flex', overflowX: 'auto', gap: '20px', paddingBottom: '20px' }} className="scroll-custom">
@@ -95,10 +101,9 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* CONTACTO NEGRO */}
-                <section id="contact" style={{ padding: '100px 20px', backgroundColor: colors.bgDark, color: 'white' }}>
-                    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '40px', borderRadius: '30px', border: `1px solid ${colors.accent}`, backgroundColor: colors.bgSec }}>
-                        <h3 style={{ color: colors.bgDark, textAlign: 'center', marginBottom: '30px', fontWeight: 'bold' }}>Conectemos</h3>
+                <section id="contact" style={{ padding: '100px 20px', backgroundColor: colors.bgDark }}>
+                    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '40px', borderRadius: '30px', border: `1px solid ${colors.accent}`, backgroundColor: 'white' }}>
+                        <h3 style={{ color: colors.bgDark, textAlign: 'center', marginBottom: '30px', fontWeight: 'bold', fontSize: '2rem' }}>Conectemos</h3>
                         <form action="https://api.web3forms.com/submit" method="POST">
                             <input type="hidden" name="access_key" value="1c056454-ecb4-4447-ae36-84c91c6cf4bf" />
                             <input type="text" name="name" placeholder="Nombre" required style={inputStyle} />
@@ -110,21 +115,21 @@ const IndexBusiness = () => {
                 </section>
             </main>
 
-            <footer style={{ padding: '40px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white', borderTop: '1px solid #333' }}>
+            <footer style={{ padding: '40px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
                 <p style={{ fontSize: '12px', opacity: 0.5 }}>© 2026 PRAKXIS - Science for Everyone</p>
             </footer>
 
             <style jsx>{`
                 .scroll-custom::-webkit-scrollbar { height: 6px; }
                 .scroll-custom::-webkit-scrollbar-thumb { background: #66FCF1; border-radius: 10px; }
-                .card-nota:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+                .card-nota:hover { transform: translateY(-5px); transition: 0.3s ease; }
             `}</style>
         </div>
     );
 };
 
 const inputStyle = {
-    width: '100%', padding: '15px', marginBottom: '20px', backgroundColor: '#FFFFFF', border: '1px solid #E1E4E8', color: '#1F2833', borderRadius: '12px', outline: 'none'
+    width: '100%', padding: '15px', marginBottom: '20px', backgroundColor: '#f9f9f9', border: '1px solid #ddd', color: '#333', borderRadius: '12px', outline: 'none'
 };
 
 export default IndexBusiness;
