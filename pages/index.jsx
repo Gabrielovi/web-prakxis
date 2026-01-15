@@ -9,7 +9,7 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
-    // 1. INICIALIZACIÓN CON TU LLAVE REAL (Captura 12.00.40)
+    // LLAVE REAL EXTRAÍDA DE TU PANEL (Captura 12.00.40)
     useEffect(() => {
         emailjs.init("xByhZborPqwkBlFf7");
     }, []);
@@ -53,12 +53,12 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // 2. ENVÍO CON TUS IDS VERIFICADOS
+        // USANDO TUS CREDENCIALES VERIFICADAS
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
             e.target, 
-            'xByhZborPqwkBlFf7' // Tu Public Key real
+            'xByhZborPqwkBlFf7' 
         )
         .then(() => {
             setSubmitButtonText('Enviar mensaje');
@@ -66,11 +66,11 @@ const IndexBusiness = () => {
             e.target.reset();
         })
         .catch((error) => {
-            console.error("Detalle del error:", error);
+            console.error("Detalle:", error);
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'No se pudo conectar con EmailJS'}` 
+                text: `Error: ${error.text || 'Account not found. Revisa tu Public Key'}` 
             });
         });
     };
@@ -82,7 +82,7 @@ const IndexBusiness = () => {
             <main>
                 <div className="hero-button-wrapper" style={{ position: 'relative' }}>
                     <Hero1 data={heroData.business} />
-                    <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', zIndex: '10', paddingBottom: '100px' }}>
+                    <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', z_index: '10', paddingBottom: '100px' }}>
                         <a href="#contact" className="btn-proyecto-prakxis">Comienza un proyecto</a>
                     </div>
                 </div>
