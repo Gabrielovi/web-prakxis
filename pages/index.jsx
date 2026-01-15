@@ -48,12 +48,12 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // IDs ACTUALIZADOS SEGÚN TUS CAPTURAS
+        // VERIFICADO CON TUS CAPTURAS: service_f4cmbfs, template_o2v2x2p, C78_XN9Y_f_t_8-t9
         emailjs.sendForm(
-            'service_f4cmbfs',      // Tu Service ID real
-            'template_o2v2x2p',     // Tu Template ID real
+            'service_f4cmbfs', 
+            'template_o2v2x2p', 
             form.current, 
-            'C78_XN9Y_f_t_8-t9'     // Tu Public Key real
+            'C78_XN9Y_f_t_8-t9'
         )
         .then(() => {
             setSubmitButtonText('Enviar mensaje');
@@ -61,11 +61,11 @@ const IndexBusiness = () => {
             form.current.reset();
         })
         .catch((error) => {
-            console.error("Detalle del error:", error);
+            console.error("Detalle:", error);
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Revisa la conexión'}` 
+                text: `Error: ${error.text || 'Revisa tu conexión'}` 
             });
         });
     };
