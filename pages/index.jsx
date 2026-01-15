@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Hero1 from '../components/Hero/Hero1';
 import { heroData } from '../components/Hero/HeroData';
 import HeaderTransparentLight from '../components/Header/HeaderTransparentLight';
@@ -6,7 +6,7 @@ import HeaderTransparentLight from '../components/Header/HeaderTransparentLight'
 const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
 
-    // Tu paleta de colores elegida
+    // Tu nueva paleta de colores
     const colors = {
         bg: '#0B0C10',
         bgSec: '#1F2833',
@@ -15,7 +15,6 @@ const IndexBusiness = () => {
         muted: '#45A29E'
     };
 
-    // Lógica del Formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitButtonText('Enviando...');
@@ -29,10 +28,10 @@ const IndexBusiness = () => {
             });
             const data = await response.json();
             if (data.success) {
-                setSubmitButtonText('¡Enviado!');
+                setSubmitButtonText('¡Enviado con éxito!');
                 e.target.reset();
             } else {
-                setSubmitButtonText('Error');
+                setSubmitButtonText('Error al enviar');
             }
         } catch (error) {
             setSubmitButtonText('Reintentar');
@@ -50,6 +49,7 @@ const IndexBusiness = () => {
             }} />
             
             <main>
+                {/* HERO */}
                 <Hero1 data={heroData.business} />
 
                 {/* SECCIÓN PRENSA */}
@@ -62,7 +62,7 @@ const IndexBusiness = () => {
                             </div>
                             <div className="col-lg-6">
                                 <div className="ratio ratio-16x9 rounded-4 shadow-lg border border-secondary overflow-hidden">
-                                    <iframe src="https://www.youtube.com/embed/VX789WILzkQ" title="Guardianes" allowFullScreen></iframe>
+                                    <iframe src="https://www.youtube.com/embed/VX789WILzkQ" title="Video 1" allowFullScreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ const IndexBusiness = () => {
                             </div>
                             <div className="col-lg-6">
                                 <div className="ratio ratio-16x9 rounded-4 shadow-lg border border-dark overflow-hidden">
-                                    <iframe src="https://www.youtube.com/embed/byLR2SCeWo8" title="Audiovisual" allowFullScreen></iframe>
+                                    <iframe src="https://www.youtube.com/embed/byLR2SCeWo8" title="Video 2" allowFullScreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ const IndexBusiness = () => {
                                     <h3 className="text-center mb-4" style={{ color: colors.neon }}>Inicia la Conversación</h3>
                                     <input type="text" name="name" className="form-control mb-3 custom-input" placeholder="Nombre" required />
                                     <input type="email" name="email" className="form-control mb-3 custom-input" placeholder="Email" required />
-                                    <textarea name="message" className="form-control mb-4 custom-input" placeholder="¿Qué conectamos hoy?" required rows="4"></textarea>
+                                    <textarea name="message" className="form-control mb-4 custom-input" placeholder="Mensaje" required rows="4"></textarea>
                                     <button type="submit" className="btn w-100 py-3 fw-bold" style={{ backgroundColor: colors.neon, color: colors.bg, borderRadius: '50px' }}>
                                         {submitButtonText}
                                     </button>
