@@ -9,7 +9,7 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
-    // ESTA LÍNEA VINCULA TU CUENTA APENAS ABRES LA WEB
+    // ESTA LÍNEA ES VITAL: Inicializa tu cuenta para evitar el error "Account not found"
     useEffect(() => {
         emailjs.init("C78_XN9Y_f_t_8-t9");
     }, []);
@@ -53,7 +53,7 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // IDs VERIFICADOS DE TUS CAPTURAS REALES
+        // Enviamos el formulario usando tus IDs reales
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
@@ -66,11 +66,11 @@ const IndexBusiness = () => {
             form.current.reset();
         })
         .catch((error) => {
-            console.error("Detalle:", error);
+            console.error("Error detallado:", error);
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Hubo un problema de conexión'}` 
+                text: `Error: ${error.text || 'Account not found. Revisa tus IDs en EmailJS.'}` 
             });
         });
     };
@@ -175,7 +175,7 @@ const IndexBusiness = () => {
                                     </button>
 
                                     {statusMessage.text && (
-                                        <div className="text-center mt-3" style={{ color: statusMessage.type === 'success' ? 'green' : 'red', fontWeight: 'bold' }}>
+                                        <div className="text-center mt-3" style={{ color: statusMessage.type === 'success' ? '#2d5a27' : 'red', fontWeight: 'bold' }}>
                                             {statusMessage.text}
                                         </div>
                                     )}
