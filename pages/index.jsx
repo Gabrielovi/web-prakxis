@@ -9,7 +9,7 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
-    // ESTA LÍNEA ES CLAVE: Inicializa tu cuenta apenas carga la página
+    // ESTA LÍNEA VINCULA TU CUENTA APENAS ABRES LA WEB
     useEffect(() => {
         emailjs.init("C78_XN9Y_f_t_8-t9");
     }, []);
@@ -53,7 +53,7 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // IDs verificados de tus capturas 18.24.11 y 18.25.14
+        // IDs VERIFICADOS DE TUS CAPTURAS REALES
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
@@ -70,7 +70,7 @@ const IndexBusiness = () => {
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Cuenta no encontrada. Verifica tu Public Key'}` 
+                text: `Error: ${error.text || 'Hubo un problema de conexión'}` 
             });
         });
     };
