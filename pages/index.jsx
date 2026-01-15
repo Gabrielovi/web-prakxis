@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import Hero1 from '../components/Hero/Hero1';
-import { heroData } from '../components/Hero/HeroData';
-import HeaderTransparentLight from '../components/Header/HeaderTransparentLight';
 
 const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
 
-    // Tu nueva paleta de colores
     const colors = {
         bg: '#0B0C10',
         bgSec: '#1F2833',
@@ -28,7 +24,7 @@ const IndexBusiness = () => {
             });
             const data = await response.json();
             if (data.success) {
-                setSubmitButtonText('¡Enviado con éxito!');
+                setSubmitButtonText('¡Mensaje Enviado!');
                 e.target.reset();
             } else {
                 setSubmitButtonText('Error al enviar');
@@ -39,90 +35,107 @@ const IndexBusiness = () => {
     };
 
     return (
-        <div style={{ backgroundColor: colors.bg, color: colors.text, minHeight: '100vh' }}>
-            <HeaderTransparentLight data={{
-                menuItems: [
-                    { text: 'Prensa', href: '#prensa' },
-                    { text: 'Audiovisual', href: '#audiovisual' },
-                    { text: 'Contacto', href: '#contact' }
-                ]
-            }} />
+        <div style={{ backgroundColor: colors.bg, color: colors.text, minHeight: '100vh', fontFamily: 'sans-serif' }}>
+            {/* HEADER SIMPLE DE SEGURIDAD */}
+            <nav style={{ padding: '20px', borderBottom: `1px solid ${colors.bgSec}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h2 style={{ color: colors.neon, margin: 0, fontWeight: 'bold', letterSpacing: '2px' }}>PRAKXIS</h2>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <a href="#prensa" style={{ color: colors.text, textDecoration: 'none' }}>Prensa</a>
+                    <a href="#audiovisual" style={{ color: colors.text, textDecoration: 'none' }}>Audiovisual</a>
+                    <a href="#contact" style={{ color: colors.neon, textDecoration: 'none', fontWeight: 'bold' }}>Contacto</a>
+                </div>
+            </nav>
             
             <main>
-                {/* HERO */}
-                <Hero1 data={heroData.business} />
+                {/* HERO SECTION */}
+                <section style={{ padding: '100px 20px', textAlign: 'center', background: `linear-gradient(180deg, ${colors.bg} 0%, ${colors.bgSec} 100%)` }}>
+                    <h1 style={{ fontSize: '4rem', color: colors.neon, marginBottom: '20px' }}>Science for Everyone</h1>
+                    <p style={{ fontSize: '1.5rem', maxWidth: '800px', margin: '0 auto', opacity: 0.8 }}>
+                        Transformamos el conocimiento complejo en narrativas visuales de alto impacto.
+                    </p>
+                </section>
 
                 {/* SECCIÓN PRENSA */}
-                <section id="prensa" style={{ padding: '80px 0', borderBottom: `1px solid ${colors.bgSec}` }}>
-                    <div className="container">
-                        <div className="row align-items-center">
-                            <div className="col-lg-6 mb-4">
-                                <h2 className="display-5 fw-bold" style={{ color: colors.neon }}>Narrativa de Datos</h2>
-                                <p className="lead">Investigación periodística con rigor científico y estética digital.</p>
-                            </div>
-                            <div className="col-lg-6">
-                                <div className="ratio ratio-16x9 rounded-4 shadow-lg border border-secondary overflow-hidden">
-                                    <iframe src="https://www.youtube.com/embed/VX789WILzkQ" title="Video 1" allowFullScreen></iframe>
-                                </div>
+                <section id="prensa" style={{ padding: '80px 20px' }}>
+                    <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '40px', alignItems: 'center' }}>
+                        <div style={{ flex: '1 1 400px' }}>
+                            <h2 style={{ color: colors.neon, fontSize: '2.5rem' }}>Reportajes de Prensa</h2>
+                            <p style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>Investigación y narrativa periodística sobre el medio ambiente y gestión hídrica.</p>
+                        </div>
+                        <div style={{ flex: '1 1 400px', borderRadius: '15px', overflow: 'hidden', border: `1px solid ${colors.muted}`, boxShadow: `0 0 20px ${colors.bg}` }}>
+                            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                                <iframe 
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                                    src="https://www.youtube.com/embed/VX789WILzkQ" 
+                                    title="Guardianes del Agua" 
+                                    allowFullScreen>
+                                </iframe>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* SECCIÓN AUDIOVISUAL */}
-                <section id="audiovisual" style={{ padding: '80px 0', backgroundColor: colors.bgSec }}>
-                    <div className="container">
-                        <div className="row align-items-center flex-lg-row-reverse">
-                            <div className="col-lg-6 mb-4">
-                                <h2 className="display-5 fw-bold" style={{ color: colors.neon }}>Producción Audiovisual</h2>
-                                <p className="lead">Documentales que conectan el rigor científico con la emoción social.</p>
+                <section id="audiovisual" style={{ padding: '80px 20px', backgroundColor: colors.bgSec }}>
+                    <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexWrap: 'wrap-reverse', gap: '40px', alignItems: 'center' }}>
+                        <div style={{ flex: '1 1 400px', borderRadius: '15px', overflow: 'hidden', border: `1px solid ${colors.muted}` }}>
+                            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                                <iframe 
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                                    src="https://www.youtube.com/embed/byLR2SCeWo8" 
+                                    title="Audiovisual" 
+                                    allowFullScreen>
+                                </iframe>
                             </div>
-                            <div className="col-lg-6">
-                                <div className="ratio ratio-16x9 rounded-4 shadow-lg border border-dark overflow-hidden">
-                                    <iframe src="https://www.youtube.com/embed/byLR2SCeWo8" title="Video 2" allowFullScreen></iframe>
-                                </div>
-                            </div>
+                        </div>
+                        <div style={{ flex: '1 1 400px' }}>
+                            <h2 style={{ color: colors.neon, fontSize: '2.5rem' }}>Producción Audiovisual</h2>
+                            <p style={{ fontSize: '1.2rem', lineHeight: '1.6' }}>Documentales que conectan el rigor científico con la emoción social.</p>
                         </div>
                     </div>
                 </section>
 
                 {/* SECCIÓN CONTACTO */}
-                <section id="contact" style={{ padding: '100px 0' }}>
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-lg-6 p-5 rounded-5 shadow-lg" style={{ backgroundColor: colors.bgSec, border: `1px solid ${colors.neon}` }}>
-                                <form onSubmit={handleSubmit}>
-                                    <h3 className="text-center mb-4" style={{ color: colors.neon }}>Inicia la Conversación</h3>
-                                    <input type="text" name="name" className="form-control mb-3 custom-input" placeholder="Nombre" required />
-                                    <input type="email" name="email" className="form-control mb-3 custom-input" placeholder="Email" required />
-                                    <textarea name="message" className="form-control mb-4 custom-input" placeholder="Mensaje" required rows="4"></textarea>
-                                    <button type="submit" className="btn w-100 py-3 fw-bold" style={{ backgroundColor: colors.neon, color: colors.bg, borderRadius: '50px' }}>
-                                        {submitButtonText}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                <section id="contact" style={{ padding: '100px 20px' }}>
+                    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '40px', backgroundColor: colors.bgSec, borderRadius: '20px', border: `1px solid ${colors.neon}` }}>
+                        <form onSubmit={handleSubmit}>
+                            <h2 style={{ textAlign: 'center', color: colors.neon, marginBottom: '30px' }}>Inicia un Proyecto</h2>
+                            <input type="text" name="name" placeholder="Nombre" required style={inputStyle} />
+                            <input type="email" name="email" placeholder="Email" required style={inputStyle} />
+                            <textarea name="message" placeholder="¿Cómo podemos ayudarte?" rows="4" required style={inputStyle}></textarea>
+                            <button type="submit" style={{
+                                width: '100%',
+                                padding: '15px',
+                                backgroundColor: colors.neon,
+                                color: colors.bg,
+                                border: 'none',
+                                borderRadius: '30px',
+                                fontWeight: 'bold',
+                                fontSize: '1.1rem',
+                                cursor: 'pointer',
+                                transition: '0.3s'
+                            }}>{submitButtonText}</button>
+                        </form>
                     </div>
                 </section>
             </main>
 
-            <footer className="py-5 text-center" style={{ borderTop: `1px solid ${colors.bgSec}` }}>
-                <p className="mb-0">© 2026 Prakxis - Science for Everyone</p>
+            <footer style={{ padding: '40px', textAlign: 'center', borderTop: `1px solid ${colors.bgSec}` }}>
+                <p>© 2026 PRAKXIS - Science for Everyone</p>
             </footer>
-
-            <style jsx global>{`
-                .custom-input {
-                    background-color: #0B0C10 !important;
-                    border: 1px solid #45A29E !important;
-                    color: #C5C6C7 !important;
-                }
-                .custom-input:focus {
-                    border-color: #66FCF1 !important;
-                    box-shadow: 0 0 10px rgba(102, 252, 241, 0.2) !important;
-                }
-            `}</style>
         </div>
     );
+};
+
+const inputStyle = {
+    width: '100%',
+    padding: '12px',
+    marginBottom: '20px',
+    backgroundColor: '#0B0C10',
+    border: '1px solid #45A29E',
+    color: '#C5C6C7',
+    borderRadius: '8px',
+    outline: 'none'
 };
 
 export default IndexBusiness;
