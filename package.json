@@ -16,10 +16,8 @@
     "bootstrap-icons": "1.11.1",
     "next": "14.0.0",
     "nodemailer": "6.9.7",
-    "p5": "^2.2.0",
     "react": "18",
     "react-dom": "18",
-    "react-p5": "^1.4.1",
     "react-particles": "^2.12.2",
     "swiper": "11.0.3",
     "yet-another-react-lightbox": "^3.19.0"
