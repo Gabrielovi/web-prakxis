@@ -9,7 +9,7 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
-    // LLAVE REAL EXTRAÍDA DE TU CAPTURA 12.00.40
+    // 1. INICIALIZACIÓN CON TU LLAVE REAL (Captura 12.00.40)
     useEffect(() => {
         emailjs.init("xByhZborPqwkBlFf7");
     }, []);
@@ -53,15 +53,12 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // USANDO TUS CREDENCIALES REALES:
-        // Service: service_f4cmbfs
-        // Template: template_o2v2x2p
-        // Key: xByhZborPqwkBlFf7
+        // 2. ENVÍO CON TUS IDS VERIFICADOS
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
             e.target, 
-            'xByhZborPqwkBlFf7'
+            'xByhZborPqwkBlFf7' // Tu Public Key real
         )
         .then(() => {
             setSubmitButtonText('Enviar mensaje');
@@ -69,11 +66,11 @@ const IndexBusiness = () => {
             e.target.reset();
         })
         .catch((error) => {
-            console.error("Detalle:", error);
+            console.error("Detalle del error:", error);
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Hubo un fallo en el envío'}` 
+                text: `Error: ${error.text || 'No se pudo conectar con EmailJS'}` 
             });
         });
     };
@@ -101,31 +98,6 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                <section style={{ padding: '80px 0', backgroundColor: '#f4f7f6' }}>
-                    <div className="container">
-                        <div className="row text-center">
-                            <div className="col-md-4 mb-4">
-                                <div className="p-4">
-                                    <h3 className="h5 fw-bold mb-3" style={{ color: '#2d5a27' }}>1. Escuchamos</h3>
-                                    <p className="small text-muted">Entendemos los datos y la complejidad de tu investigación o proyecto científico.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4 mb-4">
-                                <div className="p-4">
-                                    <h3 className="h5 fw-bold mb-3" style={{ color: '#2d5a27' }}>2. Traducimos</h3>
-                                    <p className="small text-muted">Convertimos el rigor científico en narrativas visuales y lenguaje accesible.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4 mb-4">
-                                <div className="p-4">
-                                    <h3 className="h5 fw-bold mb-3" style={{ color: '#2d5a27' }}>3. Conectamos</h3>
-                                    <p className="small text-muted">Llegamos a tu audiencia ideal, generando impacto y comprensión real.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <section id="contenido" style={{ padding: '80px 0', backgroundColor: '#fff' }}>
                     <div className="container">
                         <div className="row">
@@ -145,7 +117,6 @@ const IndexBusiness = () => {
                                             <span className="badge mb-3 badge-prakxis">{item.category}</span>
                                             <h4 className="card-title fw-bold mb-2" style={{ fontSize: '1.2rem' }}>{item.title}</h4>
                                             <p className="card-text text-muted mb-4 small">{item.description}</p>
-                                            {item.category !== 'Video' && <a href={item.link} className="btn-leer-prakxis">Ver Reportaje</a>}
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +168,6 @@ const IndexBusiness = () => {
                 .btn-proyecto-prakxis { background-color: #7ba293; color: white; padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; transition: 0.3s; display: inline-block; }
                 .card-prakxis { border-radius: 15px; overflow: hidden; transition: 0.3s; }
                 .badge-prakxis { background-color: #2d5a27; color: #fff; padding: 5px 12px; border-radius: 5px; }
-                .btn-leer-prakxis { display: block; text-align: center; border: 2px solid #2d5a27; color: #2d5a27; border-radius: 30px; padding: 8px; font-weight: bold; text-decoration: none; }
                 .form-input { background-color: #f8f9fa !important; border: 1px solid #eee !important; padding: 12px 20px !important; border-radius: 10px !important; width: 100%; color: #333 !important; }
             `}</style>
         </div>
