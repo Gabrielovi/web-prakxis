@@ -13,7 +13,7 @@ const IndexBusiness = () => {
         setStatusMessage({ type: '', text: '' });
 
         const formData = new FormData(e.target);
-        // TU LLAVE CONFIRMADA
+        // LLAVE ACTIVADA Y VERIFICADA
         formData.append("access_key", "1c056454-ecb4-4447-ae36-84c91c6cf4bf"); 
 
         try {
@@ -21,18 +21,20 @@ const IndexBusiness = () => {
                 method: "POST",
                 body: formData
             });
+
             const data = await response.json();
+
             if (data.success) {
                 setSubmitButtonText('Enviar mensaje');
-                setStatusMessage({ type: 'success', text: '¡MENSAJE ENVIADO! Revisaremos tu propuesta pronto.' });
+                setStatusMessage({ type: 'success', text: '¡RECIBIDO! Nos contactaremos pronto.' });
                 e.target.reset();
             } else {
                 setSubmitButtonText('Enviar mensaje');
-                setStatusMessage({ type: 'error', text: 'Error en el envío. Intenta de nuevo.' });
+                setStatusMessage({ type: 'error', text: 'Error al enviar. Intenta de nuevo.' });
             }
         } catch (error) {
             setSubmitButtonText('Enviar mensaje');
-            setStatusMessage({ type: 'error', text: 'Error de red.' });
+            setStatusMessage({ type: 'error', text: 'Error de red. Revisa tu conexión.' });
         }
     };
 
@@ -49,7 +51,7 @@ const IndexBusiness = () => {
             }} />
             
             <main>
-                {/* HERO SECTION */}
+                {/* 1. SECCIÓN HERO (Recuperada) */}
                 <div className="hero-button-wrapper" style={{ position: 'relative' }}>
                     <Hero1 data={heroData.business} />
                     <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', zIndex: '10', paddingBottom: '100px' }}>
@@ -57,59 +59,28 @@ const IndexBusiness = () => {
                     </div>
                 </div>
 
-                {/* NOSOTROS SECTION */}
+                {/* 2. SECCIÓN NOSOTROS (Cuerpo de página restaurado) */}
                 <section id="about" style={{ padding: '100px 0', backgroundColor: '#fff' }}>
                     <div className="container text-center">
                         <div className="row justify-content-center">
                             <div className="col-lg-9">
-                                <h2 className="display-4 fw-bold mb-4" style={{ color: '#2d5a27' }}>Ciencia y Narrativa en Acción</h2>
-                                <p className="lead text-muted">Transformamos el conocimiento complejo en historias humanas, visuales y accesibles.</p>
+                                <h2 className="display-4 fw-bold mb-4" style={{ color: '#2d5a27' }}>Ciencia que Conecta</h2>
+                                <p className="lead text-muted">En Prakxis, transformamos el conocimiento complejo en historias humanas, visuales y accesibles.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* CONTENIDO / REPORTAJES SECTION */}
-                <section id="contenido" style={{ padding: '80px 0', backgroundColor: '#f4f7f6' }}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-4 mb-4">
-                                <div className="card h-100 border-0 shadow-sm p-4 text-center" style={{ borderRadius: '15px' }}>
-                                    <i className="fas fa-file-alt fa-3x mb-3" style={{ color: '#2d5a27' }}></i>
-                                    <h4 className="fw-bold">Reportajes</h4>
-                                    <p className="small text-muted">Investigaciones profundas sobre gestión hídrica y medio ambiente.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4 mb-4">
-                                <div className="card h-100 border-0 shadow-sm overflow-hidden" style={{ borderRadius: '15px' }}>
-                                    <div className="ratio ratio-16x9">
-                                        <iframe src="https://www.youtube.com/embed/byLR2SCeWo8?start=99" title="Video Prakxis" allowFullScreen></iframe>
-                                    </div>
-                                    <div className="p-4 text-center">
-                                        <h4 className="fw-bold">Producción Audiovisual</h4>
-                                        <p className="small text-muted">Documentales que conectan ciencia con la sociedad.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4 mb-4">
-                                <div className="card h-100 border-0 shadow-sm p-4 text-center" style={{ borderRadius: '15px' }}>
-                                    <i className="fas fa-microscope fa-3x mb-3" style={{ color: '#2d5a27' }}></i>
-                                    <h4 className="fw-bold">Ciencia Ciudadana</h4>
-                                    <p className="small text-muted">Empoderamos comunidades a través de la comunicación científica.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* CONTACTO SECTION */}
+                {/* 3. SECCIÓN CONTACTO */}
                 <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27' }}>
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-lg-7">
                                 <form onSubmit={handleSubmit} className="p-5 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
                                     <h2 className="text-center mb-4" style={{ color: '#2d5a27', fontWeight: 'bold' }}>Contáctanos</h2>
-                                    <input type="hidden" name="subject" value="Nuevo contacto - Prakxis.com" />
+                                    
+                                    <input type="hidden" name="subject" value="Nuevo contacto desde Prakxis.com" />
+                                    
                                     <div className="mb-3">
                                         <input type="text" name="name" className="form-control" placeholder="Tu nombre" required style={{ background: '#f8f9fa', padding: '12px' }} />
                                     </div>
@@ -122,6 +93,7 @@ const IndexBusiness = () => {
                                     <button type="submit" className="btn w-100 py-3" style={{ backgroundColor: '#7ba293', color: '#fff', borderRadius: '30px', fontWeight: 'bold' }}>
                                         {submitButtonText}
                                     </button>
+
                                     {statusMessage.text && (
                                         <div className="text-center mt-3" style={{ color: statusMessage.type === 'success' ? '#2d5a27' : 'red', fontWeight: 'bold' }}>
                                             {statusMessage.text}
@@ -140,7 +112,7 @@ const IndexBusiness = () => {
 
             <style jsx>{`
                 .btn-proyecto-prakxis { background-color: #7ba293; color: white; padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block; transition: 0.3s; }
-                .btn-proyecto-prakxis:hover { background-color: #2d5a27; transform: translateY(-2px); }
+                .btn-proyecto-prakxis:hover { background-color: #2d5a27; }
             `}</style>
         </div>
     );
