@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import Hero1 from '../components/Hero/Hero1';
 import { heroData } from '../components/Hero/HeroData';
@@ -8,6 +8,11 @@ const IndexBusiness = () => {
     const form = useRef();
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
+
+    // ESTA LÍNEA ES CLAVE: Inicializa tu cuenta apenas carga la página
+    useEffect(() => {
+        emailjs.init("C78_XN9Y_f_t_8-t9");
+    }, []);
 
     const headerData = {
         menuItems: [
@@ -48,7 +53,7 @@ const IndexBusiness = () => {
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // VERIFICADO CON TUS CAPTURAS: service_f4cmbfs, template_o2v2x2p, C78_XN9Y_f_t_8-t9
+        // IDs verificados de tus capturas 18.24.11 y 18.25.14
         emailjs.sendForm(
             'service_f4cmbfs', 
             'template_o2v2x2p', 
@@ -65,7 +70,7 @@ const IndexBusiness = () => {
             setSubmitButtonText('Enviar mensaje');
             setStatusMessage({ 
                 type: 'error', 
-                text: `Error: ${error.text || 'Revisa tu conexión'}` 
+                text: `Error: ${error.text || 'Cuenta no encontrada. Verifica tu Public Key'}` 
             });
         });
     };
