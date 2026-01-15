@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import Hero1 from '../components/Hero/Hero1';
 import { heroData } from '../components/Hero/HeroData';
@@ -8,62 +8,143 @@ const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
+    // LLAVE CORRECTA SIN 'PRIVATE KEY' REQUERIDA
+    const PUBLIC_KEY = "xBzhZborPqwkBlFf7";
+
+    const headerData = {
+        menuItems: [
+            { text: 'Inicio', href: '/' },
+            { text: 'Nosotr@s', href: '#about' },
+            { text: 'Contenido', href: '#contenido' },
+            { text: 'Contacto', href: '#contact' }
+        ],
+        socialLinks: [{ iconClass: 'fab fa-instagram', href: 'https://instagram.com/prakxis' }]
+    };
+
+    const multimediaItems = [
+        {
+            title: "Reportaje: El Futuro del Agua",
+            category: "Reportaje",
+            description: "Una investigación profunda sobre la gestión hídrica en zonas áridas.",
+            link: "#", 
+            icon: "fas fa-file-alt"
+        },
+        {
+            title: "Prakxis: Video Destacado",
+            category: "Video",
+            description: "Nuestra última producción visual sobre ciencia y narrativa en acción.",
+            link: "https://www.youtube.com/embed/byLR2SCeWo8?start=99", 
+            icon: "fas fa-play-circle"
+        },
+        {
+            title: "Reportaje: Ciencia Ciudadana",
+            category: "Reportaje",
+            description: "Cómo las comunidades están transformando la recolección de datos.",
+            link: "#",
+            icon: "fas fa-microscope"
+        }
+    ];
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitButtonText('Enviando...');
         setStatusMessage({ type: '', text: '' });
 
-        // CREDENCIALES VERIFICADAS EN TUS CAPTURAS
-        const SERVICE_ID = 'service_f4cmbfs'; //
-        const TEMPLATE_ID = 'template_o2v2x2p';
-        const PUBLIC_KEY = 'xBzhZborPqwkBlFf7'; //
-
-        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
-            .then(() => {
-                setSubmitButtonText('Enviar mensaje');
-                setStatusMessage({ type: 'success', text: '¡LOGRADO! Mensaje enviado con éxito.' });
-                e.target.reset();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                setSubmitButtonText('Enviar mensaje');
-                setStatusMessage({ 
-                    type: 'error', 
-                    text: `Error: ${error.text || 'Consulta la consola'}` 
-                });
+        // IDs VERIFICADOS DE TU PANEL
+        emailjs.sendForm(
+            'service_f4cmbfs', 
+            'template_o2v2x2p', 
+            e.target, 
+            PUBLIC_KEY
+        )
+        .then(() => {
+            setSubmitButtonText('Enviar mensaje');
+            setStatusMessage({ type: 'success', text: '¡Mensaje enviado con éxito!' });
+            e.target.reset();
+        })
+        .catch((error) => {
+            console.error("Detalle:", error);
+            setSubmitButtonText('Enviar mensaje');
+            setStatusMessage({ 
+                type: 'error', 
+                text: `Error: ${error.text || 'Revisa la conexión del servicio'}` 
             });
+        });
     };
 
     return (
         <div className="main-page-wrapper">
-            <HeaderTransparentLight data={{
-                menuItems: [
-                    { text: 'Inicio', href: '/' },
-                    { text: 'Nosotr@s', href: '#about' },
-                    { text: 'Contenido', href: '#contenido' },
-                    { text: 'Contacto', href: '#contact' }
-                ],
-                socialLinks: [{ iconClass: 'fab fa-instagram', href: 'https://instagram.com/prakxis' }]
-            }} />
+            <HeaderTransparentLight data={headerData} />
             
             <main>
-                <Hero1 data={heroData.business} />
+                {/* SECCIÓN HERO */}
+                <div className="hero-button-wrapper" style={{ position: 'relative' }}>
+                    <Hero1 data={heroData.business} />
+                    <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', zIndex: '10', paddingBottom: '100px' }}>
+                        <a href="#contact" className="btn-proyecto-prakxis">Comienza un proyecto</a>
+                    </div>
+                </div>
 
-                <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27' }}>
+                {/* SECCIÓN ABOUT */}
+                <section id="about" style={{ padding: '80px 0', backgroundColor: '#fff' }}>
+                    <div className="container text-center">
+                        <div className="row justify-content-center">
+                            <div className="col-lg-9">
+                                <h2 className="display-4 fw-bold mb-4">Ciencia y Narrativa en Acción</h2>
+                                <p className="lead text-muted">En Prakxis, transformamos el conocimiento complejo en historias humanas. Creemos que la ciencia debe ser entendida por todos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* SECCIÓN CONTENIDO (Tarjetas) */}
+                <section id="contenido" style={{ padding: '80px 0', backgroundColor: '#f4f7f6' }}>
+                    <div className="container">
+                        <div className="row">
+                            {multimediaItems.map((item, index) => (
+                                <div className="col-md-4 mb-4" key={index}>
+                                    <div className="card h-100 border-0 shadow-sm card-prakxis">
+                                        {item.category === 'Video' ? (
+                                            <div className="ratio ratio-16x9">
+                                                <iframe src={item.link} title={item.title} allowFullScreen style={{ border: 'none' }}></iframe>
+                                            </div>
+                                        ) : (
+                                            <div style={{ padding: '45px', backgroundColor: '#e9ecef', textAlign: 'center' }}>
+                                                <i className={`${item.icon} fa-3x`} style={{ color: '#2d5a27' }}></i>
+                                            </div>
+                                        )}
+                                        <div className="card-body p-4">
+                                            <span className="badge mb-3 badge-prakxis">{item.category}</span>
+                                            <h4 className="card-title fw-bold mb-2" style={{ fontSize: '1.2rem' }}>{item.title}</h4>
+                                            <p className="card-text text-muted mb-4 small">{item.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* SECCIÓN CONTACTO */}
+                <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27', color: '#fff' }}>
                     <div className="container">
                         <div className="row justify-content-center">
+                            <div className="col-lg-6 text-center mb-5">
+                                <h2 className="display-5 fw-bold mb-3">¿Listo para conectar?</h2>
+                                <p style={{ opacity: '0.9' }}>Cuéntanos sobre tu proyecto y descubramos cómo la narrativa puede potenciar tu ciencia.</p>
+                            </div>
                             <div className="col-lg-7">
-                                <form onSubmit={handleSubmit} className="p-5 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
-                                    <h2 className="text-center mb-4" style={{ color: '#2d5a27', fontWeight: 'bold' }}>¿Listo para conectar?</h2>
+                                <form onSubmit={handleSubmit} className="p-4 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
                                     <div className="mb-3">
-                                        <input type="text" name="from_name" className="form-control" placeholder="Tu nombre" required style={{ background: '#f8f9fa', padding: '12px' }} />
+                                        <input type="text" name="from_name" className="form-control form-input" placeholder="Tu nombre" required />
                                     </div>
                                     <div className="mb-3">
-                                        <input type="email" name="reply_to" className="form-control" placeholder="Tu email" required style={{ background: '#f8f9fa', padding: '12px' }} />
+                                        <input type="email" name="reply_to" className="form-control form-input" placeholder="Tu email" required />
                                     </div>
                                     <div className="mb-4">
-                                        <textarea name="message" className="form-control" rows="4" placeholder="¿En qué podemos ayudarte?" required style={{ background: '#f8f9fa', padding: '12px' }}></textarea>
+                                        <textarea name="message" className="form-control form-input" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
                                     </div>
+                                    
                                     <button type="submit" className="btn w-100 py-3" style={{ backgroundColor: '#7ba293', color: '#fff', borderRadius: '30px', fontWeight: 'bold' }}>
                                         {submitButtonText}
                                     </button>
@@ -83,6 +164,13 @@ const IndexBusiness = () => {
             <footer style={{ padding: '40px 0', textAlign: 'center', backgroundColor: '#111', color: '#fff' }}>
                 <p className="mb-0">© 2026 Prakxis - Science for Everyone</p>
             </footer>
+
+            <style jsx>{`
+                .btn-proyecto-prakxis { background-color: #7ba293; color: white; padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; transition: 0.3s; display: inline-block; }
+                .card-prakxis { border-radius: 15px; overflow: hidden; transition: 0.3s; background: #fff; }
+                .badge-prakxis { background-color: #2d5a27; color: #fff; padding: 5px 12px; border-radius: 5px; }
+                .form-input { background-color: #f8f9fa !important; border: 1px solid #eee !important; padding: 12px 20px !important; border-radius: 10px !important; width: 100%; color: #333 !important; }
+            `}</style>
         </div>
     );
 };
