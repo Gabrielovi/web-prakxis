@@ -16,6 +16,7 @@
     "bootstrap-icons": "1.11.1",
     "next": "14.0.0",
     "nodemailer": "6.9.7",
+    "p5": "^2.2.0",
     "react": "18",
     "react-dom": "18",
     "react-p5": "^1.4.1",
