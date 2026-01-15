@@ -1,11 +1,65 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic'; // Necesario para cargar p5 solo en el cliente
 import Hero1 from '../components/Hero/Hero1';
 import { heroData } from '../components/Hero/HeroData';
 import HeaderTransparentLight from '../components/Header/HeaderTransparentLight';
 
+// Importación dinámica de p5 para evitar errores de servidor
+const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
+  ssr: false,
+});
+
 const IndexBusiness = () => {
     const [submitButtonText, setSubmitButtonText] = useState('Enviar mensaje');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
+
+    const colors = {
+        bg: '#0B0C10',
+        bgSecondary: '#1F2833',
+        text: '#C5C6C7',
+        accent: '#66FCF1', // Cian Neón
+        accentMuted: '#45A29E'
+    };
+
+    // --- LÓGICA DEL EFECTO PLEXUS ---
+    let particles = [];
+    const setup = (p5, canvasParentRef) => {
+        p5.createCanvas(p5.windowWidth, 400).parent(canvasParentRef);
+        for (let i = 0; i < 80; i++) {
+            particles.push({
+                x: p5.random(p5.width),
+                y: p5.random(p5.height),
+                vx: p5.random(-0.5, 0.5),
+                vy: p5.random(-0.5, 0.5)
+            });
+        }
+    };
+
+    const draw = (p5) => {
+        p5.background(11, 12, 16); // Color #0B0C10
+        
+        particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > p5.width) p.vx *= -1;
+            if (p.y < 0 || p.y > p5.height) p.vy *= -1;
+
+            p5.noStroke();
+            p5.fill(102, 252, 241, 150); // Accent color
+            p5.circle(p.x, p.y, 3);
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const d = p5.dist(p.x, p.y, p2.x, p2.y);
+                if (d < 120) {
+                    p5.stroke(102, 252, 241, p5.map(d, 0, 120, 100, 0));
+                    p5.line(p.x, p.y, p2.x, p2.y);
+                }
+            }
+        });
+    };
+    // --------------------------------
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +75,7 @@ const IndexBusiness = () => {
             const data = await response.json();
             if (data.success) {
                 setSubmitButtonText('Enviar mensaje');
-                setStatusMessage({ type: 'success', text: '¡MENSAJE ENVIADO! Nos contactaremos pronto.' });
+                setStatusMessage({ type: 'success', text: '¡CONEXIÓN EXITOSA!' });
                 e.target.reset();
             } else {
                 setSubmitButtonText('Enviar mensaje');
@@ -34,95 +88,62 @@ const IndexBusiness = () => {
     };
 
     return (
-        <div className="main-page-wrapper">
+        <div className="main-page-wrapper" style={{ backgroundColor: colors.bg, color: colors.text }}>
             <HeaderTransparentLight data={{
                 menuItems: [
                     { text: 'Inicio', href: '/' },
                     { text: 'Prensa', href: '#prensa' },
                     { text: 'Audiovisual', href: '#audiovisual' },
-                    { text: 'Diseño', href: '#diseno' },
+                    { text: 'Conexiones', href: '#diseno' },
                     { text: 'Contacto', href: '#contact' }
                 ]
             }} />
             
             <main>
-                <div className="hero-button-wrapper" style={{ position: 'relative' }}>
-                    <Hero1 data={heroData.business} />
-                    <div style={{ textAlign: 'center', marginTop: '-120px', position: 'relative', zIndex: '10', paddingBottom: '100px' }}>
-                        <a href="#contact" className="btn-proyecto-prakxis">Comienza un proyecto</a>
-                    </div>
-                </div>
+                <Hero1 data={heroData.business} />
 
-                {/* 1. SECCIÓN: REPORTAJES DE PRENSA */}
-                <section id="prensa" style={{ padding: '100px 0', backgroundColor: '#fff' }}>
+                {/* SECCIÓN PRENSA */}
+                <section id="prensa" style={{ padding: '100px 0' }}>
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-lg-6 mb-4 mb-lg-0">
-                                <h2 className="display-5 fw-bold mb-4" style={{ color: '#2d5a27' }}>Reportajes de Prensa</h2>
-                                <p className="lead text-muted">Investigación y narrativa periodística sobre el medio ambiente. Analizamos la crisis hídrica y los desafíos territoriales con rigor y profundidad.</p>
-                                <ul className="list-unstyled mt-4">
-                                    <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: '#7ba293'}}></i> Gestión de crisis hídrica</li>
-                                    <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: '#7ba293'}}></i> Conflictos socioambientales</li>
-                                    <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: '#7ba293'}}></i> Crónicas de terreno</li>
-                                </ul>
+                            <div className="col-lg-6">
+                                <h2 className="fw-bold display-5" style={{ color: colors.accent }}>Narrativa de Datos</h2>
+                                <p className="lead">Investigación periodística con rigor científico y estética digital.</p>
                             </div>
                             <div className="col-lg-6">
-                                <div className="ratio ratio-16x9 shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                                    <iframe src="https://www.youtube.com/embed/VX789WILzkQ" title="Guardianes del Agua" allowFullScreen></iframe>
+                                <div className="ratio ratio-16x9 shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden', border: `1px solid ${colors.accentMuted}` }}>
+                                    <iframe src="https://www.youtube.com/embed/VX789WILzkQ" title="Guardianes" allowFullScreen></iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* 2. SECCIÓN: PRODUCCIÓN AUDIOVISUAL */}
-                <section id="audiovisual" style={{ padding: '100px 0', backgroundColor: '#f4f7f6' }}>
-                    <div className="container">
-                        <div className="row align-items-center flex-lg-row-reverse">
-                            <div className="col-lg-6 mb-4 mb-lg-0">
-                                <h2 className="display-5 fw-bold mb-4" style={{ color: '#2d5a27' }}>Producción Audiovisual</h2>
-                                <p className="lead text-muted">Documentales y piezas visuales de alto impacto. Traducimos el lenguaje científico en una experiencia cinematográfica que conecta con la sociedad.</p>
-                            </div>
-                            <div className="col-lg-6">
-                                <div className="ratio ratio-16x9 shadow-lg" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                                    <iframe src="https://www.youtube.com/embed/byLR2SCeWo8?start=99" title="Audiovisual Prakxis" allowFullScreen></iframe>
-                                </div>
-                            </div>
+                {/* SECCIÓN PLEXUS (CIENCIA GENERATIVA) */}
+                <section id="diseno" style={{ backgroundColor: colors.bg }}>
+                    <div className="container-fluid p-0" style={{ position: 'relative', height: '400px' }}>
+                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, textAlign: 'center', pointerEvents: 'none' }}>
+                            <h2 className="display-4 fw-bold" style={{ color: colors.accent, textShadow: '0 0 20px rgba(102, 252, 241, 0.5)' }}>Ciencia Conectada</h2>
+                            <p className="lead">Visualización generativa en tiempo real.</p>
                         </div>
-                    </div>
-                </section>
-
-                {/* 3. SECCIÓN: DISEÑO Y CIENCIA */}
-                <section id="diseno" style={{ padding: '100px 0', backgroundColor: '#fff' }}>
-                    <div className="container text-center">
-                        <div className="row justify-content-center">
-                            <div className="col-lg-8">
-                                <i className="fas fa-microscope fa-4x mb-4" style={{ color: '#7ba293' }}></i>
-                                <h2 className="display-5 fw-bold mb-4" style={{ color: '#2d5a27' }}>Diseño y Comunicación Científica</h2>
-                                <p className="lead text-muted">Aterrizamos el conocimiento complejo. Diseñamos estrategias de comunicación y visualización de datos para que la ciencia sea accesible para todos los públicos.</p>
-                                <div className="row mt-5">
-                                    <div className="col-md-4"><h5 className="fw-bold">Infografías</h5></div>
-                                    <div className="col-md-4"><h5 className="fw-bold">Branding Científico</h5></div>
-                                    <div className="col-md-4"><h5 className="fw-bold">Ciencia Ciudadana</h5></div>
-                                </div>
-                            </div>
-                        </div>
+                        <Sketch setup={setup} draw={draw} />
                     </div>
                 </section>
 
                 {/* CONTACTO */}
-                <section id="contact" style={{ padding: '100px 0', backgroundColor: '#2d5a27' }}>
+                <section id="contact" style={{ padding: '100px 0' }}>
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-lg-7">
-                                <form onSubmit={handleSubmit} className="p-5 bg-white shadow-lg" style={{ borderRadius: '20px' }}>
-                                    <h2 className="text-center mb-4" style={{ color: '#2d5a27', fontWeight: 'bold' }}>Hablemos de tu proyecto</h2>
-                                    <input type="hidden" name="subject" value="Nuevo contacto - Prakxis.com" />
-                                    <div className="mb-3"><input type="text" name="name" className="form-control" placeholder="Nombre" required style={{ background: '#f8f9fa' }} /></div>
-                                    <div className="mb-3"><input type="email" name="email" className="form-control" placeholder="Email" required style={{ background: '#f8f9fa' }} /></div>
-                                    <div className="mb-4"><textarea name="message" className="form-control" rows="4" placeholder="Mensaje" required style={{ background: '#f8f9fa' }}></textarea></div>
-                                    <button type="submit" className="btn w-100 py-3" style={{ backgroundColor: '#7ba293', color: '#fff', borderRadius: '30px', fontWeight: 'bold' }}>{submitButtonText}</button>
-                                    {statusMessage.text && <div className="text-center mt-3" style={{ color: statusMessage.type === 'success' ? '#2d5a27' : 'red', fontWeight: 'bold' }}>{statusMessage.text}</div>}
+                            <div className="col-lg-6 p-5 shadow-lg" style={{ backgroundColor: colors.bgSecondary, borderRadius: '20px', border: `1px solid ${colors.accent}` }}>
+                                <form onSubmit={handleSubmit}>
+                                    <h3 className="text-center mb-4" style={{ color: colors.accent }}>Inicia la Conversación</h3>
+                                    <input type="text" name="name" className="form-control mb-3 custom-input" placeholder="Nombre" required />
+                                    <input type="email" name="email" className="form-control mb-3 custom-input" placeholder="Email" required />
+                                    <textarea name="message" className="form-control mb-4 custom-input" placeholder="¿Qué conectamos hoy?" required rows="4"></textarea>
+                                    <button type="submit" className="btn w-100 py-3" style={{ backgroundColor: colors.accent, color: colors.bg, fontWeight: 'bold', borderRadius: '30px' }}>
+                                        {submitButtonText}
+                                    </button>
+                                    {statusMessage.text && <div className="text-center mt-3" style={{ color: colors.accent }}>{statusMessage.text}</div>}
                                 </form>
                             </div>
                         </div>
@@ -130,13 +151,9 @@ const IndexBusiness = () => {
                 </section>
             </main>
 
-            <footer className="py-4 text-center bg-dark text-white">
-                <p className="mb-0">© 2026 Prakxis - Science for Everyone</p>
-            </footer>
-
             <style jsx>{`
-                .btn-proyecto-prakxis { background-color: #7ba293; color: white; padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block; transition: 0.3s; }
-                .btn-proyecto-prakxis:hover { background-color: #2d5a27; transform: translateY(-3px); }
+                .custom-input { background-color: #0B0C10 !important; border: 1px solid #45A29E !important; color: #C5C6C7 !important; }
+                .custom-input:focus { border-color: #66FCF1 !important; box-shadow: 0 0 10px rgba(102, 252, 241, 0.2) !important; }
             `}</style>
         </div>
     );
