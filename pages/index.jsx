@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 
 const IndexBusiness = () => {
     const colors = {
@@ -27,7 +28,17 @@ const IndexBusiness = () => {
     return (
         <div style={{ backgroundColor: colors.bgLight, color: colors.textDark, minHeight: '100vh', fontFamily: 'sans-serif', overflowX: 'hidden' }}>
             
-            {/* NAV OPTIMIZADA PARA QUE NADA SE SALGA */}
+            <Head>
+                <title>PRAKXIS | Narrativas Visuales y Comunicación Científica</title>
+                <meta name="description" content="Agencia especializada en comunicación científica, diseño y producción audiovisual en La Araucanía. Conectamos la ciencia con la audiencia." />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta property="og:title" content="PRAKXIS | Ciencia que conecta" />
+                <meta property="og:description" content="Narrativas visuales con rigor científico desde Temuco, Chile." />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
+            {/* NAV REPARADA - AJUSTE MÓVIL SEGURO */}
             <nav className="navbar-custom">
                 <div className="nav-container">
                     <span className="brand-text">PRAKXIS</span>
@@ -91,7 +102,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* 4. REPOSITORIO (AHORA AQUÍ ABAJO) */}
+                {/* 4. REPOSITORIO (AL FINAL) */}
                 <section id="repositorio" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
                         <h2 className="section-title">Repositorio</h2>
