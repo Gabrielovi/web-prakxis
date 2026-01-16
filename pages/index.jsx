@@ -12,7 +12,6 @@ const IndexBusiness = () => {
         border: '#E1E4E8'
     };
 
-    // Sección de Prensa con tus rutas locales
     const notasPrensa = [
         {
             titulo: "UFRO presentó plataforma georreferenciada de salud pública",
@@ -33,7 +32,7 @@ const IndexBusiness = () => {
     return (
         <div style={{ backgroundColor: colors.bgLight, color: colors.textDark, minHeight: '100vh', fontFamily: 'sans-serif' }}>
             
-            {/* NAV RESPONSIVA */}
+            {/* NAV MINIMALISTA */}
             <nav className="navbar-custom">
                 <div className="nav-container">
                     <span className="brand-text">PRAKXIS</span>
@@ -46,14 +45,15 @@ const IndexBusiness = () => {
             </nav>
 
             <main>
-                {/* HERO NEGRO */}
-                <section style={{ padding: '100px 20px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
+                {/* HERO CON DEGRADADO (EL PULIDO) */}
+                <section style={{ padding: '140px 20px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
                     <h1 className="hero-title">Ciencia que conecta</h1>
                     <p className="hero-subtitle">Narrativas visuales con rigor científico.</p>
+                    <div style={{ width: '40px', height: '2px', backgroundColor: colors.accent, margin: '30px auto', opacity: 0.5 }}></div>
                 </section>
 
-                {/* 1. PRENSA CON SCROLL HORIZONTAL */}
-                <section id="prensa" style={{ padding: '60px 20px', maxWidth: '1150px', margin: '0 auto' }}>
+                {/* 1. PRENSA CON SCROLL */}
+                <section id="prensa" style={{ padding: '80px 20px', maxWidth: '1150px', margin: '0 auto' }}>
                     <h2 className="section-title">Reportajes de Prensa</h2>
                     <div className="scroll-horizontal scroll-custom">
                         {notasPrensa.map((nota, i) => (
@@ -76,17 +76,17 @@ const IndexBusiness = () => {
                 </section>
 
                 {/* 2. DISEÑO */}
-                <section id="diseno" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
+                <section id="diseno" style={{ padding: '80px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
                         <h2 className="section-title" style={{ textAlign: 'center', border: 'none' }}>Diseño y Visualización</h2>
                         <div className="placeholder-diseno">
-                             [ PORTAFOLIO EN DESARROLLO ]
+                             <p style={{ letterSpacing: '2px', fontSize: '12px', opacity: 0.6 }}>GALERÍA EN CONSTRUCCIÓN</p>
                         </div>
                     </div>
                 </section>
 
-                {/* 3. AUDIOVISUAL CON SCROLL HORIZONTAL */}
-                <section id="audiovisual" style={{ padding: '60px 20px', maxWidth: '1150px', margin: '0 auto' }}>
+                {/* 3. AUDIOVISUAL */}
+                <section id="audiovisual" style={{ padding: '80px 20px', maxWidth: '1100px', margin: '0 auto' }}>
                     <h2 className="section-title">Producción Audiovisual</h2>
                     <div className="scroll-horizontal scroll-custom">
                         {videosAudiovisual.map(id => (
@@ -99,15 +99,15 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN CONTACTO NEGRA */}
-                <section id="contact" style={{ padding: '80px 20px', backgroundColor: colors.bgDark }}>
+                {/* SECCIÓN CONTACTO */}
+                <section id="contact" style={{ padding: '100px 20px', backgroundColor: colors.bgDark }}>
                     <div className="contact-form-container">
                         <h3 className="contact-title">Conectemos</h3>
                         <form action="https://api.web3forms.com/submit" method="POST">
                             <input type="hidden" name="access_key" value="1c056454-ecb4-4447-ae36-84c91c6cf4bf" />
                             <input type="text" name="name" placeholder="Tu Nombre" required className="form-input" />
                             <input type="email" name="email" placeholder="Tu Email" required className="form-input" />
-                            <textarea name="message" placeholder="¿En qué proyecto estás pensando?" rows="4" required className="form-input"></textarea>
+                            <textarea name="message" placeholder="¿Cómo podemos colaborar?" rows="4" required className="form-input"></textarea>
                             <button type="submit" className="submit-btn">Enviar Mensaje</button>
                         </form>
                     </div>
@@ -115,58 +115,75 @@ const IndexBusiness = () => {
             </main>
 
             <footer style={{ padding: '40px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white', borderTop: '1px solid #222' }}>
-                <p style={{ fontSize: '12px', opacity: 0.5 }}>© 2026 PRAKXIS - Science for Everyone</p>
+                <p style={{ fontSize: '11px', opacity: 0.4, letterSpacing: '1px' }}>© 2026 PRAKXIS | SCIENCE & NARRATIVES</p>
             </footer>
 
             <style jsx>{`
-                .navbar-custom { background-color: ${colors.bgDark}; padding: 15px 20px; position: sticky; top: 0; z-index: 1000; }
+                .navbar-custom { background-color: ${colors.bgDark}; padding: 18px 25px; position: sticky; top: 0; z-index: 1000; }
                 .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-                .brand-text { color: white; font-weight: bold; font-size: 1.2rem; letter-spacing: 2px; }
-                .nav-links { display: flex; gap: 15px; align-items: center; }
-                .nav-links a { color: ${colors.textLight}; text-decoration: none; font-size: 13px; }
-                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 6px 14px; border-radius: 20px; font-weight: bold; }
+                .brand-text { color: white; font-weight: 900; font-size: 1.4rem; letter-spacing: 4px; }
+                .nav-links { display: flex; gap: 20px; align-items: center; }
+                .nav-links a { color: ${colors.textLight}; text-decoration: none; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 8px 18px; border-radius: 25px; font-weight: bold; }
                 
-                .hero-title { font-size: clamp(2.5rem, 8vw, 4rem); color: ${colors.accent}; font-weight: bold; }
-                .hero-subtitle { font-size: 1.1rem; opacity: 0.8; }
+                /* Título con degradado */
+                .hero-title { 
+                    font-size: clamp(2.8rem, 10vw, 5rem); 
+                    font-weight: 900;
+                    background: linear-gradient(to bottom, #FFFFFF 30%, ${colors.accent} 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    letter-spacing: -2px;
+                }
+                .hero-subtitle { font-size: 1.2rem; opacity: 0.7; font-weight: 300; letter-spacing: 1px; }
                 
-                .section-title { font-size: 1.8rem; margin-bottom: 30px; border-left: 5px solid ${colors.accent}; padding-left: 15px; text-align: left; }
+                .section-title { font-size: 1.6rem; margin-bottom: 35px; border-left: 4px solid ${colors.accent}; padding-left: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-                .scroll-horizontal { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
+                .scroll-horizontal { display: flex; overflow-x: auto; gap: 25px; padding-bottom: 25px; -webkit-overflow-scrolling: touch; }
                 
                 .card-prensa-scroll { 
-                    min-width: 280px; 
-                    max-width: 280px; 
+                    min-width: 300px; 
                     background: white; 
-                    border-radius: 15px; 
+                    border-radius: 12px; 
                     text-decoration: none; 
                     overflow: hidden; 
                     border: 1px solid ${colors.border}; 
                     flex-shrink: 0;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                    transition: all 0.3s ease;
                 }
+                .card-prensa-scroll:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
 
-                .card-img-container { height: 160px; overflow: hidden; background-color: #eee; }
+                .card-img-container { height: 180px; overflow: hidden; background-color: #f0f0f0; }
                 .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
-                .medio-tag { color: ${colors.neon}; font-weight: bold; text-transform: uppercase; font-size: 11px; }
-                .nota-titulo { color: ${colors.textDark}; font-size: 1rem; margin-top: 8px; line-height: 1.4; font-weight: 600; }
+                .medio-tag { color: ${colors.neon}; font-weight: 800; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+                .nota-titulo { color: ${colors.textDark}; font-size: 1.1rem; margin-top: 10px; line-height: 1.4; font-weight: 600; }
 
-                .video-card { min-width: 300px; border-radius: 15px; overflow: hidden; background: black; flex-shrink: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+                .video-card { min-width: 320px; border-radius: 15px; overflow: hidden; background: black; flex-shrink: 0; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
                 @media (min-width: 768px) {
-                    .video-card { min-width: 600px; }
-                    .card-prensa-scroll { min-width: 350px; max-width: 350px; }
+                    .video-card { min-width: 650px; }
+                    .card-prensa-scroll { min-width: 380px; }
                 }
 
                 .ratio-container { position: relative; padding-bottom: 56.25%; }
                 .ratio-container iframe { position: absolute; width: 100%; height: 100%; border: 0; }
 
-                .placeholder-diseno { height: 200px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #ccc; border: 1px dashed #ccc; }
+                .placeholder-diseno { height: 250px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #bbb; border: 1px solid ${colors.border}; }
 
-                .contact-form-container { max-width: 500px; margin: 0 auto; padding: 30px; background: white; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-                .contact-title { text-align: center; color: ${colors.bgDark}; font-weight: bold; margin-bottom: 25px; font-size: 2rem; }
-                .form-input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 12px; background: #f9f9f9; font-size: 16px; }
-                .submit-btn { width: 100%; padding: 15px; background: ${colors.accent}; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
+                .contact-form-container { max-width: 550px; margin: 0 auto; padding: 45px; background: white; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
+                .contact-title { text-align: center; color: ${colors.bgDark}; font-weight: 800; margin-bottom: 30px; font-size: 2.2rem; letter-spacing: -1px; }
+                .form-input { width: 100%; padding: 15px; margin-bottom: 18px; border: 1px solid #eee; border-radius: 12px; background: #f8fafa; font-size: 16px; transition: 0.3s; }
+                .form-input:focus { border-color: ${colors.accent}; outline: none; background: white; }
+                .submit-btn { width: 100%; padding: 16px; background: ${colors.accent}; border: none; border-radius: 35px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+                .submit-btn:hover { background-color: ${colors.neon}; transform: scale(1.02); }
 
-                .scroll-custom::-webkit-scrollbar { height: 6px; }
+                @media (max-width: 600px) {
+                    .brand-text { font-size: 1.1rem; letter-spacing: 2px; }
+                    .nav-links { gap: 12px; }
+                    .nav-links a { font-size: 10px; }
+                    .btn-conectemos { padding: 6px 12px; }
+                }
+
+                .scroll-custom::-webkit-scrollbar { height: 5px; }
                 .scroll-custom::-webkit-scrollbar-thumb { background: ${colors.accent}; border-radius: 10px; }
             `}</style>
         </div>
