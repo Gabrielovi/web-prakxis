@@ -19,10 +19,18 @@ const IndexBusiness = () => {
 
     const videosAudiovisual = ["VX789WILzkQ", "byLR2SCeWo8"];
 
-    // AQUÍ AGREGA TU LISTA DE DOCUMENTOS
+    // ESTOS SON TUS DOCUMENTOS REALES
     const documentos = [
-        { tipo: "Tesis", titulo: "Impacto de la comunicación visual en salud", link: "/docs/tesis.pdf" },
-        { tipo: "Paper", titulo: "Visualización de datos en La Araucanía", link: "/docs/paper_ciencia.pdf" }
+        { 
+            tipo: "Documento", 
+            titulo: "Ingmar Bergman", 
+            link: "/docs/INGMAR_BERGMAN.pdf" 
+        },
+        { 
+            tipo: "Manifiesto", 
+            titulo: "El arte de los ruidos - Luigi Russolo", 
+            link: "/docs/Russolo_Luigi_El_arte_de_los_ruidos_Manifiesto_Futurista.pdf" 
+        }
     ];
 
     return (
@@ -48,7 +56,7 @@ const IndexBusiness = () => {
                     <p className="hero-subtitle">Narrativas visuales con rigor científico.</p>
                 </section>
 
-                {/* PRENSA */}
+                {/* 1. PRENSA */}
                 <section id="prensa" style={{ padding: '40px 20px', maxWidth: '1150px', margin: '0 auto' }}>
                     <h2 className="section-title">Reportajes de Prensa</h2>
                     <div className="scroll-horizontal scroll-custom">
@@ -66,7 +74,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* REPOSITORIO (NUEVA SECCIÓN) */}
+                {/* 2. REPOSITORIO */}
                 <section id="repositorio" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
                         <h2 className="section-title">Repositorio de Conocimiento</h2>
@@ -84,7 +92,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* DISEÑO */}
+                {/* 3. DISEÑO */}
                 <section id="diseno" style={{ padding: '60px 20px' }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
                         <h2 className="section-title">Diseño y Visualización</h2>
@@ -94,7 +102,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* AUDIOVISUAL */}
+                {/* 4. AUDIOVISUAL */}
                 <section id="audiovisual" style={{ padding: '60px 20px' }}>
                     <div style={{ maxWidth: '1150px', margin: '0 auto' }}>
                         <h2 className="section-title">Producción Audiovisual</h2>
@@ -149,10 +157,9 @@ const IndexBusiness = () => {
                 .medio-tag { color: ${colors.neon}; font-weight: 800; text-transform: uppercase; font-size: 9px; }
                 .nota-titulo { color: ${colors.textDark}; font-size: 0.9rem; margin-top: 5px; line-height: 1.3; font-weight: 600; }
 
-                /* ESTILOS REPOSITORIO */
                 .repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
                 .doc-item { background: white; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; text-decoration: none; border: 1px solid ${colors.border}; transition: 0.3s; }
-                .doc-item:hover { border-color: ${colors.accent}; background: #fff; }
+                .doc-item:hover { border-color: ${colors.accent}; background: #fff; transform: translateY(-3px); }
                 .doc-tipo { font-size: 10px; font-weight: 800; color: ${colors.neon}; text-transform: uppercase; }
                 .doc-titulo { color: ${colors.textDark}; font-size: 14px; margin: 0; font-weight: 500; }
 
