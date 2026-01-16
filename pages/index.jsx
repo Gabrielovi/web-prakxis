@@ -19,23 +19,15 @@ const IndexBusiness = () => {
 
     const videosAudiovisual = ["VX789WILzkQ", "byLR2SCeWo8"];
 
-    // ESTOS SON TUS DOCUMENTOS REALES
     const documentos = [
-        { 
-            tipo: "Documento", 
-            titulo: "Ingmar Bergman", 
-            link: "/docs/INGMAR_BERGMAN.pdf" 
-        },
-        { 
-            tipo: "Manifiesto", 
-            titulo: "El arte de los ruidos - Luigi Russolo", 
-            link: "/docs/Russolo_Luigi_El_arte_de_los_ruidos_Manifiesto_Futurista.pdf" 
-        }
+        { tipo: "Documento", titulo: "Ingmar Bergman", link: "/docs/INGMAR_BERGMAN.pdf" },
+        { tipo: "Manifiesto", titulo: "El arte de los ruidos - Luigi Russolo", link: "/docs/Russolo_Luigi_El_arte_de_los_ruidos_Manifiesto_Futurista.pdf" }
     ];
 
     return (
         <div style={{ backgroundColor: colors.bgLight, color: colors.textDark, minHeight: '100vh', fontFamily: 'sans-serif', overflowX: 'hidden' }}>
             
+            {/* NAV OPTIMIZADA PARA QUE NADA SE SALGA */}
             <nav className="navbar-custom">
                 <div className="nav-container">
                     <span className="brand-text">PRAKXIS</span>
@@ -43,7 +35,6 @@ const IndexBusiness = () => {
                         <a href="#prensa">Prensa</a>
                         <a href="#diseno">Diseño</a>
                         <a href="#audiovisual">Audiovisual</a>
-                        <a href="#repositorio">Repositorio</a>
                         <a href="#contact" className="btn-conectemos">Contacto</a>
                     </div>
                 </div>
@@ -74,26 +65,8 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* 2. REPOSITORIO */}
-                <section id="repositorio" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
-                    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-                        <h2 className="section-title">Repositorio de Conocimiento</h2>
-                        <div className="repo-grid">
-                            {documentos.map((doc, i) => (
-                                <a key={i} href={doc.link} download className="doc-item">
-                                    <div style={{ fontSize: '24px' }}>📄</div>
-                                    <div>
-                                        <span className="doc-tipo">{doc.tipo}</span>
-                                        <p className="doc-titulo">{doc.titulo}</p>
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* 3. DISEÑO */}
-                <section id="diseno" style={{ padding: '60px 20px' }}>
+                {/* 2. DISEÑO */}
+                <section id="diseno" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
                         <h2 className="section-title">Diseño y Visualización</h2>
                         <div className="placeholder-diseno" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1551288049-bbbda5366d7a?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -102,7 +75,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* 4. AUDIOVISUAL */}
+                {/* 3. AUDIOVISUAL */}
                 <section id="audiovisual" style={{ padding: '60px 20px' }}>
                     <div style={{ maxWidth: '1150px', margin: '0 auto' }}>
                         <h2 className="section-title">Producción Audiovisual</h2>
@@ -113,6 +86,24 @@ const IndexBusiness = () => {
                                         <iframe src={`https://www.youtube.com/embed/${id}`} allowFullScreen></iframe>
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* 4. REPOSITORIO (AHORA AQUÍ ABAJO) */}
+                <section id="repositorio" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
+                    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+                        <h2 className="section-title">Repositorio</h2>
+                        <div className="repo-grid">
+                            {documentos.map((doc, i) => (
+                                <a key={i} href={doc.link} download className="doc-item">
+                                    <div style={{ fontSize: '20px' }}>📄</div>
+                                    <div>
+                                        <span className="doc-tipo">{doc.tipo}</span>
+                                        <p className="doc-titulo">{doc.titulo}</p>
+                                    </div>
+                                </a>
                             ))}
                         </div>
                     </div>
@@ -138,12 +129,12 @@ const IndexBusiness = () => {
             </footer>
 
             <style jsx>{`
-                .navbar-custom { background-color: ${colors.bgDark}; padding: 12px 15px; position: sticky; top: 0; z-index: 1000; width: 100%; border-bottom: 1px solid #1f2833; }
+                .navbar-custom { background-color: ${colors.bgDark}; padding: 12px 10px; position: sticky; top: 0; z-index: 1000; width: 100%; border-bottom: 1px solid #1f2833; }
                 .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-                .brand-text { color: white; font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; }
-                .nav-links { display: flex; gap: 8px; align-items: center; }
+                .brand-text { color: white; font-weight: 900; font-size: 1rem; letter-spacing: 1px; }
+                .nav-links { display: flex; gap: 6px; align-items: center; }
                 .nav-links a { color: ${colors.textLight}; text-decoration: none; font-size: 9px; font-weight: 500; text-transform: uppercase; }
-                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 5px 10px; border-radius: 15px; font-weight: bold; }
+                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 4px 8px; border-radius: 12px; font-weight: bold; }
                 
                 .hero-title { font-size: clamp(2rem, 8vw, 4rem); font-weight: 900; color: ${colors.accent}; letter-spacing: -1px; }
                 .hero-subtitle { font-size: 1rem; opacity: 0.8; padding: 0 10px; }
@@ -151,24 +142,26 @@ const IndexBusiness = () => {
                 .section-title { font-size: 1.3rem; margin-bottom: 20px; border-left: 4px solid ${colors.accent}; padding-left: 12px; font-weight: 700; text-transform: uppercase; }
 
                 .scroll-horizontal { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; -webkit-overflow-scrolling: touch; width: 100%; }
-                .card-prensa-scroll { min-width: 75vw; max-width: 75vw; background: white; border-radius: 12px; text-decoration: none; overflow: hidden; border: 1px solid ${colors.border}; flex-shrink: 0; }
+                .card-prensa-scroll { min-width: 78vw; max-width: 78vw; background: white; border-radius: 12px; text-decoration: none; overflow: hidden; border: 1px solid ${colors.border}; flex-shrink: 0; }
                 .card-img-container { height: 140px; overflow: hidden; }
                 .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
                 .medio-tag { color: ${colors.neon}; font-weight: 800; text-transform: uppercase; font-size: 9px; }
                 .nota-titulo { color: ${colors.textDark}; font-size: 0.9rem; margin-top: 5px; line-height: 1.3; font-weight: 600; }
 
-                .repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-                .doc-item { background: white; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; text-decoration: none; border: 1px solid ${colors.border}; transition: 0.3s; }
-                .doc-item:hover { border-color: ${colors.accent}; background: #fff; transform: translateY(-3px); }
-                .doc-tipo { font-size: 10px; font-weight: 800; color: ${colors.neon}; text-transform: uppercase; }
-                .doc-titulo { color: ${colors.textDark}; font-size: 14px; margin: 0; font-weight: 500; }
+                .repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+                .doc-item { background: white; padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 12px; text-decoration: none; border: 1px solid ${colors.border}; transition: 0.2s; }
+                .doc-item:hover { border-color: ${colors.accent}; transform: translateY(-2px); }
+                .doc-tipo { font-size: 9px; font-weight: 800; color: ${colors.neon}; text-transform: uppercase; }
+                .doc-titulo { color: ${colors.textDark}; font-size: 13px; margin: 0; font-weight: 500; line-height: 1.2; }
 
                 .video-card { min-width: 85vw; border-radius: 12px; overflow: hidden; background: black; flex-shrink: 0; }
                 
                 @media (min-width: 768px) {
                     .card-prensa-scroll { min-width: 320px; max-width: 320px; }
                     .video-card { min-width: 600px; }
-                    .nav-links a { font-size: 11px; gap: 20px; }
+                    .nav-links { gap: 15px; }
+                    .nav-links a { font-size: 11px; }
+                    .brand-text { font-size: 1.3rem; letter-spacing: 2px; }
                 }
 
                 .ratio-container { position: relative; padding-bottom: 56.25%; }
