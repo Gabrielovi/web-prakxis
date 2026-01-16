@@ -30,9 +30,9 @@ const IndexBusiness = () => {
     const videosAudiovisual = ["VX789WILzkQ", "byLR2SCeWo8"];
 
     return (
-        <div style={{ backgroundColor: colors.bgLight, color: colors.textDark, minHeight: '100vh', fontFamily: 'sans-serif', scrollBehavior: 'smooth' }}>
+        <div style={{ backgroundColor: colors.bgLight, color: colors.textDark, minHeight: '100vh', fontFamily: 'sans-serif', overflowX: 'hidden' }}>
             
-            {/* NAV COMPLETA */}
+            {/* NAV REPARADA PARA MÓVIL */}
             <nav className="navbar-custom">
                 <div className="nav-container">
                     <span className="brand-text">PRAKXIS</span>
@@ -40,61 +40,50 @@ const IndexBusiness = () => {
                         <a href="#prensa">Prensa</a>
                         <a href="#diseno">Diseño</a>
                         <a href="#audiovisual">Audiovisual</a>
-                        <a href="#contact" className="btn-conectemos">Conectemos</a>
+                        <a href="#contact" className="btn-conectemos">Contacto</a>
                     </div>
                 </div>
             </nav>
 
             <main>
-                {/* HERO */}
-                <section style={{ padding: '140px 20px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
+                <section style={{ padding: '100px 20px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
                     <h1 className="hero-title">Ciencia que conecta</h1>
                     <p className="hero-subtitle">Narrativas visuales con rigor científico.</p>
-                    <div style={{ width: '40px', height: '2px', backgroundColor: colors.accent, margin: '30px auto', opacity: 0.5 }}></div>
                 </section>
 
-                {/* 1. PRENSA */}
-                <section id="prensa" style={{ padding: '80px 20px', maxWidth: '1150px', margin: '0 auto' }}>
+                <section id="prensa" style={{ padding: '60px 20px', maxWidth: '1150px', margin: '0 auto' }}>
                     <h2 className="section-title">Reportajes de Prensa</h2>
                     <div className="scroll-horizontal scroll-custom">
                         {notasPrensa.map((nota, i) => (
                             <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="card-prensa-scroll">
                                 <div className="card-img-container">
-                                    <img 
-                                        src={nota.img} 
-                                        alt={nota.titulo} 
-                                        onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop"; }}
-                                    />
+                                    <img src={nota.img} alt={nota.titulo} onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop"; }} />
                                 </div>
                                 <div style={{ padding: '20px' }}>
                                     <small className="medio-tag">{nota.medio}</small>
                                     <h3 className="nota-titulo">{nota.titulo}</h3>
-                                    <p style={{fontSize: '12px', color: colors.neon, marginTop: '10px', fontWeight: 'bold'}}>Leer reportaje →</p>
                                 </div>
                             </a>
                         ))}
                     </div>
                 </section>
 
-                {/* 2. DISEÑO (CON IMAGEN DE FONDO) */}
-                <section id="diseno" style={{ padding: '80px 20px', backgroundColor: colors.bgSec }}>
+                <section id="diseno" style={{ padding: '60px 20px', backgroundColor: colors.bgSec }}>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
                         <h2 className="section-title">Diseño y Visualización</h2>
                         <div className="placeholder-diseno" style={{ 
-                            backgroundImage: 'linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("https://images.unsplash.com/photo-1551288049-bbbda5366d7a?auto=format&fit=crop&w=1200&q=80")',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
+                            backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1551288049-bbbda5366d7a?auto=format&fit=crop&w=1200&q=80")',
+                            backgroundSize: 'cover', backgroundPosition: 'center'
                         }}>
-                             <div style={{ textAlign: 'center' }}>
-                                <p style={{ letterSpacing: '3px', fontSize: '14px', fontWeight: 'bold', color: colors.textDark }}>PORTAFOLIO EN DESARROLLO</p>
-                                <p style={{ fontSize: '12px', opacity: 0.6, marginTop: '5px' }}>Infografías • Branding Científico • UI/UX</p>
+                             <div style={{ textAlign: 'center', padding: '20px' }}>
+                                <p style={{ letterSpacing: '2px', fontSize: '14px', fontWeight: 'bold' }}>PORTAFOLIO EN DESARROLLO</p>
+                                <p style={{ fontSize: '11px', opacity: 0.6 }}>Infografías • Branding • UI/UX</p>
                              </div>
                         </div>
                     </div>
                 </section>
 
-                {/* 3. AUDIOVISUAL */}
-                <section id="audiovisual" style={{ padding: '80px 20px', maxWidth: '1150px', margin: '0 auto' }}>
+                <section id="audiovisual" style={{ padding: '60px 20px', maxWidth: '1150px', margin: '0 auto' }}>
                     <h2 className="section-title">Producción Audiovisual</h2>
                     <div className="scroll-horizontal scroll-custom">
                         {videosAudiovisual.map(id => (
@@ -107,8 +96,7 @@ const IndexBusiness = () => {
                     </div>
                 </section>
 
-                {/* CONTACTO */}
-                <section id="contact" style={{ padding: '100px 20px', backgroundColor: colors.bgDark }}>
+                <section id="contact" style={{ padding: '80px 20px', backgroundColor: colors.bgDark }}>
                     <div className="contact-form-container">
                         <h3 className="contact-title">Conectemos</h3>
                         <form action="https://api.web3forms.com/submit" method="POST">
@@ -122,64 +110,53 @@ const IndexBusiness = () => {
                 </section>
             </main>
 
-            <footer style={{ padding: '40px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white', borderTop: '1px solid #222' }}>
-                <p style={{ fontSize: '11px', opacity: 0.4, letterSpacing: '1px' }}>© 2026 PRAKXIS | SCIENCE & NARRATIVES</p>
+            <footer style={{ padding: '40px', textAlign: 'center', backgroundColor: colors.bgDark, color: 'white' }}>
+                <p style={{ fontSize: '11px', opacity: 0.4 }}>© 2026 PRAKXIS | SCIENCE & NARRATIVES</p>
             </footer>
 
             <style jsx>{`
-                .navbar-custom { background-color: ${colors.bgDark}; padding: 18px 25px; position: sticky; top: 0; z-index: 1000; }
-                .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-                .brand-text { color: white; font-weight: 900; font-size: 1.4rem; letter-spacing: 4px; }
-                .nav-links { display: flex; gap: 20px; align-items: center; }
-                .nav-links a { color: ${colors.textLight}; text-decoration: none; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 8px 18px; border-radius: 25px; font-weight: bold; }
+                .navbar-custom { background-color: ${colors.bgDark}; padding: 15px 20px; position: sticky; top: 0; z-index: 1000; width: 100%; }
+                .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+                .brand-text { color: white; font-weight: 900; font-size: 1.2rem; letter-spacing: 3px; }
+                .nav-links { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+                .nav-links a { color: ${colors.textLight}; text-decoration: none; font-size: 11px; font-weight: 500; text-transform: uppercase; }
+                .btn-conectemos { background-color: ${colors.accent}; color: ${colors.bgDark} !important; padding: 6px 12px; border-radius: 20px; font-weight: bold; }
                 
-                .hero-title { 
-                    font-size: clamp(2.8rem, 10vw, 5rem); 
-                    font-weight: 900;
-                    background: linear-gradient(to bottom, #FFFFFF 30%, ${colors.accent} 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    letter-spacing: -2px;
-                }
-                .hero-subtitle { font-size: 1.2rem; opacity: 0.7; font-weight: 300; letter-spacing: 1px; }
+                .hero-title { font-size: clamp(2.2rem, 8vw, 4.5rem); font-weight: 900; color: ${colors.accent}; letter-spacing: -1px; margin-bottom: 10px; }
+                .hero-subtitle { font-size: 1.1rem; opacity: 0.8; padding: 0 20px; }
                 
-                .section-title { font-size: 1.6rem; margin-bottom: 35px; border-left: 4px solid ${colors.accent}; padding-left: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+                .section-title { font-size: 1.5rem; margin-bottom: 25px; border-left: 4px solid ${colors.accent}; padding-left: 15px; font-weight: 700; text-transform: uppercase; }
 
-                .scroll-horizontal { display: flex; overflow-x: auto; gap: 25px; padding-bottom: 25px; -webkit-overflow-scrolling: touch; }
-                
-                .card-prensa-scroll { min-width: 300px; background: white; border-radius: 12px; text-decoration: none; overflow: hidden; border: 1px solid ${colors.border}; flex-shrink: 0; transition: all 0.3s ease; }
-                .card-prensa-scroll:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-
-                .card-img-container { height: 180px; overflow: hidden; background-color: #f0f0f0; }
+                .scroll-horizontal { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 15px; -webkit-overflow-scrolling: touch; width: 100%; }
+                .card-prensa-scroll { min-width: 260px; background: white; border-radius: 12px; text-decoration: none; overflow: hidden; border: 1px solid ${colors.border}; flex-shrink: 0; }
+                .card-img-container { height: 150px; overflow: hidden; }
                 .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
-                .medio-tag { color: ${colors.neon}; font-weight: 800; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
-                .nota-titulo { color: ${colors.textDark}; font-size: 1.1rem; margin-top: 10px; line-height: 1.4; font-weight: 600; }
+                .medio-tag { color: ${colors.neon}; font-weight: 800; text-transform: uppercase; font-size: 10px; }
+                .nota-titulo { color: ${colors.textDark}; font-size: 0.95rem; margin-top: 8px; line-height: 1.4; }
 
-                .video-card { min-width: 320px; border-radius: 15px; overflow: hidden; background: black; flex-shrink: 0; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+                .video-card { min-width: 290px; border-radius: 12px; overflow: hidden; background: black; flex-shrink: 0; }
                 @media (min-width: 768px) {
-                    .video-card { min-width: 650px; }
-                    .card-prensa-scroll { min-width: 380px; }
+                    .video-card { min-width: 600px; }
+                    .card-prensa-scroll { min-width: 320px; }
                 }
 
                 .ratio-container { position: relative; padding-bottom: 56.25%; }
                 .ratio-container iframe { position: absolute; width: 100%; height: 100%; border: 0; }
+                .placeholder-diseno { height: 200px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid ${colors.border}; }
 
-                .placeholder-diseno { height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid ${colors.border}; }
+                .contact-form-container { max-width: 500px; margin: 0 auto; padding: 30px; background: white; border-radius: 20px; }
+                .contact-title { text-align: center; color: ${colors.bgDark}; font-weight: 800; margin-bottom: 20px; font-size: 1.8rem; }
+                .form-input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #eee; border-radius: 10px; background: #f8fafa; font-size: 16px; }
+                .submit-btn { width: 100%; padding: 14px; background: ${colors.accent}; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; }
 
-                .contact-form-container { max-width: 550px; margin: 0 auto; padding: 45px; background: white; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
-                .contact-title { text-align: center; color: ${colors.bgDark}; font-weight: 800; margin-bottom: 30px; font-size: 2.2rem; }
-                .form-input { width: 100%; padding: 15px; margin-bottom: 18px; border: 1px solid #eee; border-radius: 12px; background: #f8fafa; font-size: 16px; }
-                .submit-btn { width: 100%; padding: 16px; background: ${colors.accent}; border: none; border-radius: 35px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
-
-                @media (max-width: 768px) {
-                    .nav-links { gap: 12px; }
-                    .nav-links a { font-size: 9px; }
-                    .brand-text { font-size: 1.1rem; }
-                    .section-title { font-size: 1.3rem; }
+                @media (max-width: 480px) {
+                    .nav-container { justify-content: center; text-align: center; }
+                    .nav-links { justify-content: center; width: 100%; gap: 8px; }
+                    .nav-links a { font-size: 10px; }
+                    .brand-text { width: 100%; margin-bottom: 5px; }
                 }
 
-                .scroll-custom::-webkit-scrollbar { height: 5px; }
+                .scroll-custom::-webkit-scrollbar { height: 4px; }
                 .scroll-custom::-webkit-scrollbar-thumb { background: ${colors.accent}; border-radius: 10px; }
             `}</style>
         </div>
