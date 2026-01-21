@@ -1,15 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisUltraPremium = () => {
+const IndexPrakxisUltraTranslucido = () => {
     const colors = {
         bgMain: '#0A0B0D',    
-        bgGlass: 'rgba(10, 11, 13, 0.35)', // MUCHO MÁS TRASLÚCIDO
+        // MÁXIMA TRASLUCIDEZ: 15% de opacidad
+        bgGlass: 'rgba(10, 11, 13, 0.15)', 
         textTitle: '#FFFFFF', 
-        textBody: '#D1D5DB',  
+        textBody: '#E5E7EB',  
         accent: '#00F2FF',    // CALIPSO
-        borderGlass: 'rgba(255, 255, 255, 0.12)',
-        borderAccent: 'rgba(0, 242, 255, 0.5)' // BORDE CALIPSO SUTIL
+        borderGlass: 'rgba(255, 255, 255, 0.08)',
     };
 
     const notasPrensa = [
@@ -37,9 +37,9 @@ const IndexPrakxisUltraPremium = () => {
             </Head>
 
             {/* NAVBAR */}
-            <nav style={{ padding: '15px 25px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.7)', backdropFilter: 'blur(10px)' }}>
+            <nav style={{ padding: '15px 25px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.4)', backdropFilter: 'blur(15px)' }}>
                 <span style={{ fontWeight: '900', letterSpacing: '2px', color: colors.accent, fontSize: '1.2rem' }}>PRAKXIS</span>
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     <a href="#prensa" className="nav-link">PRENSA</a>
                     <a href="#diseno" className="nav-link">DISEÑO</a>
                     <a href="#audiovisual" className="nav-link">VIDEOS</a>
@@ -48,147 +48,148 @@ const IndexPrakxisUltraPremium = () => {
             </nav>
 
             <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
-                <section style={{ padding: '100px 0', textAlign: 'center' }}>
-                    <h1 style={{ fontSize: 'clamp(2.5rem, 9vw, 5rem)', fontWeight: '900', color: 'white', margin: 0, letterSpacing: '-2px' }}>
+                <section style={{ padding: '120px 0', textAlign: 'center' }}>
+                    <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: '900', color: 'white', margin: 0, letterSpacing: '-1px' }}>
                         Ciencia que <span style={{ color: colors.accent }}>conecta</span>
                     </h1>
-                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300' }}>Narrativas visuales con rigor científico.</p>
+                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', opacity: 0.8 }}>Narrativas visuales con rigor científico.</p>
                 </section>
 
-                {/* SECCIONES UNIFICADAS TRASLÚCIDAS */}
-                {[
-                    { id: 'prensa', title: 'Prensa', content: (
-                        <div className="grid-2">
-                            {notasPrensa.map((nota, i) => (
-                                <a key={i} href={nota.url} target="_blank" className="card-glass-item">
-                                    <img src={nota.img} alt={nota.titulo} />
-                                    <div style={{ padding: '20px' }}>
-                                        <small style={{ color: colors.accent, fontWeight: 'bold' }}>{nota.medio}</small>
-                                        <h3 style={{ fontSize: '1.1rem', color: 'white', marginTop: '8px' }}>{nota.titulo}</h3>
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    )},
-                    { id: 'diseno', title: 'Diseño', content: (
-                        <div style={{ padding: '40px', textAlign: 'center' }}>
-                            <h3 style={{ color: 'white', marginBottom: '20px' }}>Portafolio Editorial 2026</h3>
-                            <div className="iframe-container">
-                                <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="500px" style={{ border: 'none', borderRadius: '8px' }}></iframe>
-                            </div>
-                            <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-full-calipso" style={{ marginTop: '25px' }}>Ver en Pantalla Completa</a>
-                        </div>
-                    )},
-                    { id: 'audiovisual', title: 'Audiovisual', content: (
-                        <div className="grid-2">
-                            {videosVimeo.map(id => (
-                                <div key={id} className="video-glass-wrapper">
-                                    <iframe src={`https://player.vimeo.com/video/${id}`} frameBorder="0" allowFullScreen style={{ width: '100%', height: '100%' }}></iframe>
+                {/* SECCIONES TRASLÚCIDAS */}
+                {['prensa', 'diseno', 'audiovisual'].map(sectionId => (
+                    <section key={sectionId} id={sectionId} style={{ padding: '40px 0' }}>
+                        <h2 className="section-title">{sectionId.toUpperCase()}</h2>
+                        <div className="glass-panel">
+                            {sectionId === 'prensa' && (
+                                <div className="grid-glass">
+                                    {notasPrensa.map((nota, i) => (
+                                        <a key={i} href={nota.url} target="_blank" className="glass-item">
+                                            <img src={nota.img} alt={nota.titulo} />
+                                            <div style={{ padding: '20px' }}>
+                                                <small style={{ color: colors.accent, fontWeight: '800' }}>{nota.medio}</small>
+                                                <h3 style={{ fontSize: '1rem', color: 'white', marginTop: '10px' }}>{nota.titulo}</h3>
+                                            </div>
+                                        </a>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    )}
-                ].map(section => (
-                    <section key={section.id} id={section.id} style={{ padding: '50px 0' }}>
-                        <h2 className="section-title">{section.title}</h2>
-                        <div className="main-glass-container">
-                            {section.content}
+                            )}
+                            {sectionId === 'diseno' && (
+                                <div style={{ padding: '40px', textAlign: 'center' }}>
+                                    <div className="iframe-wrapper">
+                                        <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="550px" style={{ border: 'none' }}></iframe>
+                                    </div>
+                                    <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-calipso-outline">ABRIR PORTAFOLIO</a>
+                                </div>
+                            )}
+                            {sectionId === 'audiovisual' && (
+                                <div className="grid-glass">
+                                    {videosVimeo.map(id => (
+                                        <div key={id} style={{ aspectPosition: '16/9', background: '#000' }}>
+                                            <iframe src={`https://player.vimeo.com/video/${id}`} frameBorder="0" allowFullScreen style={{ width: '100%', height: '100%' }}></iframe>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </section>
                 ))}
 
-                {/* SECCIÓN CONTACTO (Según tu imagen) */}
+                {/* CONTACTO - DISEÑO DE TU IMAGEN */}
                 <section id="contact" style={{ padding: '80px 0 150px 0' }}>
-                    <div className="main-glass-container" style={{ maxWidth: '600px', margin: '0 auto', padding: '50px 30px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px', marginBottom: '40px' }}>
+                    <div className="glass-panel" style={{ maxWidth: '650px', margin: '0 auto', padding: '60px 40px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px', marginBottom: '50px' }}>
                             <div style={{ width: '4px', height: '35px', backgroundColor: colors.accent }}></div>
-                            <h2 style={{ fontSize: '2.2rem', color: 'white', margin: 0 }}>Conectemos</h2>
+                            <h2 style={{ fontSize: '2.5rem', color: 'white', margin: 0, fontWeight: '800' }}>Conectemos</h2>
                         </div>
                         
-                        <form action="https://api.web3forms.com/submit" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <form action="https://api.web3forms.com/submit" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
                             <input type="hidden" name="access_key" value="1c056454-ecb4-4447-ae36-84c91c6cf4bf" />
                             
-                            <input type="text" name="name" placeholder="Tu Nombre" required className="calipso-input" />
-                            <input type="email" name="email" placeholder="Tu Email" required className="calipso-input" />
-                            <textarea name="message" placeholder="¿En qué podemos ayudarte?" rows="5" required className="calipso-input"></textarea>
+                            <div className="input-group">
+                                <input type="text" name="name" placeholder="Tu Nombre" required className="calipso-field" />
+                            </div>
+                            <div className="input-group">
+                                <input type="email" name="email" placeholder="Tu Email" required className="calipso-field" />
+                            </div>
+                            <div className="input-group">
+                                <textarea name="message" placeholder="¿En qué podemos ayudarte?" rows="4" required className="calipso-field"></textarea>
+                            </div>
                             
-                            <button type="submit" className="btn-submit-final">ENVIAR</button>
+                            <button type="submit" className="btn-final-submit">ENVIAR</button>
                         </form>
                     </div>
                 </section>
             </main>
 
             <style jsx>{`
-                .nav-link { color: ${colors.textBody}; text-decoration: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+                .nav-link { color: #BBB; text-decoration: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
                 .btn-nav-calipso { background: ${colors.accent}; color: black; padding: 7px 15px; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 11px; }
                 
-                .section-title { font-size: 2rem; color: white; margin-bottom: 25px; font-weight: 800; border-left: 5px solid ${colors.accent}; padding-left: 15px; }
+                .section-title { font-size: 1.5rem; color: white; margin-bottom: 20px; font-weight: 800; opacity: 0.9; }
 
-                /* CONTENEDOR MAESTRO TRASLÚCIDO */
-                .main-glass-container { 
+                /* EL PANEL DE CRISTAL ULTRA TRASLÚCIDO */
+                .glass-panel { 
                     background: ${colors.bgGlass}; 
                     border-radius: 12px; 
                     border: 1px solid ${colors.borderGlass}; 
-                    backdrop-filter: blur(8px);
+                    backdrop-filter: blur(5px);
                     overflow: hidden;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
                 }
 
-                .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1px; background: ${colors.borderGlass}; }
+                .grid-glass { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1px; background: ${colors.borderGlass}; }
                 
-                .card-glass-item { background: rgba(0,0,0,0.2); text-decoration: none; transition: 0.3s; }
-                .card-glass-item:hover { background: rgba(255,255,255,0.03); }
-                .card-glass-item img { width: 100%; height: 220px; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-                .card-glass-item:hover img { opacity: 1; }
+                .glass-item { background: rgba(0,0,0,0.1); text-decoration: none; transition: 0.3s; }
+                .glass-item img { width: 100%; height: 220px; object-fit: cover; opacity: 0.7; transition: 0.4s; }
+                .glass-item:hover img { opacity: 1; }
 
-                .video-glass-wrapper { aspect-ratio: 16/9; background: #000; }
+                .iframe-wrapper { border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.4); margin-bottom: 25px; }
 
-                /* INPUTS CON TEXTO CALIPSO */
-                .calipso-input { 
+                /* INPUTS CALIPSO */
+                .calipso-field { 
+                    width: 100%;
                     padding: 16px; 
                     border-radius: 8px; 
                     border: 1px solid ${colors.accent}; 
-                    background: rgba(0,0,0,0.3); 
+                    background: transparent; 
                     color: white; 
                     outline: none; 
-                    font-size: 15px;
+                    font-size: 16px;
+                    box-sizing: border-box;
                 }
-                .calipso-input::placeholder { 
+                .calipso-field::placeholder { 
                     color: ${colors.accent}; 
-                    opacity: 0.8;
+                    opacity: 0.9;
+                    font-weight: 500;
                 }
 
-                .btn-submit-final { 
+                .btn-final-submit { 
                     background: ${colors.accent}; 
                     color: black; 
-                    padding: 18px; 
+                    padding: 20px; 
                     border-radius: 8px; 
                     border: none; 
                     font-weight: 900; 
                     cursor: pointer; 
-                    font-size: 14px; 
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    transition: 0.3s;
+                    font-size: 15px; 
+                    letter-spacing: 1px;
                 }
-                .btn-submit-final:hover { background: white; transform: scale(1.02); }
 
-                .btn-full-calipso { 
-                    background: ${colors.accent}; 
-                    color: black; 
-                    padding: 12px 30px; 
-                    border-radius: 6px; 
-                    font-weight: 800; 
-                    text-decoration: none; 
-                    display: inline-block; 
+                .btn-calipso-outline {
+                    border: 2px solid ${colors.accent};
+                    color: ${colors.accent};
+                    padding: 12px 30px;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 800;
+                    display: inline-block;
                 }
 
                 @media (max-width: 768px) {
-                    .iframe-container { display: none; }
+                    .iframe-wrapper { display: none; }
                 }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisUltraPremium;
+export default IndexPrakxisUltraTranslucido;
