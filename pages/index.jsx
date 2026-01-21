@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisDefinitivo = () => {
+const IndexPrakxisPremium = () => {
     const colors = {
         bgMain: '#0A0B0D',    
         bgCard: 'rgba(30, 33, 38, 0.75)', 
@@ -21,7 +21,7 @@ const IndexPrakxisDefinitivo = () => {
     return (
         <div style={{ 
             backgroundColor: colors.bgMain, 
-            backgroundImage: 'url("/images/dark-black-cement-wall-background-2026-01-07-06-43-40-utc.jpg")', // TU TEXTURA APLICADA
+            backgroundImage: 'url("/images/dark-black-cement-wall-background.jpg")', // RUTA SEGÚN CAPTURA
             backgroundAttachment: 'fixed',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -34,7 +34,7 @@ const IndexPrakxisDefinitivo = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             </Head>
 
-            {/* NAVBAR COMPLETA CON BOTÓN DISEÑO */}
+            {/* NAVBAR COMPLETA */}
             <nav style={{ padding: '15px 25px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.border}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.9)', backdropFilter: 'blur(10px)' }}>
                 <span style={{ fontWeight: '900', letterSpacing: '2px', color: colors.accent, fontSize: '1.2rem' }}>PRAKXIS</span>
                 <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
@@ -46,21 +46,21 @@ const IndexPrakxisDefinitivo = () => {
             </nav>
 
             <main>
-                {/* HERO SECTION */}
+                {/* HERO */}
                 <section style={{ padding: '100px 20px', textAlign: 'center' }}>
                     <h1 style={{ fontSize: 'clamp(2.5rem, 9vw, 5rem)', fontWeight: '900', color: 'white', lineHeight: '1.1' }}>
                         Ciencia que <span style={{ color: colors.accent }}>conecta</span>
                     </h1>
-                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.1rem' }}>Narrativas visuales con rigor científico.</p>
+                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem' }}>Narrativas visuales con rigor científico.</p>
                 </section>
 
-                {/* 1. SECCIÓN PRENSA (Gris claro) */}
+                {/* PRENSA */}
                 <section id="prensa" style={{ padding: '60px 0' }}>
-                    <h2 className="section-title">Prensa</h2>
+                    <h2 className="section-title">Reportajes de Prensa</h2>
                     <div className="horizontal-scroll">
                         {notasPrensa.map((nota, i) => (
                             <a key={i} href={nota.url} target="_blank" className="card">
-                                <img src={nota.img} alt={nota.titulo} onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1504711434969-e33886168f5c"; }} />
+                                <img src={nota.img} alt={nota.titulo} />
                                 <div style={{ padding: '15px' }}>
                                     <small style={{ color: colors.accent, fontWeight: 'bold' }}>{nota.medio}</small>
                                     <h3 style={{ fontSize: '16px', color: 'white', marginTop: '5px' }}>{nota.titulo}</h3>
@@ -70,7 +70,7 @@ const IndexPrakxisDefinitivo = () => {
                     </div>
                 </section>
 
-                {/* 2. SECCIÓN DISEÑO - RUTA CORREGIDA /docs/diseno/30dic.pdf */}
+                {/* DISEÑO - RUTA CORREGIDA SEGÚN CAPTURA */}
                 <section id="diseno" style={{ padding: '60px 20px' }}>
                     <h2 className="section-title">Diseño y Visualización</h2>
                     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -81,16 +81,15 @@ const IndexPrakxisDefinitivo = () => {
                                 <a href="/docs/diseno/30dic.pdf" target="_blank" style={{ background: colors.accent, color: 'black', padding: '10px 20px', borderRadius: '4px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block' }}>Abrir Portafolio Completo</a>
                             </div>
                             <div className="preview-container">
-                                {/* Visualizador embebido corregido */}
                                 <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="600px" style={{ border: 'none' }}></iframe>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* 3. SECCIÓN AUDIOVISUAL */}
+                {/* AUDIOVISUAL */}
                 <section id="audiovisual" style={{ padding: '60px 0' }}>
-                    <h2 className="section-title">Audiovisual</h2>
+                    <h2 className="section-title">Producción Audiovisual</h2>
                     <div className="horizontal-scroll">
                         {videosVimeo.map(id => (
                             <div key={id} className="video-card">
@@ -101,15 +100,11 @@ const IndexPrakxisDefinitivo = () => {
                 </section>
             </main>
 
-            <footer style={{ padding: '60px 20px', textAlign: 'center', color: colors.textBody, fontSize: '11px', borderTop: `1px solid ${colors.border}` }}>
-                PRAKXIS SPA © 2026 | CIENCIA & NARRATIVAS VISUALES
-            </footer>
-
             <style jsx>{`
                 .nav-link { color: ${colors.textBody}; text-decoration: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
                 .section-title { font-size: 1.8rem; color: ${colors.textTitle}; margin: 0 0 30px 25px; font-weight: 800; border-left: 5px solid ${colors.accent}; padding-left: 15px; }
                 
-                .horizontal-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 0 25px 30px 25px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+                .horizontal-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 0 25px 30px 25px; scroll-snap-type: x mandatory; }
                 .horizontal-scroll::-webkit-scrollbar { display: none; }
                 
                 .card { min-width: 300px; background: ${colors.bgCard}; border-radius: 12px; border: 1px solid ${colors.border}; overflow: hidden; text-decoration: none; scroll-snap-align: start; }
@@ -123,11 +118,11 @@ const IndexPrakxisDefinitivo = () => {
                 }
                 
                 @media (max-width: 600px) {
-                    .preview-container { display: none; } /* En smartphone se oculta el preview para mejor carga */
+                    .preview-container { display: none; }
                 }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisDefinitivo;
+export default IndexPrakxisPremium;
