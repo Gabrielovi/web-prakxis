@@ -4,11 +4,11 @@ import Head from 'next/head';
 const IndexPrakxisFinal = () => {
     const colors = {
         bgMain: '#0A0B0D',    
-        bgGlass: 'rgba(255, 255, 255, 0.01)', // Traslucidez al 1% solicitada
+        bgGlass: 'rgba(255, 255, 255, 0.01)', 
         textTitle: '#FFFFFF', 
         textBody: '#E5E7EB',  
-        accent: '#00F2FF',    // Calipso Prakxis
-        borderGlass: 'rgba(255, 255, 255, 0.08)',
+        accent: '#00F2FF',    
+        borderGlass: 'rgba(255, 255, 255, 0.12)',
     };
 
     const notasPrensa = [
@@ -35,8 +35,7 @@ const IndexPrakxisFinal = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
             </Head>
 
-            {/* NAVBAR CON BOTONES */}
-            <nav style={{ padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.85)', backdropFilter: 'blur(10px)' }}>
+            <nav style={{ padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.9)', backdropFilter: 'blur(12px)' }}>
                 <span style={{ fontWeight: '900', letterSpacing: '1px', color: colors.accent, fontSize: '1.1rem' }}>PRAKXIS</span>
                 <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
                     <div className="nav-desktop">
@@ -49,21 +48,15 @@ const IndexPrakxisFinal = () => {
             </nav>
 
             <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
-                
-                {/* HERO: TÍTULO EN UNA LÍNEA Y BAJADA */}
                 <section style={{ padding: '100px 0 60px 0', textAlign: 'center' }}>
-                    <h1 className="hero-title">
-                        Ciencia que <span style={{ color: colors.accent }}>conecta</span>
-                    </h1>
-                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300' }}>
-                        Narrativas visuales con rigor científico.
-                    </p>
+                    <h1 className="hero-title">Ciencia que <span style={{ color: colors.accent }}>conecta</span></h1>
+                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300', opacity: 0.9 }}>Narrativas visuales con rigor científico.</p>
                 </section>
 
-                {/* SECCIÓN PRENSA (TRASLÚCIDA 1%) */}
+                {/* PRENSA */}
                 <section id="prensa" style={{ padding: '40px 0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
-                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                    <div className="section-header">
+                        <div className="accent-line"></div>
                         <h2 className="section-title-text">Prensa</h2>
                     </div>
                     <div className="glass-panel-ultra">
@@ -81,24 +74,24 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN DISEÑO */}
+                {/* DISEÑO - MEJORADO */}
                 <section id="diseno" style={{ padding: '40px 0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
-                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                    <div className="section-header">
+                        <div className="accent-line"></div>
                         <h2 className="section-title-text">Diseño</h2>
                     </div>
-                    <div className="glass-panel-ultra" style={{ padding: '40px', textAlign: 'center' }}>
+                    <div className="glass-panel-ultra" style={{ padding: '40px 20px', textAlign: 'center' }}>
                         <div className="pdf-frame">
-                            <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="550px" style={{ border: 'none', background: 'transparent' }}></iframe>
+                            <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="600px" style={{ border: 'none', borderRadius: '8px', background: 'rgba(255,255,255,0.05)' }}></iframe>
                         </div>
-                        <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-mobile-only">VER PORTAFOLIO PDF</a>
+                        <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-portafolio-visible">ABRIR PORTAFOLIO EDITORIAL</a>
                     </div>
                 </section>
 
-                {/* SECCIÓN AUDIOVISUAL (TRASLÚCIDA 1%) */}
+                {/* AUDIOVISUAL */}
                 <section id="audiovisual" style={{ padding: '40px 0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
-                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                    <div className="section-header">
+                        <div className="accent-line"></div>
                         <h2 className="section-title-text">Audiovisual</h2>
                     </div>
                     <div className="glass-panel-ultra">
@@ -112,9 +105,9 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* SECCIÓN CONTACTO */}
+                {/* CONTACTO */}
                 <section id="contact" style={{ padding: '80px 0 150px 0' }}>
-                    <div className="glass-panel-ultra" style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 40px' }}>
+                    <div className="glass-panel-ultra" style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 30px' }}>
                         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
                             <h2 style={{ fontSize: '2.5rem', color: 'white', margin: 0, fontWeight: '900' }}>Conectemos</h2>
                             <div style={{ width: '60px', height: '4px', backgroundColor: colors.accent, margin: '20px auto' }}></div>
@@ -124,18 +117,16 @@ const IndexPrakxisFinal = () => {
                             <input type="text" name="name" placeholder="Tu Nombre" required className="input-glass" />
                             <input type="email" name="email" placeholder="Tu Email" required className="input-glass" />
                             <textarea name="message" placeholder="¿En qué podemos ayudarte?" rows="5" required className="input-glass"></textarea>
-                            <button type="submit" className="btn-submit-prakxis">ENVIAR</button>
+                            <button type="submit" className="btn-submit-prakxis">ENVIAR MENSAJE</button>
                         </form>
                     </div>
                 </section>
             </main>
 
-            {/* BOTÓN WHATSAPP */}
+            {/* WHATSAPP */}
             <a href="https://wa.me/56932465215" target="_blank" rel="noopener noreferrer" className="wsp-float">
                 <div className="wsp-tooltip">¿Tienes una pregunta?</div>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.135 1.389 4.793 1.391 5.421 0 9.833-4.412 9.833-9.832 0-2.628-1.023-5.097-2.88-6.956-1.857-1.859-4.325-2.883-6.953-2.883-5.422 0-9.835 4.412-9.835 9.832-.001 1.742.454 3.441 1.316 4.931l-1.011 3.693 3.73-1.005zm11.547-7.912c-.301-.151-1.781-.878-2.057-.978-.275-.1-.476-.151-.675.151-.199.302-.77.978-.944 1.179-.175.199-.349.226-.651.076-.301-.151-1.274-.47-2.426-1.5-.896-.799-1.5-1.787-1.675-2.089-.175-.301-.019-.465.131-.615.136-.135.301-.352.451-.527.151-.176.201-.302.302-.503.1-.199.05-.376-.025-.526-.075-.151-.675-1.631-.925-2.235-.243-.594-.49-.513-.675-.522-.174-.008-.374-.01-.574-.01s-.525.076-.8.377c-.275.301-1.05 1.029-1.05 2.511 0 1.481 1.075 2.912 1.225 3.112.15.201 2.115 3.23 5.123 4.527.714.309 1.272.494 1.707.633.718.227 1.37.194 1.887.118.576-.085 1.781-.728 2.031-1.43.25-.704.25-1.307.175-1.43-.075-.124-.275-.199-.575-.351z" />
-                </svg>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.135 1.389 4.793 1.391 5.421 0 9.833-4.412 9.833-9.832 0-2.628-1.023-5.097-2.88-6.956-1.857-1.859-4.325-2.883-6.953-2.883-5.422 0-9.835 4.412-9.835 9.832-.001 1.742.454 3.441 1.316 4.931l-1.011 3.693 3.73-1.005zm11.547-7.912c-.301-.151-1.781-.878-2.057-.978-.275-.1-.476-.151-.675.151-.199.302-.77.978-.944 1.179-.175.199-.349.226-.651.076-.301-.151-1.274-.47-2.426-1.5-.896-.799-1.5-1.787-1.675-2.089-.175-.301-.019-.465.131-.615.136-.135.301-.352.451-.527.151-.176.201-.302.302-.503.1-.199.05-.376-.025-.526-.075-.151-.675-1.631-.925-2.235-.243-.594-.49-.513-.675-.522-.174-.008-.374-.01-.574-.01s-.525.076-.8.377c-.275.301-1.05 1.029-1.05 2.511 0 1.481 1.075 2.912 1.225 3.112.15.201 2.115 3.23 5.123 4.527.714.309 1.272.494 1.707.633.718.227 1.37.194 1.887.118.576-.085 1.781-.728 2.031-1.43.25-.704.25-1.307.175-1.43-.075-.124-.275-.199-.575-.351z"/></svg>
             </a>
 
             <style jsx>{`
@@ -143,24 +134,44 @@ const IndexPrakxisFinal = () => {
                 .nav-desktop { display: flex; gap: 20px; }
                 .nav-link { color: #CCC; text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
                 .btn-contacto-top { background: ${colors.accent}; color: black; padding: 8px 16px; border-radius: 4px; font-weight: 800; text-decoration: none; font-size: 11px; }
+                
+                .section-header { display: flex; alignItems: center; gap: 10px; margin-bottom: 25px; }
+                .accent-line { width: 4px; height: 22px; background-color: ${colors.accent}; }
                 .section-title-text { font-size: 1.4rem; color: white; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+                
                 .glass-panel-ultra { background: ${colors.bgGlass}; border-radius: 12px; border: 1px solid ${colors.borderGlass}; backdrop-filter: blur(8px); overflow: hidden; }
                 .glass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1px; background: ${colors.borderGlass}; }
                 .glass-item { background: rgba(0,0,0,0.1); text-decoration: none; color: white; transition: 0.3s; }
                 .img-container { height: 220px; overflow: hidden; }
                 .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-                .glass-item:hover img { opacity: 1; transform: scale(1.03); }
+                .glass-item:hover { background: rgba(255,255,255,0.05); }
+                .glass-item:hover img { opacity: 1; transform: scale(1.02); }
+                
                 .video-glass-box { aspect-ratio: 16/9; background: #000; }
+                
                 .input-glass { padding: 18px; border-radius: 8px; border: 1px solid ${colors.accent}; background: transparent; color: white; font-size: 16px; outline: none; }
                 .input-glass::placeholder { color: ${colors.accent}; opacity: 0.8; font-weight: 600; }
-                .btn-submit-prakxis { background: ${colors.accent}; color: black; padding: 20px; border-radius: 8px; border: none; font-weight: 900; cursor: pointer; font-size: 14px; text-transform: uppercase; }
+                .btn-submit-prakxis { background: ${colors.accent}; color: black; padding: 20px; border-radius: 8px; border: none; font-weight: 900; cursor: pointer; font-size: 14px; text-transform: uppercase; width: 100%; }
+
+                .btn-portafolio-visible { 
+                    display: inline-block; 
+                    background: ${colors.accent}; 
+                    color: black; 
+                    padding: 16px 32px; 
+                    border-radius: 8px; 
+                    text-decoration: none; 
+                    font-weight: 900; 
+                    font-size: 14px; 
+                    margin-top: 10px;
+                    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+                }
+
                 .wsp-float { position: fixed; bottom: 30px; right: 30px; background-color: ${colors.accent}; color: #000; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.4); z-index: 2000; transition: 0.3s; }
                 .wsp-tooltip { position: absolute; right: 75px; background: rgba(10, 11, 13, 0.9); color: white; padding: 8px 15px; border-radius: 8px; font-size: 13px; white-space: nowrap; border: 1px solid rgba(0, 242, 255, 0.3); opacity: 0; transition: 0.3s; pointer-events: none; }
                 .wsp-float:hover .wsp-tooltip { opacity: 1; right: 85px; }
-                .wsp-float:hover { transform: scale(1.1); background-color: #FFF; }
+
                 @media (max-width: 768px) {
                     .nav-desktop, .pdf-frame { display: none; }
-                    .btn-mobile-only { display: inline-block; border: 1px solid ${colors.accent}; color: ${colors.accent}; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px; }
                     .hero-title { white-space: normal !important; line-height: 1.1; }
                 }
             `}</style>
