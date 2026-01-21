@@ -4,10 +4,10 @@ import Head from 'next/head';
 const IndexPrakxisFinal = () => {
     const colors = {
         bgMain: '#0A0B0D',    
-        bgGlass: 'rgba(255, 255, 255, 0.01)', 
+        bgGlass: 'rgba(255, 255, 255, 0.01)', // Traslucidez al 1% solicitada
         textTitle: '#FFFFFF', 
         textBody: '#E5E7EB',  
-        accent: '#00F2FF',    
+        accent: '#00F2FF',    // Calipso Prakxis
         borderGlass: 'rgba(255, 255, 255, 0.08)',
     };
 
@@ -35,6 +35,7 @@ const IndexPrakxisFinal = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
             </Head>
 
+            {/* NAVBAR CON BOTONES */}
             <nav style={{ padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.85)', backdropFilter: 'blur(10px)' }}>
                 <span style={{ fontWeight: '900', letterSpacing: '1px', color: colors.accent, fontSize: '1.1rem' }}>PRAKXIS</span>
                 <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
@@ -48,14 +49,24 @@ const IndexPrakxisFinal = () => {
             </nav>
 
             <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+                
+                {/* HERO: TÍTULO EN UNA LÍNEA Y BAJADA */}
                 <section style={{ padding: '100px 0 60px 0', textAlign: 'center' }}>
-                    <h1 className="hero-title">Ciencia que <span style={{ color: colors.accent }}>conecta</span></h1>
-                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300' }}>Narrativas visuales con rigor científico.</p>
+                    <h1 className="hero-title">
+                        Ciencia que <span style={{ color: colors.accent }}>conecta</span>
+                    </h1>
+                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300' }}>
+                        Narrativas visuales con rigor científico.
+                    </p>
                 </section>
 
-                {/* SECCIONES TRASLÚCIDAS */}
-                {[
-                    { id: 'prensa', title: 'Prensa', content: (
+                {/* SECCIÓN PRENSA (TRASLÚCIDA 1%) */}
+                <section id="prensa" style={{ padding: '40px 0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
+                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                        <h2 className="section-title-text">Prensa</h2>
+                    </div>
+                    <div className="glass-panel-ultra">
                         <div className="glass-grid">
                             {notasPrensa.map((nota, i) => (
                                 <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="glass-item">
@@ -67,16 +78,30 @@ const IndexPrakxisFinal = () => {
                                 </a>
                             ))}
                         </div>
-                    )},
-                    { id: 'diseno', title: 'Diseño', content: (
-                        <div style={{ padding: '40px', textAlign: 'center' }}>
-                            <div className="pdf-frame">
-                                <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="550px" style={{ border: 'none', background: 'transparent' }}></iframe>
-                            </div>
-                            <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-mobile-only">VER PORTAFOLIO PDF</a>
+                    </div>
+                </section>
+
+                {/* SECCIÓN DISEÑO */}
+                <section id="diseno" style={{ padding: '40px 0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
+                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                        <h2 className="section-title-text">Diseño</h2>
+                    </div>
+                    <div className="glass-panel-ultra" style={{ padding: '40px', textAlign: 'center' }}>
+                        <div className="pdf-frame">
+                            <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="550px" style={{ border: 'none', background: 'transparent' }}></iframe>
                         </div>
-                    )},
-                    { id: 'audiovisual', title: 'Audiovisual', content: (
+                        <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-mobile-only">VER PORTAFOLIO PDF</a>
+                    </div>
+                </section>
+
+                {/* SECCIÓN AUDIOVISUAL (TRASLÚCIDA 1%) */}
+                <section id="audiovisual" style={{ padding: '40px 0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
+                        <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
+                        <h2 className="section-title-text">Audiovisual</h2>
+                    </div>
+                    <div className="glass-panel-ultra">
                         <div className="glass-grid">
                             {videosVimeo.map(id => (
                                 <div key={id} className="video-glass-box">
@@ -84,17 +109,10 @@ const IndexPrakxisFinal = () => {
                                 </div>
                             ))}
                         </div>
-                    )}
-                ].map(section => (
-                    <section key={section.id} id={section.id} style={{ padding: '40px 0' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '25px' }}>
-                            <div style={{ width: '4px', height: '22px', backgroundColor: colors.accent }}></div>
-                            <h2 className="section-title-text">{section.title}</h2>
-                        </div>
-                        <div className="glass-panel-ultra">{section.content}</div>
-                    </section>
-                ))}
+                    </div>
+                </section>
 
+                {/* SECCIÓN CONTACTO */}
                 <section id="contact" style={{ padding: '80px 0 150px 0' }}>
                     <div className="glass-panel-ultra" style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 40px' }}>
                         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -106,7 +124,7 @@ const IndexPrakxisFinal = () => {
                             <input type="text" name="name" placeholder="Tu Nombre" required className="input-glass" />
                             <input type="email" name="email" placeholder="Tu Email" required className="input-glass" />
                             <textarea name="message" placeholder="¿En qué podemos ayudarte?" rows="5" required className="input-glass"></textarea>
-                            <button type="submit" className="btn-submit-prakxis">ENVIAR MENSAJE</button>
+                            <button type="submit" className="btn-submit-prakxis">ENVIAR</button>
                         </form>
                     </div>
                 </section>
@@ -133,3 +151,21 @@ const IndexPrakxisFinal = () => {
                 .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
                 .glass-item:hover img { opacity: 1; transform: scale(1.03); }
                 .video-glass-box { aspect-ratio: 16/9; background: #000; }
+                .input-glass { padding: 18px; border-radius: 8px; border: 1px solid ${colors.accent}; background: transparent; color: white; font-size: 16px; outline: none; }
+                .input-glass::placeholder { color: ${colors.accent}; opacity: 0.8; font-weight: 600; }
+                .btn-submit-prakxis { background: ${colors.accent}; color: black; padding: 20px; border-radius: 8px; border: none; font-weight: 900; cursor: pointer; font-size: 14px; text-transform: uppercase; }
+                .wsp-float { position: fixed; bottom: 30px; right: 30px; background-color: ${colors.accent}; color: #000; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.4); z-index: 2000; transition: 0.3s; }
+                .wsp-tooltip { position: absolute; right: 75px; background: rgba(10, 11, 13, 0.9); color: white; padding: 8px 15px; border-radius: 8px; font-size: 13px; white-space: nowrap; border: 1px solid rgba(0, 242, 255, 0.3); opacity: 0; transition: 0.3s; pointer-events: none; }
+                .wsp-float:hover .wsp-tooltip { opacity: 1; right: 85px; }
+                .wsp-float:hover { transform: scale(1.1); background-color: #FFF; }
+                @media (max-width: 768px) {
+                    .nav-desktop, .pdf-frame { display: none; }
+                    .btn-mobile-only { display: inline-block; border: 1px solid ${colors.accent}; color: ${colors.accent}; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 10px; }
+                    .hero-title { white-space: normal !important; line-height: 1.1; }
+                }
+            `}</style>
+        </div>
+    );
+};
+
+export default IndexPrakxisFinal;
