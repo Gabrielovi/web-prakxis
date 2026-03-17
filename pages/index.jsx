@@ -16,164 +16,95 @@ const IndexPrakxisFinal = () => {
         { titulo: "Nuevo libro 'Del despojo surge la esperanza'", url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", medio: "Araucanía Noticias", img: "/images/prensa/libro_despojo.jpg" }
     ];
 
-    const videosVimeo = ["1156706575", "1156706044"];
+    const videosVimeo = ["1156706575", "1156701041", "1156695276"];
 
     return (
-        <div style={{ 
-            backgroundColor: colors.bgMain, 
-            backgroundImage: 'url("/images/dark-black-cement-wall-background.jpg")', 
-            backgroundAttachment: 'fixed',
+        <div style={{
+            backgroundColor: colors.bgMain,
+            minHeight: '100vh',
+            fontFamily: "'Chakra Petch', sans-serif",
+            color: colors.textBody,
+            position: 'relative',
+            overflowX: 'hidden',
+            backgroundImage: `linear-gradient(rgba(10, 11, 13, 0.85), rgba(10, 11, 13, 0.85)), url("/images/fondo-prakxis.jpg")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            color: 'white', 
-            minHeight: '100vh', 
-            fontFamily: 'Inter, system-ui, sans-serif',
-            scrollBehavior: 'smooth'
+            backgroundAttachment: 'fixed',
+            backgroundRepeat: 'no-repeat',
+            width: '100%'
         }}>
             <Head>
-                <title>PRAKXIS | Ciencia que conecta</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+                <title>PRAKXIS | Comunicación Científica</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet" />
             </Head>
 
-            <nav style={{ padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${colors.borderGlass}`, position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(10,11,13,0.9)', backdropFilter: 'blur(12px)' }}>
-                <span style={{ fontWeight: '900', letterSpacing: '1px', color: colors.accent, fontSize: '1.1rem' }}>PRAKXIS</span>
-                <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                    <div className="nav-desktop">
-                        <a href="#prensa" className="nav-link">PRENSA</a>
-                        <a href="#diseno" className="nav-link">DISEÑO</a>
-                        <a href="#audiovisual" className="nav-link">VIDEOS</a>
-                    </div>
-                    <a href="#contact" className="btn-contacto-top">CONTACTO</a>
-                </div>
-            </nav>
+            <header style={{ padding: '60px 20px 40px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
+                <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: '800', letterSpacing: '-2px', margin: 0, color: colors.textTitle }}>
+                    (PRAKXIS)<span style={{ color: colors.accent }}>.</span>
+                </h1>
+                <p style={{ fontSize: '1rem', color: colors.accent, fontWeight: '400', letterSpacing: '6px', marginTop: '15px', textTransform: 'uppercase' }}>
+                    Ciencia que conecta
+                </p>
+            </header>
 
-            <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
-                <section style={{ padding: '100px 0 60px 0', textAlign: 'center' }}>
-                    <h1 className="hero-title">Ciencia que <span style={{ color: colors.accent }}>conecta</span></h1>
-                    <p style={{ color: colors.textBody, marginTop: '20px', fontSize: '1.2rem', fontWeight: '300', opacity: 0.9 }}>Narrativas visuales con rigor científico.</p>
+            <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', zIndex: 10 }}>
+                <section style={{ textAlign: 'center', margin: '40px 0 80px' }}>
+                    <h2 style={{ fontSize: '1.8rem', color: colors.textTitle, marginBottom: '20px', fontWeight: '300' }}>
+                        Narrativas visuales con <span style={{ fontWeight: '700', color: colors.accent }}>rigor científico</span>.
+                    </h2>
+                    <div style={{ height: '2px', width: '40px', background: colors.accent, margin: '0 auto' }}></div>
                 </section>
 
-                {/* PRENSA */}
-                <section id="prensa" style={{ padding: '40px 0' }}>
-                    <div className="section-header">
-                        <div className="accent-line"></div>
-                        <h2 className="section-title-text">Prensa</h2>
-                    </div>
-                    <div className="glass-panel-ultra">
-                        <div className="glass-grid">
-                            {notasPrensa.map((nota, i) => (
-                                <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="glass-item">
-                                    <div className="img-container"><img src={nota.img} alt={nota.titulo} /></div>
-                                    <div style={{ padding: '20px' }}>
-                                        <small style={{ color: colors.accent, fontWeight: '800' }}>{nota.medio}</small>
-                                        <h3 style={{ fontSize: '1rem', color: 'white', marginTop: '10px', lineHeight: '1.4' }}>{nota.titulo}</h3>
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* DISEÑO - MEJORADO */}
-                <section id="diseno" style={{ padding: '40px 0' }}>
-                    <div className="section-header">
-                        <div className="accent-line"></div>
-                        <h2 className="section-title-text">Diseño</h2>
-                    </div>
-                    <div className="glass-panel-ultra" style={{ padding: '40px 20px', textAlign: 'center' }}>
-                        <div className="pdf-frame">
-                            <iframe src="/docs/diseno/30dic.pdf#toolbar=0" width="100%" height="600px" style={{ border: 'none', borderRadius: '8px', background: 'rgba(255,255,255,0.05)' }}></iframe>
-                        </div>
-                        <a href="/docs/diseno/30dic.pdf" target="_blank" className="btn-portafolio-visible">ABRIR PORTAFOLIO EDITORIAL</a>
-                    </div>
-                </section>
-
-                {/* AUDIOVISUAL */}
-                <section id="audiovisual" style={{ padding: '40px 0' }}>
-                    <div className="section-header">
-                        <div className="accent-line"></div>
-                        <h2 className="section-title-text">Audiovisual</h2>
-                    </div>
-                    <div className="glass-panel-ultra">
-                        <div className="glass-grid">
-                            {videosVimeo.map(id => (
-                                <div key={id} className="video-glass-box">
-                                    <iframe src={`https://player.vimeo.com/video/${id}`} frameBorder="0" allowFullScreen style={{ width: '100%', height: '100%' }}></iframe>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
+                    <div className="glass-card">
+                        <h3 className="section-title">Audiovisual</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+                            {videosVimeo.map((id) => (
+                                <div key={id} style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden', border: `1px solid ${colors.borderGlass}`, background: '#000' }}>
+                                    <iframe src={`https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&app_id=58479`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                                 </div>
                             ))}
                         </div>
                     </div>
-                </section>
 
-                {/* CONTACTO */}
-                <section id="contact" style={{ padding: '80px 0 150px 0' }}>
-                    <div className="glass-panel-ultra" style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 30px' }}>
-                        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                            <h2 style={{ fontSize: '2.5rem', color: 'white', margin: 0, fontWeight: '900' }}>Conectemos</h2>
-                            <div style={{ width: '60px', height: '4px', backgroundColor: colors.accent, margin: '20px auto' }}></div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                        <div className="glass-card">
+                            <h3 className="section-title">Diseño Editorial</h3>
+                            <p style={{ marginBottom: '25px', lineHeight: '1.7', fontSize: '1.05rem' }}>
+                                Especialistas en memorias institucionales y reportes científicos de alto impacto.
+                            </p>
+                            {/* ENLACE CORREGIDO SEGÚN TU CAPTURA */}
+                            <a href="/docs/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-portafolio">
+                                VER PORTAFOLIO DISEÑO
+                            </a>
                         </div>
-                        <form action="https://api.web3forms.com/submit" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <input type="hidden" name="access_key" value="1c056454-ecb4-4447-ae36-84c91c6cf4bf" />
-                            <input type="text" name="name" placeholder="Tu Nombre" required className="input-glass" />
-                            <input type="email" name="email" placeholder="Tu Email" required className="input-glass" />
-                            <textarea name="message" placeholder="¿En qué podemos ayudarte?" rows="5" required className="input-glass"></textarea>
-                            <button type="submit" className="btn-submit-prakxis">ENVIAR MENSAJE</button>
-                        </form>
+
+                        <div className="glass-card">
+                            <h3 className="section-title">Gestión de Prensa</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                {notasPrensa.map((nota, idx) => (
+                                    <a key={idx} href={nota.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', gap: '15px', textDecoration: 'none', color: 'inherit', padding: '12px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: `1px solid ${colors.borderGlass}` }}>
+                                        <div style={{ minWidth: '70px', height: '70px', background: '#111', borderRadius: '8px', overflow: 'hidden' }}>
+                                            <img src={nota.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+                                        <div>
+                                            <div style={{ fontSize: '0.75rem', color: colors.accent, marginBottom: '5px', fontWeight: '700' }}>{nota.medio}</div>
+                                            <div style={{ fontSize: '0.9rem', fontWeight: '500', lineHeight: '1.4' }}>{nota.titulo}</div>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
             </main>
 
-            {/* WHATSAPP */}
-            <a href="https://wa.me/56932465215" target="_blank" rel="noopener noreferrer" className="wsp-float">
-                <div className="wsp-tooltip">¿Tienes una pregunta?</div>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.135 1.389 4.793 1.391 5.421 0 9.833-4.412 9.833-9.832 0-2.628-1.023-5.097-2.88-6.956-1.857-1.859-4.325-2.883-6.953-2.883-5.422 0-9.835 4.412-9.835 9.832-.001 1.742.454 3.441 1.316 4.931l-1.011 3.693 3.73-1.005zm11.547-7.912c-.301-.151-1.781-.878-2.057-.978-.275-.1-.476-.151-.675.151-.199.302-.77.978-.944 1.179-.175.199-.349.226-.651.076-.301-.151-1.274-.47-2.426-1.5-.896-.799-1.5-1.787-1.675-2.089-.175-.301-.019-.465.131-.615.136-.135.301-.352.451-.527.151-.176.201-.302.302-.503.1-.199.05-.376-.025-.526-.075-.151-.675-1.631-.925-2.235-.243-.594-.49-.513-.675-.522-.174-.008-.374-.01-.574-.01s-.525.076-.8.377c-.275.301-1.05 1.029-1.05 2.511 0 1.481 1.075 2.912 1.225 3.112.15.201 2.115 3.23 5.123 4.527.714.309 1.272.494 1.707.633.718.227 1.37.194 1.887.118.576-.085 1.781-.728 2.031-1.43.25-.704.25-1.307.175-1.43-.075-.124-.275-.199-.575-.351z"/></svg>
-            </a>
-
             <style jsx>{`
-                .hero-title { font-size: clamp(1.8rem, 7vw, 4.2rem); font-weight: 900; color: white; margin: 0; white-space: nowrap; }
-                .nav-desktop { display: flex; gap: 20px; }
-                .nav-link { color: #CCC; text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
-                .btn-contacto-top { background: ${colors.accent}; color: black; padding: 8px 16px; border-radius: 4px; font-weight: 800; text-decoration: none; font-size: 11px; }
-                
-                .section-header { display: flex; alignItems: center; gap: 10px; margin-bottom: 25px; }
-                .accent-line { width: 4px; height: 22px; background-color: ${colors.accent}; }
-                .section-title-text { font-size: 1.4rem; color: white; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-                
-                .glass-panel-ultra { background: ${colors.bgGlass}; border-radius: 12px; border: 1px solid ${colors.borderGlass}; backdrop-filter: blur(8px); overflow: hidden; }
-                .glass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1px; background: ${colors.borderGlass}; }
-                .glass-item { background: rgba(0,0,0,0.1); text-decoration: none; color: white; transition: 0.3s; }
-                .img-container { height: 220px; overflow: hidden; }
-                .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-                .glass-item:hover { background: rgba(255,255,255,0.05); }
-                .glass-item:hover img { opacity: 1; transform: scale(1.02); }
-                
-                .video-glass-box { aspect-ratio: 16/9; background: #000; }
-                
-                .input-glass { padding: 18px; border-radius: 8px; border: 1px solid ${colors.accent}; background: transparent; color: white; font-size: 16px; outline: none; }
-                .input-glass::placeholder { color: ${colors.accent}; opacity: 0.8; font-weight: 600; }
-                .btn-submit-prakxis { background: ${colors.accent}; color: black; padding: 20px; border-radius: 8px; border: none; font-weight: 900; cursor: pointer; font-size: 14px; text-transform: uppercase; width: 100%; }
-
-                .btn-portafolio-visible { 
-                    display: inline-block; 
-                    background: ${colors.accent}; 
-                    color: black; 
-                    padding: 16px 32px; 
-                    border-radius: 8px; 
-                    text-decoration: none; 
-                    font-weight: 900; 
-                    font-size: 14px; 
-                    margin-top: 10px;
-                    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
-                }
-
-                .wsp-float { position: fixed; bottom: 30px; right: 30px; background-color: ${colors.accent}; color: #000; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.4); z-index: 2000; transition: 0.3s; }
-                .wsp-tooltip { position: absolute; right: 75px; background: rgba(10, 11, 13, 0.9); color: white; padding: 8px 15px; border-radius: 8px; font-size: 13px; white-space: nowrap; border: 1px solid rgba(0, 242, 255, 0.3); opacity: 0; transition: 0.3s; pointer-events: none; }
-                .wsp-float:hover .wsp-tooltip { opacity: 1; right: 85px; }
-
-                @media (max-width: 768px) {
-                    .nav-desktop, .pdf-frame { display: none; }
-                    .hero-title { white-space: normal !important; line-height: 1.1; }
-                }
+                .glass-card { background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; padding: 40px; }
+                .section-title { font-size: 1.2rem; color: #00F2FF; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
+                .btn-portafolio { display: inline-block; background: #00F2FF; color: #000; padding: 18px 35px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
+                .btn-portafolio:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4); }
             `}</style>
         </div>
     );
