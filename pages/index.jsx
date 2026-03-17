@@ -34,9 +34,10 @@ const IndexPrakxisFinalMonochrome = () => {
 
             <div className="grain-overlay"></div>
 
-            <header style={{ padding: '100px 20px 60px', textAlign: 'center', position: 'relative', zIndex: 100 }}>
-                <div style={{ maxWidth: '450px', margin: '0 auto' }}>
-                    <img src="/images/logo_prakxis.png" alt="PRAKXIS" style={{ width: '100%', height: 'auto' }} />
+            <header className="site-header">
+                <div className="logo-wrap">
+                    {/* SOLUCIÓN: FILTRO PARA INVERTIR EL LOGO DE NEGRO A BLANCO */}
+                    <img src="/images/logo_prakxis.png" alt="PRAKXIS" className="main-logo-img" />
                 </div>
                 <div style={{ marginTop: '50px' }}>
                     <h2 className="hero-tagline">
@@ -72,7 +73,7 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                 </section>
 
-                {/* 02. DISEÑO EDITORIAL (CON CONTRASTE EXTREMO) */}
+                {/* 02. DISEÑO EDITORIAL */}
                 <section className="vertical-section">
                     <div className="section-header">
                         <span className="section-number">02</span>
@@ -114,7 +115,7 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                 </section>
 
-                {/* 04. SECCIÓN DE CONTACTO (SIN IMAGEN) */}
+                {/* 04. SECCIÓN DE CONTACTO */}
                 <section className="vertical-section">
                     <div className="section-header">
                         <span className="section-number">04</span>
@@ -139,7 +140,7 @@ const IndexPrakxisFinalMonochrome = () => {
             </main>
 
             <footer className="footer-site">
-                <p>© 2026 PRAKXIS_CORE_SYSTEM // WHITE_TEXT_ONLY // FINAL_EDITION</p>
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // FINAL_MONOCHROME_EDITION // LOGO_WHITE_FORCED</p>
             </footer>
 
             <style jsx>{`
@@ -158,6 +159,11 @@ const IndexPrakxisFinalMonochrome = () => {
                     opacity: 0.04; z-index: 999; pointer-events: none; animation: grain 1s steps(10) infinite;
                 }
                 @keyframes grain { 0%, 100% { transform:translate(0,0) } 50% { transform:translate(5%, 5%) } }
+
+                /* HEADER & LOGO INVERTIDO */
+                .site-header { padding: 100px 20px 60px; text-align: center; position: relative; z-index: 100; }
+                .logo-wrap { max-width: 450px; margin: 0 auto; }
+                .main-logo-img { width: 100%; height: auto; display: block; filter: invert(100%); /* <--- ESTA ES LA MAGIA */}
 
                 .content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
                 .hero-tagline { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 300; letter-spacing: 8px; text-transform: uppercase; line-height: 1.6; }
@@ -178,11 +184,9 @@ const IndexPrakxisFinalMonochrome = () => {
                 .press-label-top { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 10px; }
                 .press-headline { font-size: 1.2rem; font-weight: 400; margin: 0; line-height: 1.4; }
 
-                /* PORTAFOLIO CON CONTRASTE EXTREMO */
+                /* PORTAFOLIO */
                 .portfolio-image-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; overflow: hidden; }
-                /* Imagen muy oscurecida por defecto */
                 .portfolio-img { width: 100%; height: auto; display: block; filter: grayscale(100%) contrast(0.5); opacity: 0.4; transition: 0.6s ease; }
-                /* Imagen recupera contraste y brillo en hover */
                 .portfolio-link:hover .portfolio-img { filter: grayscale(0%) contrast(1); opacity: 0.9; transform: scale(1.02); }
                 .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
                 .view-dossier-text { background: #000; padding: 18px 45px; border: 1px solid #fff; letter-spacing: 6px; font-weight: 700; font-size: 0.9rem; }
@@ -190,7 +194,7 @@ const IndexPrakxisFinalMonochrome = () => {
                 .editorial-desc { font-weight: 300; line-height: 1.8; margin-bottom: 40px; font-size: 1.15rem; }
                 .btn-monocromo { display: inline-block; background: #fff; color: #000 !important; padding: 22px 60px; font-weight: 800; text-decoration: none; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; }
 
-                /* CONTACTO BRUTALISTA */
+                /* CONTACTO */
                 .contact-info-direct { display: flex; flex-direction: column; gap: 40px; text-align: center; max-width: 600px; margin: 0 auto; }
                 .contact-item-direct { padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
                 .contact-label-direct { font-size: 0.75rem; letter-spacing: 5px; opacity: 0.5; display: block; text-transform: uppercase;}
