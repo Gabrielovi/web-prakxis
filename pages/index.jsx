@@ -1,13 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { Chakra_Petch } from 'next/font/google';
-
-// Configuración de la fuente oficial de Next.js
-const chakra = Chakra_Petch({
-  subsets: ['latin'],
-  weight: ['300', '400', '600', '700', '800'],
-  display: 'swap',
-});
 
 const IndexPrakxisFinal = () => {
     const colors = {
@@ -24,7 +16,7 @@ const IndexPrakxisFinal = () => {
     const videosVimeo = ["1156706044", "1156706575"]; 
 
     return (
-        <div className={`main-container ${chakra.className}`}>
+        <div className="main-container">
             <Head>
                 <title>PRAKXIS | Comunicación Científica</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,7 +40,7 @@ const IndexPrakxisFinal = () => {
 
             <main style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', zIndex: 10 }}>
                 
-                {/* 1. GESTIÓN DE PRENSA */}
+                {/* 1. PRENSA */}
                 <section className="vertical-section">
                     <div className="glass-card">
                         <h3 className="section-title">Gestión de Prensa</h3>
@@ -68,7 +60,7 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* 2. DISEÑO EDITORIAL */}
+                {/* 2. DISEÑO */}
                 <section className="vertical-section" style={{ marginTop: '60px' }}>
                     <div className="glass-card">
                         <h3 className="section-title">Diseño Editorial</h3>
@@ -100,11 +92,15 @@ const IndexPrakxisFinal = () => {
             </main>
 
             <style jsx global>{`
+                /* IMPORTACIÓN DIRECTA DESDE GOOGLE (MÁS SEGURA PARA EL BUILD) */
+                @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700;800&display=swap');
+
                 html, body {
                     background-color: #0A0B0D;
                     margin: 0;
                     padding: 0;
                     color: #FFFFFF;
+                    font-family: 'Chakra Petch', sans-serif !important;
                 }
 
                 .main-container {
@@ -114,104 +110,21 @@ const IndexPrakxisFinal = () => {
                     background-size: cover;
                     background-position: center;
                     background-attachment: fixed;
+                    font-family: 'Chakra Petch', sans-serif !important;
                 }
 
-                .main-logo {
-                    font-size: clamp(3rem, 10vw, 5.5rem);
-                    font-weight: 800;
-                    letter-spacing: -3px;
-                    margin: 0;
-                }
-
-                .tagline {
-                    font-size: clamp(1.4rem, 5vw, 2.2rem);
-                    font-weight: 400;
-                    letter-spacing: 6px;
-                    line-height: 1.4;
-                    color: #FFFFFF;
-                }
-
-                .sub-tagline {
-                    font-size: 1.2rem;
-                    letter-spacing: 4px;
-                }
-
-                .section-title { 
-                    font-size: 1.2rem; 
-                    color: #00F2FF; 
-                    margin-bottom: 35px; 
-                    text-transform: uppercase; 
-                    letter-spacing: 4px; 
-                    font-weight: 700;
-                    text-align: center;
-                }
-
-                .glass-card { 
-                    background: rgba(255, 255, 255, 0.02); 
-                    backdrop-filter: blur(20px); 
-                    border: 1px solid rgba(255, 255, 255, 0.1); 
-                    border-radius: 30px; 
-                    padding: 40px; 
-                }
-
-                .card-text {
-                    line-height: 1.8;
-                    font-size: 1.1rem;
-                    text-align: center;
-                    margin-bottom: 30px;
-                }
-
-                .btn-portafolio { 
-                    display: block;
-                    text-align: center;
-                    background: #00F2FF; 
-                    color: #000 !important; 
-                    padding: 22px; 
-                    border-radius: 15px; 
-                    text-decoration: none; 
-                    font-weight: 800; 
-                    font-size: 14px; 
-                    text-transform: uppercase; 
-                }
-
-                .video-container {
-                    position: relative; 
-                    padding-bottom: 56.25%; 
-                    height: 0; 
-                    border-radius: 20px; 
-                    overflow: hidden; 
-                    border: 1px solid rgba(255, 255, 255, 0.1); 
-                }
-
-                .press-link {
-                    display: flex; 
-                    gap: 20px; 
-                    text-decoration: none; 
-                    padding: 20px; 
-                    border-radius: 15px; 
-                    background: rgba(255,255,255,0.03); 
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                }
-
-                .press-titulo {
-                    font-size: 1rem;
-                    font-weight: 500;
-                    color: #FFFFFF;
-                }
-
-                .press-medio {
-                    font-size: 0.8rem;
-                    color: #00F2FF;
-                    font-weight: 700;
-                    margin-bottom: 5px;
-                }
-
-                .press-img {
-                    min-width: 80px; 
-                    height: 80px; 
-                    border-radius: 10px; 
-                    overflow: hidden;
-                }
+                .main-logo { font-size: clamp(3rem, 10vw, 5.5rem); font-weight: 800; letter-spacing: -3px; margin: 0; }
+                .tagline { font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 400; letter-spacing: 6px; line-height: 1.4; color: #FFFFFF; }
+                .sub-tagline { font-size: 1.2rem; letter-spacing: 4px; }
+                .section-title { font-size: 1.2rem; color: #00F2FF; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 4px; font-weight: 700; text-align: center; }
+                .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 40px; }
+                .card-text { line-height: 1.8; font-size: 1.1rem; text-align: center; margin-bottom: 30px; }
+                .btn-portafolio { display: block; text-align: center; background: #00F2FF; color: #000 !important; padding: 22px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 14px; text-transform: uppercase; }
+                .video-container { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
+                .press-link { display: flex; gap: 20px; text-decoration: none; padding: 20px; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
+                .press-titulo { font-size: 1rem; font-weight: 500; color: #FFFFFF; }
+                .press-medio { font-size: 0.8rem; color: #00F2FF; font-weight: 700; margin-bottom: 5px; }
+                .press-img { min-width: 80px; height: 80px; border-radius: 10px; overflow: hidden; }
             `}</style>
         </div>
     );
