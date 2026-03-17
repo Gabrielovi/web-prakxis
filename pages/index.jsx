@@ -17,26 +17,35 @@ const IndexPrakxisFinalMonochrome = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            {/* CAPA DE GRANO DE 35mm */}
+            <style jsx global>{`
+                @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700;800&display=swap');
+
+                body {
+                    margin: 0; padding: 0; background: #000; color: #fff;
+                    font-family: 'Chakra Petch', sans-serif !important;
+                    -webkit-font-smoothing: antialiased;
+                }
+
+                h1, h2, h3, h4, p, a, span, div {
+                    font-family: 'Chakra Petch', sans-serif !important;
+                    color: #FFFFFF !important;
+                }
+            `}</style>
+
             <div className="grain-overlay"></div>
 
-            <header className="header-section">
-                <div className="logo-container">
-                    <span className="bracket">[</span>
-                    <h1 className="main-logo">PRAKXIS</h1>
-                    <span className="bracket">]</span>
+            <header style={{ padding: '100px 20px 60px', textAlign: 'center', position: 'relative', zIndex: 100 }}>
+                <div style={{ maxWidth: '450px', margin: '0 auto' }}>
+                    <img src="/images/logo_prakxis.png" alt="PRAKXIS" style={{ width: '100%', height: 'auto' }} />
                 </div>
-                
-                <div className="hero-content">
-                    <h2 className="tagline">
+                <div style={{ marginTop: '50px' }}>
+                    <h2 className="hero-tagline">
                         NARRATIVAS VISUALES <br />
-                        <span className="bold-tag">CON RIGOR CIENTÍFICO.</span>
+                        <span style={{ fontWeight: '800' }}>CON RIGOR CIENTÍFICO.</span>
                     </h2>
-                    <div className="brand-footer">
-                        <span className="px-tag">[PX]</span>
-                        <div className="line-divider"></div>
-                        <span className="co-tag">COMUNICACIÓN_CIENTÍFICA</span>
-                    </div>
+                    <p className="hero-subline">
+                        <span style={{ fontWeight: '800' }}>[PX]</span> ——— <span className="co-label">COMUNICACIÓN_CIENTÍFICA</span>
+                    </p>
                 </div>
             </header>
 
@@ -48,14 +57,14 @@ const IndexPrakxisFinalMonochrome = () => {
                         <span className="section-number">01</span>
                         <h3 className="section-title">Gestión de Prensa</h3>
                     </div>
-                    <div className="glass-grid">
+                    <div className="press-grid">
                         {notasPrensa.map((nota, idx) => (
-                            <a key={idx} href={nota.url} target="_blank" rel="noopener noreferrer" className="press-link">
-                                <div className="press-img">
-                                    <img src={nota.img} alt="" />
+                            <a key={idx} href={nota.url} target="_blank" rel="noopener noreferrer" className="press-card">
+                                <div className="press-img-container">
+                                    <img src={nota.img} alt="" className="press-img-main" />
                                 </div>
-                                <div className="press-text-box">
-                                    <span className="press-label">{nota.medio}</span>
+                                <div className="press-content">
+                                    <span className="press-label-top">{nota.medio}</span>
                                     <h4 className="press-headline">{nota.titulo}</h4>
                                 </div>
                             </a>
@@ -63,29 +72,27 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                 </section>
 
-                {/* 02. DISEÑO EDITORIAL (CON PREVIEW TIPO DOSIER) */}
+                {/* 02. DISEÑO EDITORIAL */}
                 <section className="vertical-section">
                     <div className="section-header">
                         <span className="section-number">02</span>
                         <h3 className="section-title">Diseño Editorial</h3>
                     </div>
-                    
-                    <div className="editorial-preview-container">
-                        <a href="/docs/diseno/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="portfolio-preview-link">
+                    <div className="portfolio-preview-box">
+                        <a href="/docs/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="portfolio-link">
                             <div className="portfolio-image-wrapper">
-                                {/* Esta es la imagen que indicaste como preview */}
-                                <img src="/images/prensa/preview-portfolio.jpg" alt="Preview Portfolio Prakxis" className="preview-img" />
-                                <div className="preview-overlay">
-                                    <span className="view-text">ABRIR_DOSIER_V.2026</span>
+                                <img src="/images/prensa/preview-portfolio.jpg" alt="Dosier" className="portfolio-img" />
+                                <div className="portfolio-overlay">
+                                    <span className="view-dossier-text">ABRIR DOSIER</span>
                                 </div>
                             </div>
                         </a>
-                        <div className="editorial-info-box">
-                            <p className="card-text">
-                                Memorias institucionales y reportes de alta complejidad. 
-                                Transformamos el dato técnico en narrativa visual estratégica.
+                        <div className="editorial-footer">
+                            <p className="editorial-desc">
+                                Memorias institucionales y reportes técnicos de alta complejidad. <br/>
+                                Visualización de datos y narrativa estratégica.
                             </p>
-                            <a href="/docs/diseno/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-brutalista">
+                            <a href="/docs/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-monocromo">
                                 VER PORTAFOLIO_COMPLETO [PDF]
                             </a>
                         </div>
@@ -100,91 +107,112 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                     <div className="video-stack">
                         {videosVimeo.map((id) => (
-                            <div key={id} className="video-container">
-                                <iframe 
-                                    src={`https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&app_id=58479`} 
-                                    frameBorder="0" 
-                                    allow="autoplay; fullscreen"
-                                ></iframe>
+                            <div key={id} className="video-item">
+                                <iframe src={`https://player.vimeo.com/video/${id}?badge=0&autopause=0`} frameBorder="0" allow="autoplay; fullscreen"></iframe>
                             </div>
                         ))}
                     </div>
                 </section>
 
+                {/* 04. SECCIÓN DE CONTACTO (NUEVA) */}
+                <section className="vertical-section">
+                    <div className="section-header">
+                        <span className="section-number">04</span>
+                        <h3 className="section-title">Contacto</h3>
+                    </div>
+                    <div className="contact-grid">
+                        <div className="contact-image-box">
+                            <img src="/images/contacto-prakxis.jpg" alt="Contacto" className="contact-img" />
+                        </div>
+                        <div className="contact-info">
+                            <div className="contact-item">
+                                <span className="contact-label">EMAIL_DIRECTO</span>
+                                <a href="mailto:contacto@prakxis.cl" className="contact-value">contacto@prakxis.cl</a>
+                            </div>
+                            <div className="contact-item">
+                                <span className="contact-label">UBICACIÓN_RED</span>
+                                <span className="contact-value">TEMUCO / CHILE</span>
+                            </div>
+                            <div className="contact-item">
+                                <span className="contact-label">ESTADO_SISTEMA</span>
+                                <span className="contact-value" style={{color: '#fff', opacity: 0.6}}>DISPONIBLE_2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </main>
 
-            <footer className="final-footer">
-                <p>© 2026 PRAKXIS_CORE_SYSTEM // ESTÉTICA MONOCROMA</p>
+            <footer className="footer-site">
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // WHITE_ONLY_EDITION</p>
             </footer>
 
-            <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700;800&display=swap');
-
-                html, body {
-                    background-color: #000;
-                    margin: 0;
-                    padding: 0;
-                    color: #fff;
-                    font-family: 'Chakra Petch', sans-serif !important;
-                    overflow-x: hidden;
-                }
-
-                .main-container {
-                    min-height: 100vh;
-                    position: relative;
-                    background-image: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url("/images/fondo-prakxis.jpg");
-                    background-size: cover;
-                    background-position: center;
-                    background-attachment: fixed;
+            <style jsx>{`
+                .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
+                
+                .main-container::before {
+                    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+                    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("/images/fondo-prakxis.jpg");
+                    background-size: cover; background-position: center;
+                    filter: blur(10px); transform: scale(1.1);
                 }
 
                 .grain-overlay {
                     position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
                     background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png");
-                    opacity: 0.04; z-index: 99; pointer-events: none; animation: grain 1s steps(10) infinite;
+                    opacity: 0.04; z-index: 999; pointer-events: none; animation: grain 1s steps(10) infinite;
                 }
                 @keyframes grain { 0%, 100% { transform:translate(0,0) } 50% { transform:translate(5%, 5%) } }
 
-                /* HEADER */
-                .header-section { padding: 120px 20px 60px; text-align: center; position: relative; z-index: 100; }
-                .main-logo { font-size: clamp(3rem, 12vw, 6rem); font-weight: 800; letter-spacing: -4px; margin: 0; font-family: 'Chakra Petch' !important; }
-                .bracket { color: #fff; opacity: 0.3; font-weight: 200; font-size: 1.2em; }
-                .tagline { font-size: clamp(1rem, 4vw, 1.8rem); letter-spacing: 7px; text-transform: uppercase; font-weight: 300; margin: 40px 0; font-family: 'Chakra Petch' !important; }
-                .brand-footer { display: flex; align-items: center; gap: 15px; max-width: 500px; margin: 0 auto; opacity: 0.6; }
-                .line-divider { height: 1px; flex-grow: 1; background: #fff; opacity: 0.2; }
-
-                /* CONTENT */
                 .content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
+                .hero-tagline { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 300; letter-spacing: 8px; text-transform: uppercase; line-height: 1.6; }
+                .hero-subline { margin-top: 40px; font-size: 1.1rem; letter-spacing: 4px; }
+                .co-label { font-weight: 400; letter-spacing: 5px; font-size: 0.85rem; }
+
                 .vertical-section { margin-bottom: 120px; }
-                .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 40px; }
-                .section-number { opacity: 0.3; font-weight: 800; }
-                .section-title { text-transform: uppercase; letter-spacing: 5px; font-size: 1.2rem; margin: 0; font-family: 'Chakra Petch' !important; }
+                .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-bottom: 40px; }
+                .section-number { font-weight: 800; font-size: 1.1rem; opacity: 0.4; }
+                .section-title { text-transform: uppercase; letter-spacing: 5px; font-size: 1.2rem; margin: 0; }
 
                 /* PRENSA */
-                .press-link { display: flex; gap: 20px; text-decoration: none; color: #fff; background: rgba(0,0,0,0.4); padding: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; transition: 0.3s; }
-                .press-link:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
-                .press-img { width: 80px; height: 80px; filter: grayscale(1); }
-                .press-label { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.5; text-transform: uppercase; }
-                .press-headline { font-size: 1.1rem; margin-top: 5px; font-weight: 400; font-family: 'Chakra Petch' !important; }
+                .press-grid { display: grid; gap: 20px; }
+                .press-card { display: flex; gap: 25px; text-decoration: none; background: rgba(255,255,255,0.03); padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
+                .press-img-main { width: 110px; height: 110px; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+                .press-card:hover { border-color: #FFFFFF; background: rgba(255,255,255,0.08); transform: translateX(10px); }
+                .press-card:hover .press-img-main { filter: grayscale(0%); }
+                .press-label-top { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 10px; }
+                .press-headline { font-size: 1.2rem; font-weight: 400; margin: 0; line-height: 1.4; }
 
-                /* PREVIEW PORTFOLIO (CLAVE) */
-                .portfolio-preview-link { text-decoration: none; display: block; }
-                .portfolio-image-wrapper { position: relative; width: 100%; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; background: #111; }
-                .preview-img { width: 100%; height: auto; display: block; filter: grayscale(1); transition: 0.6s; }
-                .portfolio-preview-link:hover .preview-img { filter: grayscale(0.5); transform: scale(1.02); }
-                .preview-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; }
-                .portfolio-preview-link:hover .preview-overlay { opacity: 1; }
-                .view-text { border: 1px solid #fff; padding: 10px 20px; letter-spacing: 4px; font-size: 0.8rem; }
+                /* PORTAFOLIO */
+                .portfolio-image-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; overflow: hidden; }
+                .portfolio-img { width: 100%; height: auto; display: block; filter: grayscale(100%); opacity: 0.6; transition: 0.5s; }
+                .portfolio-link:hover .portfolio-img { opacity: 0.9; transform: scale(1.02); }
+                .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+                .view-dossier-text { background: #000; padding: 18px 45px; border: 1px solid #fff; letter-spacing: 6px; font-weight: 700; font-size: 0.9rem; }
+                .editorial-footer { padding: 50px; text-align: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-top: 0; }
+                .editorial-desc { font-weight: 300; line-height: 1.8; margin-bottom: 40px; font-size: 1.15rem; }
+                .btn-monocromo { display: inline-block; background: #fff; color: #000 !important; padding: 22px 60px; font-weight: 800; text-decoration: none; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; }
 
-                .editorial-info-box { padding: 40px; text-align: center; background: rgba(255,255,255,0.02); }
-                .btn-brutalista { display: inline-block; background: #fff; color: #000 !important; padding: 18px 40px; font-weight: 800; text-decoration: none; letter-spacing: 2px; font-size: 0.8rem; margin-top: 20px; font-family: 'Chakra Petch' !important; }
+                /* CONTACTO */
+                .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+                .contact-image-box { border: 1px solid rgba(255,255,255,0.2); line-height: 0; }
+                .contact-img { width: 100%; height: auto; filter: grayscale(100%); opacity: 0.8; }
+                .contact-info { display: flex; flex-direction: column; gap: 30px; }
+                .contact-label { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.5; display: block; }
+                .contact-value { font-size: 1.3rem; font-weight: 400; text-decoration: none; display: block; margin-top: 5px; }
 
-                /* AUDIOVISUAL */
-                .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 40px; background: #000; }
-                .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); }
-                .video-container:hover iframe { filter: grayscale(0); }
+                /* VIDEO */
+                .video-item { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); background: #000; margin-bottom: 50px; }
+                .video-item iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(100%); transition: 0.5s; }
+                .video-item:hover iframe { filter: grayscale(0%); }
 
-                .final-footer { padding: 60px; text-align: center; opacity: 0.3; letter-spacing: 3px; font-size: 0.7rem; }
+                .footer-site { padding: 100px 20px 60px; text-align: center; opacity: 0.3; letter-spacing: 4px; font-size: 0.7rem; position: relative; z-index: 100; }
+
+                @media (max-width: 768px) {
+                    .contact-grid { grid-template-columns: 1fr; }
+                    .press-card { flex-direction: column; }
+                    .press-img-main { width: 100%; height: 180px; }
+                }
             `}</style>
         </div>
     );
