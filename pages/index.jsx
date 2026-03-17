@@ -1,5 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
+import { Chakra_Petch } from 'next/font/google';
+
+// Configuración de la fuente oficial de Next.js
+const chakra = Chakra_Petch({
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700', '800'],
+  display: 'swap',
+});
 
 const IndexPrakxisFinal = () => {
     const colors = {
@@ -13,17 +21,13 @@ const IndexPrakxisFinal = () => {
         { titulo: "Nuevo libro 'Del despojo surge la esperanza'", url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", medio: "Araucanía Noticias", img: "/images/prensa/libro_despojo.jpg" }
     ];
 
-    // ACTUALIZADO: Los 2 videos solicitados (el nuevo y el anterior)
     const videosVimeo = ["1156706044", "1156706575"]; 
 
     return (
-        <div className="main-container">
+        <div className={`main-container ${chakra.className}`}>
             <Head>
                 <title>PRAKXIS | Comunicación Científica</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet" />
             </Head>
 
             <header style={{ padding: '100px 20px 60px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
@@ -44,7 +48,7 @@ const IndexPrakxisFinal = () => {
 
             <main style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', zIndex: 10 }}>
                 
-                {/* 1. GESTIÓN DE PRENSA (PRIMERO) */}
+                {/* 1. GESTIÓN DE PRENSA */}
                 <section className="vertical-section">
                     <div className="glass-card">
                         <h3 className="section-title">Gestión de Prensa</h3>
@@ -64,7 +68,7 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* 2. DISEÑO EDITORIAL (SEGUNDO) */}
+                {/* 2. DISEÑO EDITORIAL */}
                 <section className="vertical-section" style={{ marginTop: '60px' }}>
                     <div className="glass-card">
                         <h3 className="section-title">Diseño Editorial</h3>
@@ -77,7 +81,7 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* 3. AUDIOVISUAL (TERCERO) */}
+                {/* 3. AUDIOVISUAL */}
                 <section className="vertical-section" style={{ marginTop: '60px' }}>
                     <h3 className="section-title">Audiovisual</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
@@ -93,7 +97,6 @@ const IndexPrakxisFinal = () => {
                         ))}
                     </div>
                 </section>
-
             </main>
 
             <style jsx global>{`
@@ -102,7 +105,6 @@ const IndexPrakxisFinal = () => {
                     margin: 0;
                     padding: 0;
                     color: #FFFFFF;
-                    font-family: 'Chakra Petch', sans-serif !important;
                 }
 
                 .main-container {
@@ -187,4 +189,32 @@ const IndexPrakxisFinal = () => {
                     text-decoration: none; 
                     padding: 20px; 
                     border-radius: 15px; 
-                    background: rgba(2
+                    background: rgba(255,255,255,0.03); 
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                }
+
+                .press-titulo {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: #FFFFFF;
+                }
+
+                .press-medio {
+                    font-size: 0.8rem;
+                    color: #00F2FF;
+                    font-weight: 700;
+                    margin-bottom: 5px;
+                }
+
+                .press-img {
+                    min-width: 80px; 
+                    height: 80px; 
+                    border-radius: 10px; 
+                    overflow: hidden;
+                }
+            `}</style>
+        </div>
+    );
+};
+
+export default IndexPrakxisFinal;
