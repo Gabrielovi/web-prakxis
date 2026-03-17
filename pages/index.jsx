@@ -72,7 +72,7 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                 </section>
 
-                {/* 02. DISEÑO EDITORIAL */}
+                {/* 02. DISEÑO EDITORIAL (CON CONTRASTE EXTREMO) */}
                 <section className="vertical-section">
                     <div className="section-header">
                         <span className="section-number">02</span>
@@ -114,29 +114,24 @@ const IndexPrakxisFinalMonochrome = () => {
                     </div>
                 </section>
 
-                {/* 04. SECCIÓN DE CONTACTO (NUEVA) */}
+                {/* 04. SECCIÓN DE CONTACTO (SIN IMAGEN) */}
                 <section className="vertical-section">
                     <div className="section-header">
                         <span className="section-number">04</span>
                         <h3 className="section-title">Contacto</h3>
                     </div>
-                    <div className="contact-grid">
-                        <div className="contact-image-box">
-                            <img src="/images/contacto-prakxis.jpg" alt="Contacto" className="contact-img" />
+                    <div className="contact-info-direct">
+                        <div className="contact-item-direct">
+                            <span className="contact-label-direct">EMAIL_DIRECTO</span>
+                            <a href="mailto:contacto@prakxis.cl" className="contact-value-direct">contacto@prakxis.cl</a>
                         </div>
-                        <div className="contact-info">
-                            <div className="contact-item">
-                                <span className="contact-label">EMAIL_DIRECTO</span>
-                                <a href="mailto:contacto@prakxis.cl" className="contact-value">contacto@prakxis.cl</a>
-                            </div>
-                            <div className="contact-item">
-                                <span className="contact-label">UBICACIÓN_RED</span>
-                                <span className="contact-value">TEMUCO / CHILE</span>
-                            </div>
-                            <div className="contact-item">
-                                <span className="contact-label">ESTADO_SISTEMA</span>
-                                <span className="contact-value" style={{color: '#fff', opacity: 0.6}}>DISPONIBLE_2026</span>
-                            </div>
+                        <div className="contact-item-direct">
+                            <span className="contact-label-direct">UBICACIÓN_RED</span>
+                            <span className="contact-value-direct">TEMUCO / CHILE</span>
+                        </div>
+                        <div className="contact-item-direct">
+                            <span className="contact-label-direct">ESTADO_SISTEMA</span>
+                            <span className="contact-value-direct" style={{color: '#fff', opacity: 0.6}}>DISPONIBLE_2026</span>
                         </div>
                     </div>
                 </section>
@@ -144,7 +139,7 @@ const IndexPrakxisFinalMonochrome = () => {
             </main>
 
             <footer className="footer-site">
-                <p>© 2026 PRAKXIS_CORE_SYSTEM // WHITE_ONLY_EDITION</p>
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // WHITE_TEXT_ONLY // FINAL_EDITION</p>
             </footer>
 
             <style jsx>{`
@@ -183,23 +178,23 @@ const IndexPrakxisFinalMonochrome = () => {
                 .press-label-top { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; display: block; margin-bottom: 10px; }
                 .press-headline { font-size: 1.2rem; font-weight: 400; margin: 0; line-height: 1.4; }
 
-                /* PORTAFOLIO */
+                /* PORTAFOLIO CON CONTRASTE EXTREMO */
                 .portfolio-image-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.2); background: #000; overflow: hidden; }
-                .portfolio-img { width: 100%; height: auto; display: block; filter: grayscale(100%); opacity: 0.6; transition: 0.5s; }
-                .portfolio-link:hover .portfolio-img { opacity: 0.9; transform: scale(1.02); }
+                /* Imagen muy oscurecida por defecto */
+                .portfolio-img { width: 100%; height: auto; display: block; filter: grayscale(100%) contrast(0.5); opacity: 0.4; transition: 0.6s ease; }
+                /* Imagen recupera contraste y brillo en hover */
+                .portfolio-link:hover .portfolio-img { filter: grayscale(0%) contrast(1); opacity: 0.9; transform: scale(1.02); }
                 .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
                 .view-dossier-text { background: #000; padding: 18px 45px; border: 1px solid #fff; letter-spacing: 6px; font-weight: 700; font-size: 0.9rem; }
                 .editorial-footer { padding: 50px; text-align: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-top: 0; }
                 .editorial-desc { font-weight: 300; line-height: 1.8; margin-bottom: 40px; font-size: 1.15rem; }
                 .btn-monocromo { display: inline-block; background: #fff; color: #000 !important; padding: 22px 60px; font-weight: 800; text-decoration: none; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; }
 
-                /* CONTACTO */
-                .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-                .contact-image-box { border: 1px solid rgba(255,255,255,0.2); line-height: 0; }
-                .contact-img { width: 100%; height: auto; filter: grayscale(100%); opacity: 0.8; }
-                .contact-info { display: flex; flex-direction: column; gap: 30px; }
-                .contact-label { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.5; display: block; }
-                .contact-value { font-size: 1.3rem; font-weight: 400; text-decoration: none; display: block; margin-top: 5px; }
+                /* CONTACTO BRUTALISTA */
+                .contact-info-direct { display: flex; flex-direction: column; gap: 40px; text-align: center; max-width: 600px; margin: 0 auto; }
+                .contact-item-direct { padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+                .contact-label-direct { font-size: 0.75rem; letter-spacing: 5px; opacity: 0.5; display: block; text-transform: uppercase;}
+                .contact-value-direct { font-size: 1.5rem; font-weight: 400; text-decoration: none; display: block; margin-top: 10px; word-break: break-all; }
 
                 /* VIDEO */
                 .video-item { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); background: #000; margin-bottom: 50px; }
@@ -209,7 +204,7 @@ const IndexPrakxisFinalMonochrome = () => {
                 .footer-site { padding: 100px 20px 60px; text-align: center; opacity: 0.3; letter-spacing: 4px; font-size: 0.7rem; position: relative; z-index: 100; }
 
                 @media (max-width: 768px) {
-                    .contact-grid { grid-template-columns: 1fr; }
+                    .contact-value-direct { font-size: 1.2rem; }
                     .press-card { flex-direction: column; }
                     .press-img-main { width: 100%; height: 180px; }
                 }
