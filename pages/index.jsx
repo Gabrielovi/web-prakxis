@@ -1,12 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisVertical = () => {
+const IndexPrakxisFinal = () => {
     const colors = {
         bgMain: '#0A0B0D',    
         accent: '#00F2FF',    
         textWhite: '#FFFFFF',
-        borderGlass: 'rgba(255, 255, 255, 0.12)',
     };
 
     const notasPrensa = [
@@ -14,7 +13,8 @@ const IndexPrakxisVertical = () => {
         { titulo: "Nuevo libro 'Del despojo surge la esperanza'", url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", medio: "Araucanía Noticias", img: "/images/prensa/libro_despojo.jpg" }
     ];
 
-    const videosVimeo = ["1156706575", "1156701041", "1156695276"];
+    // ACTUALIZADO: Solo los 2 videos solicitados
+    const videosVimeo = ["1156706044", "1156706575"]; 
 
     return (
         <div className="main-container">
@@ -52,38 +52,8 @@ const IndexPrakxisVertical = () => {
 
             <main style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', zIndex: 10 }}>
                 
-                {/* SECCIÓN AUDIOVISUAL - UNO ABAJO DE OTRO */}
+                {/* 1. PRENSA (PRIMERO) */}
                 <section className="vertical-section">
-                    <h3 className="section-title">Audiovisual</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-                        {videosVimeo.map((id) => (
-                            <div key={id} className="video-container">
-                                <iframe 
-                                    src={`https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&app_id=58479`} 
-                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
-                                    frameBorder="0" 
-                                    allow="autoplay; fullscreen; picture-in-picture"
-                                ></iframe>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* SECCIÓN DISEÑO - UNO ABAJO DE OTRO */}
-                <section className="vertical-section" style={{ marginTop: '80px' }}>
-                    <div className="glass-card">
-                        <h3 className="section-title">Diseño Editorial</h3>
-                        <p style={{ marginBottom: '30px', lineHeight: '1.8', fontSize: '1.1rem', color: '#FFFFFF' }}>
-                            Especialistas en memorias institucionales y reportes científicos de alto impacto visual y técnico.
-                        </p>
-                        <a href="/docs/diseno/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-portafolio">
-                            VER PORTAFOLIO DISEÑO
-                        </a>
-                    </div>
-                </section>
-
-                {/* SECCIÓN PRENSA - UNO ABAJO DE OTRO */}
-                <section className="vertical-section" style={{ marginTop: '80px' }}>
                     <div className="glass-card">
                         <h3 className="section-title">Gestión de Prensa</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -102,13 +72,42 @@ const IndexPrakxisVertical = () => {
                     </div>
                 </section>
 
+                {/* 2. DISEÑO (SEGUNDO) */}
+                <section className="vertical-section" style={{ marginTop: '60px' }}>
+                    <div className="glass-card">
+                        <h3 className="section-title">Diseño Editorial</h3>
+                        <p style={{ marginBottom: '30px', lineHeight: '1.8', fontSize: '1.1rem', color: '#FFFFFF', textAlign: 'center' }}>
+                            Especialistas en memorias institucionales y reportes científicos de alto impacto visual y técnico.
+                        </p>
+                        <a href="/docs/diseno/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-portafolio">
+                            VER PORTAFOLIO DISEÑO
+                        </a>
+                    </div>
+                </section>
+
+                {/* 3. AUDIOVISUAL (TERCERO) */}
+                <section className="vertical-section" style={{ marginTop: '60px' }}>
+                    <h3 className="section-title">Audiovisual</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                        {videosVimeo.map((id) => (
+                            <div key={id} className="video-container">
+                                <iframe 
+                                    src={`https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&app_id=58479`} 
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
+                                    frameBorder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture"
+                                ></iframe>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
             </main>
 
             <style jsx global>{`
                 html, body {
                     background-color: #0A0B0D;
                     margin: 0;
-                    padding: 0;
                     font-family: 'Chakra Petch', sans-serif !important;
                 }
 
@@ -121,17 +120,14 @@ const IndexPrakxisVertical = () => {
                     background-attachment: fixed;
                 }
 
-                .vertical-section {
-                    width: 100%;
-                    margin-bottom: 60px;
-                }
+                .vertical-section { width: 100%; }
 
                 .glass-card { 
                     background: rgba(255, 255, 255, 0.02); 
                     backdrop-filter: blur(20px); 
                     border: 1px solid rgba(255, 255, 255, 0.1); 
                     border-radius: 30px; 
-                    padding: 50px; 
+                    padding: 40px; 
                 }
 
                 .section-title { 
@@ -158,11 +154,6 @@ const IndexPrakxisVertical = () => {
                     transition: 0.3s;
                 }
 
-                .btn-portafolio:hover { 
-                    transform: scale(1.02);
-                    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3); 
-                }
-
                 .video-container {
                     position: relative; 
                     padding-bottom: 56.25%; 
@@ -170,7 +161,6 @@ const IndexPrakxisVertical = () => {
                     border-radius: 20px; 
                     overflow: hidden; 
                     border: 1px solid rgba(255, 255, 255, 0.1); 
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
                 }
 
                 .press-link {
@@ -181,12 +171,6 @@ const IndexPrakxisVertical = () => {
                     border-radius: 15px; 
                     background: rgba(255,255,255,0.03); 
                     border: 1px solid rgba(255, 255, 255, 0.05);
-                    transition: 0.3s;
-                }
-
-                .press-link:hover {
-                    background: rgba(255, 255, 255, 0.07);
-                    border-color: #00F2FF;
                 }
 
                 .press-img {
@@ -200,4 +184,4 @@ const IndexPrakxisVertical = () => {
     );
 };
 
-export default IndexPrakxisVertical;
+export default IndexPrakxisFinal;
