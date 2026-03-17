@@ -13,7 +13,7 @@ const IndexPrakxisFinal = () => {
         { titulo: "Nuevo libro 'Del despojo surge la esperanza'", url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", medio: "Araucanía Noticias", img: "/images/prensa/libro_despojo.jpg" }
     ];
 
-    // ACTUALIZADO: Solo los 2 videos solicitados
+    // ACTUALIZADO: Los 2 videos solicitados (el nuevo y el anterior)
     const videosVimeo = ["1156706044", "1156706575"]; 
 
     return (
@@ -27,24 +27,16 @@ const IndexPrakxisFinal = () => {
             </Head>
 
             <header style={{ padding: '100px 20px 60px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
-                <h1 style={{ fontSize: 'clamp(3rem, 10vw, 5.5rem)', fontWeight: '800', letterSpacing: '-3px', margin: 0, color: colors.textWhite }}>
+                <h1 className="main-logo">
                     (PRAKXIS)<span style={{ color: colors.accent }}>.</span>
                 </h1>
                 
                 <div style={{ marginTop: '40px', textTransform: 'uppercase' }}>
-                    <h2 style={{ 
-                        fontSize: 'clamp(1.4rem, 5vw, 2.2rem)', 
-                        fontWeight: '400', 
-                        letterSpacing: '6px', 
-                        lineHeight: '1.4', 
-                        margin: '0 auto', 
-                        maxWidth: '900px',
-                        color: '#FFFFFF'
-                    }}>
+                    <h2 className="tagline">
                         NARRATIVAS VISUALES <br />
                         CON <span style={{ fontWeight: '700' }}>RIGOR CIENTÍFICO.</span>
                     </h2>
-                    <p style={{ marginTop: '30px', fontSize: '1.2rem', letterSpacing: '4px', color: '#FFFFFF' }}>
+                    <p className="sub-tagline">
                         <span style={{ fontWeight: '700', color: colors.accent }}>[PX]</span> ——— <span style={{ fontWeight: '700' }}>[CO]</span>MUNICACIÓN
                     </p>
                 </div>
@@ -52,7 +44,7 @@ const IndexPrakxisFinal = () => {
 
             <main style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', zIndex: 10 }}>
                 
-                {/* 1. PRENSA (PRIMERO) */}
+                {/* 1. GESTIÓN DE PRENSA (PRIMERO) */}
                 <section className="vertical-section">
                     <div className="glass-card">
                         <h3 className="section-title">Gestión de Prensa</h3>
@@ -62,9 +54,9 @@ const IndexPrakxisFinal = () => {
                                     <div className="press-img">
                                         <img src={nota.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
-                                    <div>
-                                        <div style={{ fontSize: '0.8rem', color: colors.accent, marginBottom: '5px', fontWeight: '700' }}>{nota.medio}</div>
-                                        <div style={{ fontSize: '1rem', fontWeight: '500', lineHeight: '1.4', color: '#FFFFFF' }}>{nota.titulo}</div>
+                                    <div className="press-content">
+                                        <div className="press-medio">{nota.medio}</div>
+                                        <div className="press-titulo">{nota.titulo}</div>
                                     </div>
                                 </a>
                             ))}
@@ -72,11 +64,11 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* 2. DISEÑO (SEGUNDO) */}
+                {/* 2. DISEÑO EDITORIAL (SEGUNDO) */}
                 <section className="vertical-section" style={{ marginTop: '60px' }}>
                     <div className="glass-card">
                         <h3 className="section-title">Diseño Editorial</h3>
-                        <p style={{ marginBottom: '30px', lineHeight: '1.8', fontSize: '1.1rem', color: '#FFFFFF', textAlign: 'center' }}>
+                        <p className="card-text">
                             Especialistas en memorias institucionales y reportes científicos de alto impacto visual y técnico.
                         </p>
                         <a href="/docs/diseno/PRAKXIS_PORFOLIO.pdf" target="_blank" rel="noopener noreferrer" className="btn-portafolio">
@@ -108,6 +100,8 @@ const IndexPrakxisFinal = () => {
                 html, body {
                     background-color: #0A0B0D;
                     margin: 0;
+                    padding: 0;
+                    color: #FFFFFF;
                     font-family: 'Chakra Petch', sans-serif !important;
                 }
 
@@ -120,14 +114,24 @@ const IndexPrakxisFinal = () => {
                     background-attachment: fixed;
                 }
 
-                .vertical-section { width: 100%; }
+                .main-logo {
+                    font-size: clamp(3rem, 10vw, 5.5rem);
+                    font-weight: 800;
+                    letter-spacing: -3px;
+                    margin: 0;
+                }
 
-                .glass-card { 
-                    background: rgba(255, 255, 255, 0.02); 
-                    backdrop-filter: blur(20px); 
-                    border: 1px solid rgba(255, 255, 255, 0.1); 
-                    border-radius: 30px; 
-                    padding: 40px; 
+                .tagline {
+                    font-size: clamp(1.4rem, 5vw, 2.2rem);
+                    font-weight: 400;
+                    letter-spacing: 6px;
+                    line-height: 1.4;
+                    color: #FFFFFF;
+                }
+
+                .sub-tagline {
+                    font-size: 1.2rem;
+                    letter-spacing: 4px;
                 }
 
                 .section-title { 
@@ -140,18 +144,32 @@ const IndexPrakxisFinal = () => {
                     text-align: center;
                 }
 
+                .glass-card { 
+                    background: rgba(255, 255, 255, 0.02); 
+                    backdrop-filter: blur(20px); 
+                    border: 1px solid rgba(255, 255, 255, 0.1); 
+                    border-radius: 30px; 
+                    padding: 40px; 
+                }
+
+                .card-text {
+                    line-height: 1.8;
+                    font-size: 1.1rem;
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
                 .btn-portafolio { 
                     display: block;
                     text-align: center;
                     background: #00F2FF; 
-                    color: #000; 
+                    color: #000 !important; 
                     padding: 22px; 
                     border-radius: 15px; 
                     text-decoration: none; 
                     font-weight: 800; 
                     font-size: 14px; 
                     text-transform: uppercase; 
-                    transition: 0.3s;
                 }
 
                 .video-container {
@@ -169,19 +187,4 @@ const IndexPrakxisFinal = () => {
                     text-decoration: none; 
                     padding: 20px; 
                     border-radius: 15px; 
-                    background: rgba(255,255,255,0.03); 
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                }
-
-                .press-img {
-                    min-width: 80px; 
-                    height: 80px; 
-                    border-radius: 10px; 
-                    overflow: hidden;
-                }
-            `}</style>
-        </div>
-    );
-};
-
-export default IndexPrakxisFinal;
+                    background: rgba(2
