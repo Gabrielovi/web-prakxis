@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 
 const IndexPrakxisDefinitivo = () => {
-    // --- LÓGICA JUEGO "HASH KERNEL v4.1 - PRAKXIS SLOW LOOP" ---
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [isJumping, setIsJumping] = useState(false);
     const [obstaclePos, setObstaclePos] = useState(800);
     const [gameOver, setGameOver] = useState(false);
-    const [jumpEffect, setJumpEffect] = useState(false); // Para el cambio de color
+    const [jumpEffect, setJumpEffect] = useState(false);
 
     const prakxisLeap = ["P", "R", "A", "K", "X", "I", "S"];
     const currentObstacleIndex = useRef(0);
@@ -28,11 +27,11 @@ const IndexPrakxisDefinitivo = () => {
         if (e && e.cancelable) e.preventDefault();
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
-            setJumpEffect(true); // Activa color naranja
-            setCurrentDecodingText(prev => `[DECODIFICADO] fonema_${currentLetter}.. 0x${Math.random().toString(16).substring(2, 6).toUpperCase()}`);
+            setJumpEffect(true);
+            setCurrentDecodingText(`[DECODIFICADO] fonema_${currentLetter}.. 0x${Math.random().toString(16).substring(2, 6).toUpperCase()}`);
             
             setTimeout(() => setJumpEffect(false), 200);
-            setTimeout(() => setIsJumping(false), 500); // Salto ligeramente más largo
+            setTimeout(() => setIsJumping(false), 500);
         } else if (!gameStarted || gameOver) {
             resetGame();
         }
@@ -61,19 +60,12 @@ const IndexPrakxisDefinitivo = () => {
                     if (pos > 20 && pos < 60 && !isJumping) {
                         setGameOver(true);
                     }
-                    // VELOCIDAD REDUCIDA: de 18 a 10 para mayor fluidez y control
-                    return pos - (window.innerWidth < 600 ? 7 : 10); 
+                    return pos - (typeof window !== 'undefined' && window.innerWidth < 600 ? 7 : 10); 
                 });
             }, 20);
         }
         return () => clearInterval(timer);
     }, [gameStarted, gameOver, isJumping]);
-
-    useEffect(() => {
-        const handleKeyDown = (e) => { if (e.code === 'Space') jump(); };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isJumping, gameStarted, gameOver]);
 
     return (
         <div className="main-container">
@@ -85,100 +77,105 @@ const IndexPrakxisDefinitivo = () => {
             <style jsx global>{`
                 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap');
                 body { margin: 0; background: #000; font-family: 'Chakra Petch', sans-serif !important; color: #fff; overflow-x: hidden; }
-                a, span, p, h1, h2, h3 { color: #fff !important; text-decoration: none; }
             `}</style>
 
             <div className="grain-overlay"></div>
 
             <header className="site-header">
-                <a href="#contacto" className="top-contact-btn">[ CONTACTO ]</a>
+                <div className="top-contact-btn">[ CONTACTO ]</div>
                 <div className="logo-container">
-                    <img src="/images/logo_prakxis.png" alt="PRAKXIS" className="main-logo" style={{ width: '100%', maxWidth: '280px', filter: 'invert(1)' }} />
+                    <img src="/images/logo_prakxis.png" alt="PRAKXIS" className="main-logo" />
                 </div>
-                <div className="sub-header-text" style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <h2 style={{ fontSize: '1.2rem', letterSpacing: '5px' }}>NARRATIVAS VISUALES CON RIGOR CIENTÍFICO.</h2>
-                    <p style={{ opacity: 0.6, letterSpacing: '4px' }}>[PX] ——— C<span style={{ color: '#ff6600', fontWeight: 'bold' }}>{changingLetter}</span>.</p>
+                <div className="sub-header-text">
+                    <h2 className="tagline">NARRATIVAS VISUALES CON RIGOR CIENTÍFICO.</h2>
+                    <p className="px-code">[PX] ——— C<span className="changing-char">{changingLetter}</span>.</p>
                 </div>
             </header>
 
-            <main className="main-content" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 100px', position: 'relative', z-index: '100' }}>
-                
-                {/* SECCIONES PREVIAS (Prensa, Editorial, Audiovisual, Contacto) - Se mantienen igual que en tu versión perfecta */}
-                <section style={{ marginBottom: '100px', borderBottom: '1px solid #fff', paddingBottom: '40px' }}>
-                     <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                        <span style={{ opacity: 0.5, fontSize: '0.7rem' }}>04</span>
-                        <h3>Contacto</h3>
-                     </div>
-                     <div style={{ textAlign: 'center', padding: '40px', border: '1px solid #fff', background: 'rgba(0,0,0,0.5)' }}>
-                        <a href="mailto:contacto@prakxis.cl" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>contacto@prakxis.cl</a>
-                        <br />
-                        <a href="#" style={{ display: 'inline-block', background: '#fff', color: '#000 !important', padding: '10px 20px', fontSize: '0.7rem', fontWeight: 'bold', marginTop: '20px', textTransform: 'uppercase' }}>[ Enviar Mensaje ]</a>
-                     </div>
+            <main className="main-content">
+                <section className="section-block">
+                    <div className="section-header"><span className="numb">01</span><h3>Gestión de Prensa</h3></div>
+                    <div className="press-list">
+                        <a href="https://contactosalud.cl/ufro-presento-plataforma-georreferenciada-de-salud-publica-a-municipios-e-instituciones-regionales/" target="_blank" className="press-item">
+                            <img src="/images/prensa/ufro_salud.jpg" className="press-thumb" alt="Prensa 1" />
+                            <div className="press-txt">
+                                <span className="medio">Contacto Salud</span>
+                                <span className="tit">UFRO presentó plataforma georreferenciada</span>
+                            </div>
+                        </a>
+                    </div>
                 </section>
 
-                {/* EL JUEGO CORREGIDO */}
                 <section className="section-block">
-                    <div className="section-header" style={{ display: 'flex', alignItems: 'center', gap: '15px', borderBottom: '1px solid #fff', marginBottom: '40px' }}>
-                        <span className="numb" style={{ opacity: 0.5, fontSize: '0.7rem' }}>0.5</span>
-                        <h3>Kernel_Mode_v4.1</h3>
+                    <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
+                    <div className="vimeo-stack">
+                        <div className="video-glitch-wrapper">
+                            <div className="video-noise-overlay"></div>
+                            <div className="vimeo-container">
+                                <iframe src="https://player.vimeo.com/video/1156706044" frameBorder="0" allow="autoplay; fullscreen"></iframe>
+                            </div>
+                        </div>
                     </div>
-                    
+                </section>
+
+                <section id="contacto" className="section-block">
+                    <div className="section-header"><span className="numb">04</span><h3>Contacto</h3></div>
+                    <div className="contact-clean">
+                        <span className="c-val">contacto@prakxis.cl</span>
+                        <div className="contact-btn">[ ENVIAR MENSAJE ]</div>
+                    </div>
+                </section>
+
+                <section className="section-block">
+                    <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Mode_v4.1</h3></div>
                     <div className={`game-area ${jumpEffect ? 'game-glow' : ''}`} onTouchStart={jump} onClick={jump}>
                         {!gameStarted && <div className="game-overlay">PULSA PARA DECODIFICAR</div>}
                         {gameOver && <div className="game-overlay">REBOOT_REQUIRED [PULSA]</div>}
                         <div className="score-board">NODOS: {score}</div>
-                        
-                        {/* Personaje: # con cambio de color */}
                         <div className={`agent-hash ${isJumping ? 'jumping' : ''} ${jumpEffect ? 'active-color' : ''}`}>#</div>
-                        
-                        {/* Obstáculo: Letras PRAKXIS sueltas */}
-                        <div className="obstacle prakxis-letter-free" style={{ left: `${obstaclePos}px` }}>
-                            {currentLetter}
-                        </div>
-                        
+                        <div className="obstacle prakxis-letter-free" style={{ left: `${obstaclePos}px` }}>{currentLetter}</div>
                         <div className="ground"></div>
                     </div>
-
-                    <div className="decoding-log" style={{ textAlign: 'center', marginTop: '20px' }}>
-                        <p style={{ fontSize: '0.6rem', letterSpacing: '2px', marginBottom: '5px' }}>DECODIFICANDO SECUENCIA:</p>
-                        <p style={{ fontFamily: 'monospace', color: '#ff6600', textShadow: '0 0 5px rgba(255,102,0,0.5)' }}>{currentDecodingText}</p>
+                    <div className="decoding-log">
+                        <p className="decoding-tit">DECODIFICANDO SECUENCIA:</p>
+                        <p className="decoding-text">{currentDecodingText}</p>
                     </div>
                 </section>
             </main>
 
             <style jsx>{`
-                .main-container { position: relative; min-height: 100vh; }
+                .main-container { min-height: 100vh; position: relative; }
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
                     background-image: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.98) 100%), url("/images/fondo-prakxis.jpg"); 
                     background-size: cover; background-position: center; background-attachment: fixed;
                 }
                 .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.12; z-index: 999; pointer-events: none; }
-                
-                .game-area { 
-                    width: 100%; height: 160px; background: rgba(0,0,0,0.8); border: 2px solid #fff; 
-                    position: relative; overflow: hidden; transition: box-shadow 0.3s, border-color 0.3s;
-                }
+                .site-header { padding: 80px 20px; text-align: center; position: relative; z-index: 100; }
+                .main-logo { width: 100%; max-width: 280px; filter: invert(1); }
+                .main-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 100; padding-bottom: 100px; }
+                .section-block { margin-bottom: 100px; }
+                .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
+                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.1); padding: 25px; background: rgba(0,0,0,0.5); margin-bottom: 15px; }
+                .press-thumb { width: 100px; height: 100px; object-fit: cover; filter: grayscale(1); }
+                .vimeo-stack { display: flex; flex-direction: column; gap: 20px; }
+                .video-glitch-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.1); }
+                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; }
+                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); }
+                .contact-clean { text-align: center; padding: 60px 20px; border: 1px solid #fff; background: rgba(0,0,0,0.5); }
+                .contact-btn { display: inline-block; background: #fff; color: #000; padding: 10px 20px; font-weight: 700; margin-top: 20px; font-size: 0.65rem; cursor: pointer; }
+                .game-area { width: 100%; height: 160px; background: rgba(0,0,0,0.8); border: 2px solid #fff; position: relative; overflow: hidden; cursor: pointer; }
                 .game-glow { border-color: #ff6600; box-shadow: inset 0 0 15px rgba(255,102,0,0.3); }
-                
                 .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.7rem; letter-spacing: 3px; }
-                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; opacity: 0.4; font-family: monospace; }
-                
-                .agent-hash { 
-                    position: absolute; bottom: 15px; left: 40px; font-size: 2.5rem; font-weight: 900; 
-                    color: #fff; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1), color 0.2s; z-index: 5;
-                }
+                .agent-hash { position: absolute; bottom: 15px; left: 40px; font-size: 2.5rem; font-weight: 900; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); }
                 .agent-hash.jumping { bottom: 90px; }
-                .agent-hash.active-color { color: #ff6600; text-shadow: 0 0 10px rgba(255,102,0,0.8); }
-                
-                .obstacle.prakxis-letter-free { 
-                    position: absolute; bottom: 15px; font-size: 1.8rem; font-weight: 900; 
-                    color: #fff; z-index: 5; font-family: 'Chakra Petch', sans-serif !important;
-                    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-                }
-                
+                .active-color { color: #ff6600; }
+                .obstacle { position: absolute; bottom: 15px; font-size: 1.8rem; font-weight: 900; }
                 .ground { width: 100%; height: 1px; background: #fff; position: absolute; bottom: 15px; opacity: 0.5; }
-                .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.6rem; letter-spacing: 2px; z-index: 100;}
+                .decoding-log { margin-top: 20px; text-align: center; }
+                .decoding-text { color: #ff6600; font-family: monospace; }
+                .tagline { letter-spacing: 5px; }
+                .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.6rem; letter-spacing: 2px; }
             `}</style>
         </div>
     );
