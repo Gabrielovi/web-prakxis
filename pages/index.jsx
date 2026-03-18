@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
 const IndexPrakxisGlitchAbstracto = () => {
+    // --- LÓGICA JUEGO "KERNEL GLITCH" ---
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [isJumping, setIsJumping] = useState(false);
@@ -10,29 +11,32 @@ const IndexPrakxisGlitchAbstracto = () => {
     const [currentGlitch, setCurrentGlitch] = useState("");
     const [wordVisible, setWordVisible] = useState(false);
 
-    // GENERADOR DE ENTROPÍA (Meta-lenguaje no significante)
+    // FUNCIÓN DE ENTROPÍA (Meta-lenguaje no significante)
+    // Extrae caracteres puros del código y DOM para crear glitches.
     const generateAbstractGlitch = () => {
-        const source = (document.body.innerHTML + " => { } [ ] < /> # _ 01").replace(/<[^>]*>/g, '');
-        const chars = source.split('');
+        // Obtenemos todo el HTML visible, quitamos etiquetas, y añadimos símbolos de control
+        const sourceText = document.body.innerHTML || "";
+        const cleanSource = (sourceText + " => { } [ ] < /> # _ 01 × ∆").replace(/<[^>]*>/g, '');
+        const chars = cleanSource.split('').filter(c => c.trim().length > 0);
         
-        // Creamos una cadena de 5 a 8 caracteres totalmente aleatoria basada en la web
         let glitch = "";
-        for(let i = 0; i < 6; i++) {
+        const length = Math.floor(Math.random() * 4) + 5; // Longitud de 5 a 8 caracteres
+        for(let i = 0; i < length; i++) {
             glitch += chars[Math.floor(Math.random() * chars.length)];
         }
         
-        // Insertamos caracteres de control para romper la lectura
-        const triggers = ["_", "/", "::", "ø", "×", "∆"];
-        return (glitch.trim() + triggers[Math.floor(Math.random() * triggers.length)]).replace(/\s/g, '0');
+        // Un último toque de error
+        const triggers = ["_", "/", "::", "ø", "!", "?", "null"];
+        return glitch.trim().toUpperCase() + triggers[Math.floor(Math.random() * triggers.length)];
     };
 
     const jump = (e) => {
-        if (e) e.preventDefault();
+        if (e && e.cancelable) e.preventDefault(); // Evita scroll/zoom en móvil
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
             setCurrentGlitch(generateAbstractGlitch());
             setWordVisible(true);
-            setTimeout(() => setWordVisible(false), 600);
+            setTimeout(() => setWordVisible(false), 700);
             setTimeout(() => setIsJumping(false), 500);
         } else if (!gameStarted || gameOver) {
             resetGame();
@@ -93,7 +97,7 @@ const IndexPrakxisGlitchAbstracto = () => {
             </header>
 
             <main className="main-content">
-                {/* 01. PRENSA CON HOVER COLOR */}
+                {/* 01. PRENSA (RECUPERADA) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">01</span><h3>Gestión de Prensa</h3></div>
                     <div className="press-list">
@@ -101,29 +105,55 @@ const IndexPrakxisGlitchAbstracto = () => {
                             <img src="/images/prensa/ufro_salud.jpg" className="press-thumb" />
                             <div className="press-txt">
                                 <span className="medio">Contacto Salud</span>
-                                <span className="tit">UFRO presentó plataforma de salud</span>
+                                <span className="tit">UFRO presentó plataforma georreferenciada de salud pública</span>
+                            </div>
+                        </a>
+                        <a href="https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233" target="_blank" className="press-item">
+                            <img src="/images/prensa/libro_despojo.jpg" className="press-thumb" />
+                            <div className="press-txt">
+                                <span className="medio">Araucanía Noticias</span>
+                                <span className="tit">Nuevo libro relevan las historias de vida de mujeres sindicalistas</span>
                             </div>
                         </a>
                     </div>
                 </section>
 
-                {/* 02. DOSSIER CON HOVER COLOR */}
+                {/* 02. DISEÑO EDITORIAL (RECUPERADO) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">02</span><h3>Diseño Editorial</h3></div>
                     <div className="editorial-box">
                         <a href="/docs/diseno/portfolio.pdf" target="_blank" className="editorial-preview">
                             <img src="/images/prensa/preview-portfolio.jpg" className="dossier-img" />
                         </a>
-                        <a href="/docs/diseno/portfolio.pdf" target="_blank" className="full-btn">ABRIR_DOSIER.RAW</a>
+                        <a href="/docs/diseno/portfolio.pdf" target="_blank" className="full-btn">ABRIR_DOSIER.RAW [PDF]</a>
                     </div>
                 </section>
 
-                {/* JUEGO: SINTETIZADOR DE ENTROPÍA */}
+                {/* 03. AUDIOVISUAL (RECUPERADO) */}
+                <section className="section-block">
+                    <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
+                    <div className="vimeo-stack">
+                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                    </div>
+                </section>
+
+                {/* 04. CONTACTO */}
+                <section id="contacto" className="section-block">
+                    <div className="section-header"><span className="numb">04</span><h3>Contacto</h3></div>
+                    <div className="contact-clean">
+                        <a href="mailto:contacto@prakxis.cl" className="c-val">contacto@prakxis.cl</a>
+                        <p style={{ marginTop: '10px', opacity: 0.5, fontSize: '0.8rem' }}>TEMUCO / DISPONIBLE_2026</p>
+                    </div>
+                </section>
+
+                {/* JUEGO: SINTETIZADOR DE ENTROPÍA (AL FINAL) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Glitch</h3></div>
                     <div className="game-area" onTouchStart={jump} onClick={jump}>
                         {!gameStarted && <div className="game-overlay">EJECUTAR_ENTROPÍA</div>}
-                        {gameOver && <div className="game-overlay">NULL_POINTER_EXCEPTION</div>}
+                        {gameOver && <div className="game-overlay">NULL_POINTER_EXCEPTION <br/> [PULSA PARA REINICIAR]</div>}
+                        <div className="score-board">REBOOTS: {score}</div>
                         
                         <div className={`glitch-text ${wordVisible ? 'visible' : ''}`}>
                             {currentGlitch}
@@ -136,42 +166,72 @@ const IndexPrakxisGlitchAbstracto = () => {
                 </section>
             </main>
 
+            <footer className="footer">
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // GRNK_LAB</p>
+            </footer>
+
             <style jsx>{`
-                .main-container { min-height: 100vh; position: relative; background: #000; }
+                .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98)), url("/images/fondo-prakxis.jpg");
+                    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url("/images/fondo-prakxis.jpg");
                     background-size: cover; background-position: center;
                 }
                 .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.1; z-index: 999; pointer-events: none; }
-                .site-header { padding: 40px 20px; text-align: center; position: relative; z-index: 100; }
-                .main-logo { width: 100%; max-width: 250px; filter: invert(100%); }
-                .main-content { max-width: 800px; margin: 0 auto; padding: 20px; position: relative; z-index: 100; }
+                .site-header { padding: 80px 20px; text-align: center; position: relative; z-index: 100; }
+                .main-logo { width: 100%; max-width: 280px; filter: invert(100%); transition: 0.3s;}
+                .main-logo:hover { filter: invert(0%) sepia(1) hue-rotate(180deg); }
+                .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 8px 15px; font-size: 0.6rem; letter-spacing: 2px; }
                 
-                /* HOVER EFFECTS COLOR */
-                .press-item { display: flex; gap: 15px; border: 1px solid rgba(255,255,255,0.1); padding: 15px; transition: 0.3s; }
-                .press-thumb { width: 60px; height: 60px; filter: grayscale(1); transition: 0.4s; }
+                .main-content { max-width: 800px; margin: 0 auto; padding: 20px 20px 100px; position: relative; z-index: 100; }
+                .section-block { margin-bottom: 100px; }
+                .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
+                
+                /* HOVER EFFECTS: RECUPERANDO COLOR */
+                .press-item { display: flex; flex-direction: row; gap: 15px; border: 1px solid rgba(255,255,255,0.1); padding: 15px; background: rgba(0,0,0,0.4); transition: 0.3s; margin-bottom: 15px;}
+                .press-item:hover { border-color: #fff; background: #000; }
+                .press-thumb { width: 60px; height: 60px; object-fit: cover; filter: grayscale(1); transition: 0.4s; }
                 .press-item:hover .press-thumb { filter: grayscale(0); }
-                .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.5; transition: 0.5s; }
-                .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; }
-
-                /* GAME AREA: ABSTRACT */
-                .game-area { width: 100%; height: 160px; background: rgba(255,255,255,0.01); border: 1px solid #fff; position: relative; overflow: hidden; }
-                .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.6rem; letter-spacing: 4px; }
                 
-                .glitch-text { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); font-size: 2rem; font-weight: 900; color: #fff; opacity: 0; font-family: monospace; letter-spacing: -2px; }
-                .glitch-text.visible { opacity: 1; animation: blink 0.1s infinite; }
+                .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.5; transition: 0.5s; border: 1px solid rgba(255,255,255,0.1); }
+                .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; border-color: #fff; }
                 
-                .dino { width: 20px; height: 20px; border: 1px solid #fff; position: absolute; bottom: 10px; left: 30px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); }
-                .dino.jumping { bottom: 80px; }
-                .obstacle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 10px; }
-                .ground { width: 100%; height: 1px; background: #fff; position: absolute; bottom: 10px; }
+                .vimeo-stack { display: flex; flex-direction: column; gap: 20px; }
+                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+                .vimeo-container:hover { border-color: #fff; }
+                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
+                .vimeo-container:hover iframe { filter: grayscale(0); }
 
-                @keyframes blink { 0% { opacity: 0.5; transform: translateX(-52%); } 50% { opacity: 1; transform: translateX(-48%); } 100% { opacity: 0.8; } }
-                .full-btn { display: block; border: 1px solid #fff; text-align: center; padding: 10px; margin-top: 10px; font-size: 0.7rem; }
+                /* GAME AREA: ENTROPÍA */
+                .game-area { width: 100%; height: 180px; background: rgba(255,255,255,0.01); border: 1px solid #fff; position: relative; overflow: hidden; cursor: crosshair; }
+                .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; color: #fff; font-family: monospace; opacity: 0.4; }
+                
+                .glitch-text { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); font-size: 2.5rem; font-weight: 900; color: #fff; opacity: 0; font-family: monospace; letter-spacing: -2px; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; }
+                .glitch-text.visible { opacity: 1; animation: blink 0.15s infinite; }
+                
+                .dino { width: 22px; height: 22px; border: 1px solid #fff; position: absolute; bottom: 15px; left: 40px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); z-index: 5;}
+                .dino.jumping { bottom: 90px; }
+                .obstacle { width: 10px; height: 35px; background: #fff; position: absolute; bottom: 15px; z-index: 5; }
+                .ground { width: 100%; height: 1px; background: rgba(255,255,255,0.3); position: absolute; bottom: 15px; }
+
+                @keyframes blink { 0% { opacity: 0.5; transform: translateX(-52%) translateY(1px); } 50% { opacity: 1; transform: translateX(-48%) translateY(-1px); } 100% { opacity: 0.8; } }
+                
+                .contact-clean { text-align: center; padding: 40px; border: 1px solid #fff; background: rgba(0,0,0,0.5); }
+                .full-btn { display: block; border: 1px solid #fff; text-align: center; padding: 15px; margin-top: 15px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;}
+                .footer { padding: 60px; text-align: center; opacity: 0.3; font-size: 0.6rem; letter-spacing: 2px;}
+                
+                @media (min-width: 600px) {
+                    .main-logo { max-width: 380px; }
+                    .main-content { padding: 0 40px 100px; }
+                    .game-area { height: 220px; }
+                    .glitch-text { font-size: 3rem; }
+                    .press-item { gap: 20px; padding: 20px; }
+                    .press-thumb { width: 80px; height: 80px; }
+                }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisGlitchAbstracto;
+export { IndexPrakxisGlitchAbstracto as default };
