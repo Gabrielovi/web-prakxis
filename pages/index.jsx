@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 
 const IndexPrakxisFinal = () => {
@@ -9,10 +9,24 @@ const IndexPrakxisFinal = () => {
     const [obstaclePos, setObstaclePos] = useState(800);
     const [gameOver, setGameOver] = useState(false);
     
+    // Lista de palabras aleatorias para el juego
+    const prakxisWords = ["RIGOR", "CIENCIA", "DATOS", "VISUAL", "NARRATIVA", "ESTRATEGIA", "MEMORIA", "EVIDENCIA"];
+    const [currentWord, setCurrentWord] = useState("");
+    const [wordVisible, setWordVisible] = useState(false);
+
     const jump = (e) => {
         if (e) e.preventDefault(); // Evita scroll o zoom accidental en móvil
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
+            
+            // Generar palabra aleatoria al saltar
+            const randomWord = prakxisWords[Math.floor(Math.random() * prakxisWords.length)];
+            setCurrentWord(randomWord);
+            setWordVisible(true);
+            
+            // Ocultar palabra después de un tiempo
+            setTimeout(() => setWordVisible(false), 800);
+            
             setTimeout(() => setIsJumping(false), 500);
         } else if (!gameStarted || gameOver) {
             resetGame();
@@ -24,6 +38,8 @@ const IndexPrakxisFinal = () => {
         setObstaclePos(800);
         setGameOver(false);
         setGameStarted(true);
+        setCurrentWord("");
+        setWordVisible(false);
     };
 
     useEffect(() => {
@@ -132,19 +148,29 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* --- JUEGO OPTIMIZADO PARA MÓVIL --- */}
+                {/* --- JUEGO CON PALABRAS ALEATORIAS --- */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">0.5</span><h3>Laboratorio_Experimental</h3></div>
                     <div className="game-area" onTouchStart={jump} onClick={jump}>
                         {!gameStarted && <div className="game-overlay">PULSA PARA EMPEZAR</div>}
                         {gameOver && <div className="game-overlay">SISTEMA CAÍDO. <br/> [PULSA PARA REINICIAR]</div>}
                         <div className="score-board">DATA_RECOVERED: {score}</div>
+                        
+                        {/* Palabra flotante */}
+                        <div className={`floating-word ${wordVisible ? 'visible' : ''}`}>
+                            {currentWord}
+                        </div>
+                        
                         <div className={`dino ${isJumping ? 'jumping' : ''}`}></div>
                         <div className="obstacle" style={{ left: `${obstaclePos}px` }}></div>
                         <div className="ground"></div>
                     </div>
                 </section>
             </main>
+
+            <footer className="footer">
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // ANALOG_GRAIN_v3.2</p>
+            </footer>
 
             <style jsx>{`
                 .main-container { min-height: 100vh; position: relative; background: #000; }
@@ -153,44 +179,56 @@ const IndexPrakxisFinal = () => {
                     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.95)), url("/images/fondo-prakxis.jpg");
                     background-size: cover; background-position: center;
                 }
+                .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.06; z-index: 999; pointer-events: none; }
                 .site-header { padding: 60px 20px; text-align: center; position: relative; z-index: 100; }
                 .main-logo { width: 100%; max-width: 300px; filter: invert(100%); }
                 .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 8px 15px; font-size: 0.6rem; }
                 .hero-title { font-size: 1.2rem; letter-spacing: 4px; margin-top: 30px; }
                 
                 .main-content { max-width: 800px; margin: 0 auto; padding: 0 15px 60px; position: relative; z-index: 100; }
-                .section-header h3 { font-size: 1rem; }
+                .section-header h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; }
                 
+                /* EFECTO COLOR HOVER */
                 .press-item { display: flex; flex-direction: row; gap: 15px; border: 1px solid rgba(255,255,255,0.2); padding: 15px; background: rgba(0,0,0,0.4); }
-                .press-thumb { width: 60px; height: 60px; filter: grayscale(1); transition: 0.3s; }
+                .press-thumb { width: 60px; height: 60px; object-fit: cover; filter: grayscale(1); transition: 0.3s; }
                 .press-item:hover .press-thumb { filter: grayscale(0); }
                 .tit { font-size: 0.9rem; display: block; }
                 
-                .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.6; }
+                .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.6; transition: 0.5s; }
+                .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; }
+                
                 .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.2); }
-                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); }
+                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
                 .vimeo-container:hover iframe { filter: grayscale(0); }
 
                 /* GAME CSS MOBILE OPTIMIZED */
-                .game-area { width: 100%; height: 120px; background: rgba(255,255,255,0.05); border: 1px solid #fff; position: relative; overflow: hidden; }
+                .game-area { width: 100%; height: 150px; background: rgba(255,255,255,0.05); border: 1px solid #fff; position: relative; overflow: hidden; }
                 .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); z-index: 10; font-size: 0.7rem; text-align: center; }
-                .dino { width: 20px; height: 20px; background: #fff; position: absolute; bottom: 10px; left: 20px; transition: bottom 0.4s cubic-bezier(0.33, 1, 0.68, 1); }
-                .dino.jumping { bottom: 60px; }
-                .obstacle { width: 10px; height: 20px; background: #ff0000; position: absolute; bottom: 10px; }
+                .score-board { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; color: #fff; z-index: 5; }
+                
+                /* Palabra flotante */
+                .floating-word { position: absolute; top: 40px; left: 80px; font-size: 0.8rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 3px; opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(10px); z-index: 5; }
+                .floating-word.visible { opacity: 1; transform: translateY(0); }
+                
+                .dino { width: 20px; height: 20px; background: #fff; position: absolute; bottom: 10px; left: 20px; transition: bottom 0.4s cubic-bezier(0.33, 1, 0.68, 1); z-index: 5; }
+                .dino.jumping { bottom: 80px; }
+                .obstacle { width: 10px; height: 20px; background: #ff0000; position: absolute; bottom: 10px; z-index: 5; }
                 .ground { width: 100%; height: 1px; background: rgba(255,255,255,0.3); position: absolute; bottom: 10px; }
                 
-                .contact-clean { text-align: center; padding: 40px 10px; border: 1px solid #fff; word-break: break-all; }
-                .c-val { font-size: 1.2rem; }
-                .full-btn { display: block; text-align: center; background: #fff; color: #000 !important; padding: 15px; font-weight: 800; margin-top: 15px; font-size: 0.8rem; }
+                .contact-clean { text-align: center; padding: 40px 10px; border: 1px solid #fff; background: rgba(0,0,0,0.4); }
+                .c-val { font-size: 1.2rem; font-weight: 700; word-break: break-all; }
+                .full-btn { display: block; text-align: center; background: #fff; color: #000 !important; padding: 15px; font-weight: 800; margin-top: 15px; font-size: 0.8rem; text-transform: uppercase; }
+                .footer { padding: 80px; text-align: center; opacity: 0.4; font-size: 0.6rem; }
                 
                 @media (min-width: 600px) {
-                    .hero-title { font-size: 1.8rem; }
+                    .hero-title { font-size: 1.8rem; letter-spacing: 6px; }
                     .main-logo { max-width: 420px; }
                     .c-val { font-size: 1.8rem; }
+                    .main-content { padding: 0 20px 100px; }
                 }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisFinal;
+export { IndexPrakxisFinal as default };
