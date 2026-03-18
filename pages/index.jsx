@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 
 const IndexPrakxisFinal = () => {
     // --- LÓGICA DE LA SOPA DE LETRAS ---
     const wordsToFind = ["RIGOR", "CIENCIA", "DATOS", "VISUAL", "NARRATIVA", "EVIDENCIA"];
-    const [foundWords, setFoundWords] = useState([]);
     const [selectedCells, setSelectedCells] = useState([]);
 
     const grid = [
@@ -18,11 +17,9 @@ const IndexPrakxisFinal = () => {
 
     const handleCellClick = (r, c) => {
         const cellKey = `${r}-${c}`;
-        if (selectedCells.includes(cellKey)) {
-            setSelectedCells(selectedCells.filter(cell => cell !== cellKey));
-        } else {
-            setSelectedCells([...selectedCells, cellKey]);
-        }
+        setSelectedCells(prev => 
+            prev.includes(cellKey) ? prev.filter(cell => cell !== cellKey) : [...prev, cellKey]
+        );
     };
 
     return (
@@ -38,11 +35,11 @@ const IndexPrakxisFinal = () => {
                 body {
                     margin: 0; padding: 0; background: #000;
                     font-family: 'Chakra Petch', sans-serif !important;
-                    color: #fff;
                 }
                 h1, h2, h3, h4, p, a, span { 
                     font-family: 'Chakra Petch', sans-serif !important; 
                     color: #ffffff !important; 
+                    text-decoration: none;
                 }
             `}</style>
 
@@ -61,7 +58,7 @@ const IndexPrakxisFinal = () => {
 
             <main className="main-content">
                 
-                {/* 01. PRENSA */}
+                {/* 01. PRENSA (RESTAURADA) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">01</span><h3>Gestión de Prensa</h3></div>
                     <div className="press-list">
@@ -69,13 +66,21 @@ const IndexPrakxisFinal = () => {
                             <img src="/images/prensa/ufro_salud.jpg" alt="" className="press-thumb" />
                             <div className="press-txt">
                                 <span className="medio">Contacto Salud</span>
-                                <span className="tit">UFRO presentó plataforma georreferenciada de salud pública</span>
+                                <span className="tit">UFRO presentó plataforma de salud pública</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233" target="_blank" className="press-item">
+                            <img src="/images/prensa/libro_despojo.jpg" alt="" className="press-thumb" />
+                            <div className="press-txt">
+                                <span className="medio">Araucanía Noticias</span>
+                                <span className="tit">Nuevo libro: "Del despojo surge la esperanza"</span>
                             </div>
                         </a>
                     </div>
                 </section>
 
-                {/* 02. DISEÑO EDITORIAL */}
+                {/* 02. DISEÑO EDITORIAL (CON PDF) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">02</span><h3>Diseño Editorial</h3></div>
                     <div className="editorial-box">
@@ -86,18 +91,21 @@ const IndexPrakxisFinal = () => {
                             </div>
                         </a>
                         <div className="editorial-info">
-                            <p>Memorias institucionales y reportes técnicos. Visualización de datos y narrativa estratégica.</p>
+                            <p>Memorias institucionales y reportes técnicos de alta complejidad.</p>
                             <a href="/docs/diseno/portfolio.pdf" target="_blank" className="full-btn">VER PORTAFOLIO_COMPLETO [PDF]</a>
                         </div>
                     </div>
                 </section>
 
-                {/* 03. AUDIOVISUAL */}
+                {/* 03. AUDIOVISUAL (DOS VIDEOS) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
                     <div className="vimeo-stack">
                         <div className="vimeo-container">
                             <iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe>
+                        </div>
+                        <div className="vimeo-container" style={{ marginTop: '20px' }}>
+                            <iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe>
                         </div>
                     </div>
                 </section>
@@ -110,14 +118,14 @@ const IndexPrakxisFinal = () => {
                             <span className="c-label">EMAIL_DIRECTO</span>
                             <a href="mailto:contacto@prakxis.cl" className="c-val">contacto@prakxis.cl</a>
                         </div>
-                        <div className="c-row">
+                        <div className="c-row" style={{ marginTop: '20px' }}>
                             <span className="c-label">ESTADO_SISTEMA</span>
                             <span className="c-val">TEMUCO / DISPONIBLE_2026</span>
                         </div>
                     </div>
                 </section>
 
-                {/* JUEGO: SOPA DE LETRAS (BAJO CONTACTO) */}
+                {/* JUEGO: SOPA DE LETRAS (CIERRE) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">0.5</span><h3>Laboratorio_Palabras</h3></div>
                     <div className="wordsearch-container">
@@ -139,9 +147,7 @@ const IndexPrakxisFinal = () => {
                         <div className="word-list">
                             <p className="list-title">[ CONCEPTOS_A_DECODIFICAR ]</p>
                             {wordsToFind.map(word => (
-                                <span key={word} className="word-item">
-                                    {word}
-                                </span>
+                                <span key={word} className="word-item">{word}</span>
                             ))}
                         </div>
                     </div>
@@ -160,38 +166,33 @@ const IndexPrakxisFinal = () => {
                     background-size: cover; background-position: center;
                 }
                 .grain-overlay {
-                    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                     background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png");
-                    opacity: 0.06; z-index: 999; pointer-events: none; animation: grain 1s steps(10) infinite;
+                    opacity: 0.06; z-index: 999; pointer-events: none;
                 }
-                @keyframes grain { 0%, 100% { transform:translate(0,0) } 50% { transform:translate(5%, 5%) } }
                 .site-header { padding: 100px 20px; text-align: center; position: relative; z-index: 100; }
-                .top-contact-btn { position: absolute; top: 40px; right: 40px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.7rem; letter-spacing: 2px; }
                 .main-logo { width: 100%; max-width: 420px; filter: invert(100%); }
+                .top-contact-btn { position: absolute; top: 40px; right: 40px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.7rem; letter-spacing: 2px; }
                 .hero-title { font-size: 1.8rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 40px; }
                 .main-content { max-width: 900px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
                 .section-block { margin-bottom: 120px; }
                 .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
-                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.2); padding: 20px; transition: 0.3s; background: rgba(0,0,0,0.4); }
-                .press-item:hover { border-color: #fff; background: #000; }
+                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.2); padding: 20px; margin-bottom: 15px; background: rgba(0,0,0,0.4); transition: 0.3s; }
+                .press-item:hover { border-color: #fff; }
                 .press-thumb { width: 100px; height: 100px; object-fit: cover; filter: grayscale(1); transition: 0.5s; }
                 .press-item:hover .press-thumb { filter: grayscale(0); }
                 .dossier-img { width: 100%; filter: grayscale(1) brightness(0.5); transition: 0.5s; }
                 .editorial-preview:hover .dossier-img { filter: grayscale(0) brightness(1); }
                 .full-btn { display: inline-block; background: #fff; color: #000 !important; padding: 18px 40px; font-weight: 800; margin-top: 20px; }
+                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.2); }
+                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.5s; }
+                .vimeo-container:hover iframe { filter: grayscale(0); }
                 .wordsearch-container { background: rgba(255,255,255,0.05); border: 1px solid #fff; padding: 40px; display: flex; flex-direction: column; align-items: center; }
                 .word-grid { display: flex; flex-direction: column; gap: 5px; margin-bottom: 30px; }
                 .grid-row { display: flex; gap: 5px; }
-                .grid-cell { 
-                    width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); 
-                    display: flex; align-items: center; justify-content: center; 
-                    cursor: pointer; font-weight: 700; transition: 0.2s; color: #fff;
-                }
-                .grid-cell:hover { background: rgba(255,255,255,0.1); }
+                .grid-cell { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 700; transition: 0.2s; }
                 .grid-cell.active { background: #fff; color: #000 !important; }
-                .word-list { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-                .list-title { width: 100%; text-align: center; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 10px; opacity: 0.6; }
-                .word-item { font-size: 0.8rem; letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; }
+                .word-item { font-size: 0.8rem; letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; margin: 5px; }
                 .contact-clean { text-align: center; padding: 40px; border: 1px solid #fff; background: rgba(0,0,0,0.4); }
                 .footer { padding: 80px; text-align: center; opacity: 0.4; font-size: 0.7rem; }
             `}</style>
