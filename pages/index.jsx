@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisGlitchAbstracto = () => {
-    // --- LÓGICA JUEGO "KERNEL GLITCH" ---
+const IndexPrakxisOriginal = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [isJumping, setIsJumping] = useState(false);
     const [obstaclePos, setObstaclePos] = useState(800);
     const [gameOver, setGameOver] = useState(false);
-    const [currentGlitch, setCurrentGlitch] = useState("");
-    const [wordVisible, setWordVisible] = useState(false);
-
-    const generateAbstractGlitch = () => {
-        const sourceText = document.body.innerHTML || "";
-        const cleanSource = (sourceText + " => { } [ ] < /> # _ 01 × ∆").replace(/<[^>]*>/g, '');
-        const chars = cleanSource.split('').filter(c => c.trim().length > 0);
-        let glitch = "";
-        for(let i = 0; i < 6; i++) { glitch += chars[Math.floor(Math.random() * chars.length)]; }
-        const triggers = ["_", "/", "::", "ø", "!", "?", "null"];
-        return glitch.trim().toUpperCase() + triggers[Math.floor(Math.random() * triggers.length)];
-    };
 
     const jump = (e) => {
-        if (e && e.cancelable) e.preventDefault();
+        if (e) e.preventDefault();
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
-            setCurrentGlitch(generateAbstractGlitch());
-            setWordVisible(true);
-            setTimeout(() => setWordVisible(false), 700);
             setTimeout(() => setIsJumping(false), 500);
-        } else if (!gameStarted || gameOver) { resetGame(); }
+        } else if (!gameStarted || gameOver) {
+            resetGame();
+        }
     };
 
-    const resetGame = () => { setScore(0); setObstaclePos(800); setGameOver(false); setGameStarted(true); };
+    const resetGame = () => {
+        setScore(0);
+        setObstaclePos(800);
+        setGameOver(false);
+        setGameStarted(true);
+    };
 
     useEffect(() => {
         let timer;
         if (gameStarted && !gameOver) {
             timer = setInterval(() => {
                 setObstaclePos((pos) => {
-                    if (pos < -20) { setScore(s => s + 1); return 800; }
+                    if (pos < -20) {
+                        setScore(s => s + 1);
+                        return 800;
+                    }
                     if (pos > 10 && pos < 50 && !isJumping) setGameOver(true);
                     return pos - (window.innerWidth < 600 ? 9 : 14);
                 });
@@ -86,14 +80,14 @@ const IndexPrakxisGlitchAbstracto = () => {
                             <img src="/images/prensa/ufro_salud.jpg" className="press-thumb" />
                             <div className="press-txt">
                                 <span className="medio">Contacto Salud</span>
-                                <span className="tit">UFRO presentó plataforma de salud pública</span>
+                                <span className="tit">UFRO presentó plataforma georreferenciada de salud pública</span>
                             </div>
                         </a>
                         <a href="https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233" target="_blank" className="press-item">
                             <img src="/images/prensa/libro_despojo.jpg" className="press-thumb" />
                             <div className="press-txt">
                                 <span className="medio">Araucanía Noticias</span>
-                                <span className="tit">Libro historias de vida de mujeres sindicalistas</span>
+                                <span className="tit">Nuevo libro relevan historias de vida de mujeres sindicalistas</span>
                             </div>
                         </a>
                     </div>
@@ -102,30 +96,20 @@ const IndexPrakxisGlitchAbstracto = () => {
                 {/* 02. DISEÑO EDITORIAL */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">02</span><h3>Diseño Editorial</h3></div>
-                    <a href="/docs/diseno/portfolio.pdf" target="_blank" className="editorial-preview-gif">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/TV_static.gif" className="background-gif-noise" />
-                        <div className="dossier-overlay-center">
-                            <span className="dossier-btn-label">ABRIR_DOSIER.RAW [PDF]</span>
-                        </div>
-                    </a>
+                    <div className="editorial-box">
+                        <a href="/docs/diseno/portfolio.pdf" target="_blank" className="editorial-preview">
+                            <img src="/images/prensa/preview-portfolio.jpg" className="dossier-img" />
+                        </a>
+                        <a href="/docs/diseno/portfolio.pdf" target="_blank" className="full-btn">ABRIR_DOSIER.RAW [PDF]</a>
+                    </div>
                 </section>
 
-                {/* 03. AUDIOVISUAL (BLOQUES INDEPENDIENTES CON RUIDO) */}
+                {/* 03. AUDIOVISUAL */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
                     <div className="vimeo-stack">
-                        <div className="video-glitch-wrapper">
-                            <div className="video-noise-overlay"></div>
-                            <div className="vimeo-container">
-                                <iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe>
-                            </div>
-                        </div>
-                        <div className="video-glitch-wrapper">
-                            <div className="video-noise-overlay"></div>
-                            <div className="vimeo-container">
-                                <iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe>
-                            </div>
-                        </div>
+                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
                     </div>
                 </section>
 
@@ -138,14 +122,13 @@ const IndexPrakxisGlitchAbstracto = () => {
                     </div>
                 </section>
 
-                {/* JUEGO: SINTETIZADOR DE ENTROPÍA */}
+                {/* JUEGO DINOSAURIO */}
                 <section className="section-block">
-                    <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Glitch</h3></div>
+                    <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Mode</h3></div>
                     <div className="game-area" onTouchStart={jump} onClick={jump}>
-                        {!gameStarted && <div className="game-overlay">EJECUTAR_ENTROPÍA</div>}
-                        {gameOver && <div className="game-overlay">SYSTEM_FAILURE <br/> [PULSA]</div>}
-                        <div className="score-board">REBOOTS: {score}</div>
-                        <div className={`glitch-text ${wordVisible ? 'visible' : ''}`}>{currentGlitch}</div>
+                        {!gameStarted && <div className="game-overlay">PULSA PARA INICIAR</div>}
+                        {gameOver && <div className="game-overlay">SYSTEM_FAILURE [PULSA]</div>}
+                        <div className="score-board">PUNTAJE: {score}</div>
                         <div className={`dino ${isJumping ? 'jumping' : ''}`}></div>
                         <div className="obstacle" style={{ left: `${obstaclePos}px` }}></div>
                         <div className="ground"></div>
@@ -161,70 +144,51 @@ const IndexPrakxisGlitchAbstracto = () => {
                 .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98)), url("/images/fondo-prakxis.jpg");
+                    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url("/images/fondo-prakxis.jpg");
                     background-size: cover; background-position: center;
                 }
                 .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.1; z-index: 999; pointer-events: none; }
-                .site-header { padding: 60px 20px 40px; text-align: center; position: relative; z-index: 100; }
-                .main-logo { width: 100%; max-width: 250px; filter: invert(100%); }
+                .site-header { padding: 80px 20px; text-align: center; position: relative; z-index: 100; }
+                .main-logo { width: 100%; max-width: 280px; filter: invert(100%); }
                 .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 8px 15px; font-size: 0.6rem; letter-spacing: 2px; }
                 
-                .main-content { max-width: 800px; margin: 0 auto; padding: 0 15px 100px; position: relative; z-index: 100; }
-                .section-block { margin-bottom: 80px; }
+                .main-content { max-width: 800px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
+                .section-block { margin-bottom: 100px; }
                 .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
                 
-                /* PRENSA */
-                .press-item { display: flex; gap: 15px; border: 1px solid rgba(255,255,255,0.1); padding: 15px; background: rgba(0,0,0,0.4); margin-bottom: 10px; transition: 0.3s; }
+                .press-item { display: flex; gap: 15px; border: 1px solid rgba(255,255,255,0.1); padding: 15px; background: rgba(0,0,0,0.4); transition: 0.3s; margin-bottom: 15px; }
                 .press-item:hover { border-color: #fff; background: #000; }
                 .press-thumb { width: 60px; height: 60px; object-fit: cover; filter: grayscale(1); transition: 0.4s; }
                 .press-item:hover .press-thumb { filter: grayscale(0); }
                 
-                /* DOSSIER GIF */
-                .editorial-preview-gif { display: block; position: relative; width: 100%; height: 180px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; transition: 0.5s; }
-                .background-gif-noise { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: 0.4; transition: 0.5s; }
-                .dossier-overlay-center { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); z-index: 2; transition: 0.3s; }
-                .dossier-btn-label { font-size: 0.8rem; border: 1px solid #fff; padding: 10px 20px; letter-spacing: 2px; }
-                .editorial-preview-gif:hover .background-gif-noise { opacity: 0.8; filter: grayscale(0); }
-                .editorial-preview-gif:hover .dossier-overlay-center { background: rgba(0,0,0,0.2); }
-
-                /* AUDIOVISUAL INDEPENDIENTE */
-                .vimeo-stack { display: flex; flex-direction: column; gap: 30px; }
-                .video-glitch-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; overflow: hidden; }
-                .video-noise-overlay { 
-                    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-                    background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/TV_static.gif"); 
-                    background-size: cover; opacity: 0.15; z-index: 5; pointer-events: none; transition: 0.4s;
-                }
-                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; }
+                .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.5; transition: 0.5s; border: 1px solid rgba(255,255,255,0.1); }
+                .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; border-color: #fff; }
+                
+                .vimeo-stack { display: flex; flex-direction: column; gap: 20px; }
+                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+                .vimeo-container:hover { border-color: #fff; }
                 .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
+                .vimeo-container:hover iframe { filter: grayscale(0); }
 
-                .video-glitch-wrapper:hover { border-color: #fff; }
-                .video-glitch-wrapper:hover .video-noise-overlay { opacity: 0; }
-                .video-glitch-wrapper:hover iframe { filter: grayscale(0); }
-
-                /* GAME AREA */
-                .game-area { width: 100%; height: 150px; background: rgba(255,255,255,0.01); border: 1px solid #fff; position: relative; overflow: hidden; }
+                .game-area { width: 100%; height: 160px; background: rgba(255,255,255,0.01); border: 1px solid #fff; position: relative; overflow: hidden; }
                 .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.6rem; letter-spacing: 4px; }
-                .glitch-text { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); font-size: 2.2rem; font-weight: 900; color: #fff; opacity: 0; font-family: monospace; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; }
-                .glitch-text.visible { opacity: 1; animation: blink 0.15s infinite; }
-                .dino { width: 20px; height: 20px; border: 1px solid #fff; position: absolute; bottom: 15px; left: 30px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); }
+                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; opacity: 0.4; }
+                .dino { width: 20px; height: 20px; border: 1px solid #fff; position: absolute; bottom: 10px; left: 30px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); }
                 .dino.jumping { bottom: 80px; }
-                .obstacle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 15px; }
-                .ground { width: 100%; height: 1px; background: rgba(255,255,255,0.3); position: absolute; bottom: 15px; }
+                .obstacle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 10px; }
+                .ground { width: 100%; height: 1px; background: #fff; position: absolute; bottom: 10px; }
 
-                @keyframes blink { 0% { opacity: 0.5; transform: translateX(-52%); } 50% { opacity: 1; transform: translateX(-48%); } 100% { opacity: 0.8; } }
                 .contact-clean { text-align: center; padding: 40px; border: 1px solid #fff; background: rgba(0,0,0,0.5); }
-                .c-val { font-size: 1.1rem; font-weight: 700; }
+                .full-btn { display: block; border: 1px solid #fff; text-align: center; padding: 15px; margin-top: 15px; font-size: 0.8rem; font-weight: 700; }
                 .footer { padding: 60px; text-align: center; opacity: 0.3; font-size: 0.6rem; }
                 
                 @media (min-width: 600px) {
                     .main-logo { max-width: 380px; }
                     .main-content { padding: 0 40px 100px; }
-                    .c-val { font-size: 1.6rem; }
                 }
             `}</style>
         </div>
     );
 };
 
-export { IndexPrakxisGlitchAbstracto as default };
+export default IndexPrakxisOriginal;
