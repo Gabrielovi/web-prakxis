@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisGenerativo = () => {
-    // --- LÓGICA MINI JUEGO "GLITCH RUNNER" ---
+const IndexPrakxisMetaGenerativo = () => {
+    // --- LÓGICA JUEGO "GLITCH RUNNER v5.0" (Fonético) ---
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [isJumping, setIsJumping] = useState(false);
     const [obstaclePos, setObstaclePos] = useState(800);
     const [gameOver, setGameOver] = useState(false);
-    const [currentGlitch, setCurrentGlitch] = useState("");
+    const [currentNeologism, setCurrentNeologism] = useState("");
     const [wordVisible, setWordVisible] = useState(false);
 
-    // FUNCIÓN GENERATIVA: Extrae palabras de la página y las mezcla
-    const generateGlitchWord = () => {
-        // Obtenemos todo el texto del body y lo limpiamos
+    // FUNCIÓN META-GENERATIVA: Crea neologismos basados en la fonética de la web
+    const generatePhoneticNeologism = () => {
+        // 1. Scraping de la huella genética (letras) de la página
         const allText = document.body.innerText || "";
-        const words = allText.split(/\s+/).filter(w => w.length > 3);
-        
-        // Añadimos términos técnicos del script
-        const techTerms = ["querySelector", "useEffect", "glitch", "const", "return", "system", "px_core", "void"];
-        const combinedPool = [...words, ...techTerms];
+        // Incluimos términos técnicos del script para romper la semántica humana
+        const technicalScraping = "useEffect useState querySelector const return prakxis system glitch core";
+        const rawRawData = (allText + technicalScraping).toLowerCase().replace(/[^a-z]/g, '');
 
-        // Mezclamos dos partes aleatorias
-        const part1 = combinedPool[Math.floor(Math.random() * combinedPool.length)].substring(0, 4);
-        const part2 = combinedPool[Math.floor(Math.random() * combinedPool.length)].substring(0, 4);
-        
-        return `${part1.toUpperCase()}_${part2.toLowerCase()}`;
+        if (rawRawData.length < 10) return "PX_NULL";
+
+        // 2. Clasificación de Fonemas básicos (letras)
+        const vowels = rawRawData.match(/[aeiouáéíóú]/g) || ['a', 'e', 'i', 'o', 'u'];
+        const consonants = rawRawData.match(/[bcdfghjklmnñpqrstvwxyz]/g) || ['p', 'x', 'r', 'c', 's'];
+
+        // 3. Función auxiliar para elegir letra según frecuencia de la web
+        const getRandomByFrequency = (arr) => {
+            return arr[Math.floor(Math.random() * arr.length)];
+        };
+
+        // 4. Construcción estructural (Estructura silábica básica C-V-C-V)
+        // Esto asegura que sean "palabras" pronunciables pero nuevas.
+        const c1 = getRandomByFrequency(consonants);
+        const v1 = getRandomByFrequency(vowels);
+        const c2 = getRandomByFrequency(consonants);
+        const v2 = getRandomByFrequency(vowels);
+
+        return `${c1}${v1}${c2}${v2}`.toUpperCase();
     };
 
     const jump = (e) => {
@@ -33,8 +45,9 @@ const IndexPrakxisGenerativo = () => {
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
             
-            // Generamos la palabra mutante
-            setCurrentGlitch(generateGlitchWord());
+            // Generamos el neologismo fonético
+            const newWord = generatePhoneticNeologism();
+            setCurrentNeologism(newWord);
             setWordVisible(true);
             
             setTimeout(() => setWordVisible(false), 800);
@@ -85,7 +98,7 @@ const IndexPrakxisGenerativo = () => {
                 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap');
                 html { scroll-behavior: smooth; touch-action: manipulation; }
                 body { margin: 0; padding: 0; background: #000; font-family: 'Chakra Petch', sans-serif !important; overflow-x: hidden; }
-                h1, h2, h3, h4, p, a, span { color: #ffffff !important; }
+                h1, h2, h3, h4, p, a, span { color: #ffffff !important; text-decoration: none;}
             `}</style>
 
             <div className="grain-overlay"></div>
@@ -137,25 +150,16 @@ const IndexPrakxisGenerativo = () => {
                     </div>
                 </section>
 
-                {/* 03. AUDIOVISUAL */}
+                {/* --- JUEGO META-GENERATIVO v5.0 --- */}
                 <section className="section-block">
-                    <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
-                    <div className="vimeo-stack">
-                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706044" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
-                        <div className="vimeo-container" style={{ marginTop: '20px' }}><iframe src="https://player.vimeo.com/video/1156706575" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
-                    </div>
-                </section>
-
-                {/* --- JUEGO GENERATIVO --- */}
-                <section className="section-block">
-                    <div className="section-header"><span className="numb">0.5</span><h3>Sintetizador_de_Datos</h3></div>
+                    <div className="section-header"><span className="numb">0.5</span><h3>Sintetizador_Fonético</h3></div>
                     <div className="game-area" onTouchStart={jump} onClick={jump}>
-                        {!gameStarted && <div className="game-overlay">PULSA PARA GENERAR SECUENCIA</div>}
+                        {!gameStarted && <div className="game-overlay">PULSA PARA DECODIFICAR HUELLA</div>}
                         {gameOver && <div className="game-overlay">SISTEMA REBOOTING... <br/> [PULSA PARA REINICIAR]</div>}
-                        <div className="score-board">RECOMBINACIONES: {score}</div>
+                        <div className="score-board">NEOLOGISMOS: {score}</div>
                         
-                        <div className={`floating-glitch ${wordVisible ? 'visible' : ''}`}>
-                            {currentGlitch}
+                        <div className={`floating-neologism ${wordVisible ? 'visible' : ''}`}>
+                            {currentNeologism}
                         </div>
                         
                         <div className={`dino ${isJumping ? 'jumping' : ''}`}></div>
@@ -166,7 +170,7 @@ const IndexPrakxisGenerativo = () => {
             </main>
 
             <footer className="footer">
-                <p>© 2026 PRAKXIS_CORE // GENERATIVE_MODE_v4</p>
+                <p>© 2026 PRAKXIS_CORE // PHONETIC_MODE_v5.0</p>
             </footer>
 
             <style jsx>{`
@@ -184,7 +188,7 @@ const IndexPrakxisGenerativo = () => {
                 .main-content { max-width: 800px; margin: 0 auto; padding: 0 15px 60px; position: relative; z-index: 100; }
                 .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 30px; }
                 
-                /* HOVER EFFECTS */
+                /* HOVER EFFECTS COLOR */
                 .press-item { display: flex; gap: 15px; border: 1px solid rgba(255,255,255,0.2); padding: 15px; background: rgba(0,0,0,0.5); transition: 0.3s; }
                 .press-item:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
                 .press-thumb { width: 60px; height: 60px; object-fit: cover; filter: grayscale(1); transition: 0.4s; }
@@ -193,17 +197,13 @@ const IndexPrakxisGenerativo = () => {
                 .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.6; transition: 0.5s; }
                 .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; }
                 
-                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.2); }
-                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
-                .vimeo-container:hover iframe { filter: grayscale(0); }
-
-                /* GAME AREA GENERATIVE */
+                /* GAME AREA META-GENERATIVE */
                 .game-area { width: 100%; height: 180px; background: rgba(255,255,255,0.02); border: 1px dashed #fff; position: relative; overflow: hidden; cursor: crosshair; }
-                .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.9); z-index: 10; font-size: 0.7rem; letter-spacing: 3px; }
-                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; color: #fff; font-family: monospace; }
+                .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.9); z-index: 10; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;}
+                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; color: #fff; font-family: monospace; opacity: 0.6; }
                 
-                .floating-glitch { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; font-weight: 800; color: #fff; opacity: 0; transition: 0.2s; font-family: monospace; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; }
-                .floating-glitch.visible { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+                .floating-neologism { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); font-size: 1.8rem; font-weight: 800; color: #fff; opacity: 0; transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-family: 'Chakra Petch', monospace; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; letter-spacing: 5px; }
+                .floating-neologism.visible { opacity: 1; transform: translateX(-50%) translateY(-10px); }
                 
                 .dino { width: 25px; height: 25px; border: 2px solid #fff; position: absolute; bottom: 20px; left: 40px; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
                 .dino.jumping { bottom: 100px; }
@@ -211,16 +211,18 @@ const IndexPrakxisGenerativo = () => {
                 .obstacle.hit { background: #ff0000; }
                 .ground { width: 100%; height: 2px; background: #fff; position: absolute; bottom: 20px; }
                 
+                .full-btn { display: inline-block; background: #fff; color: #000 !important; padding: 15px 30px; font-weight: 800; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
                 .footer { padding: 60px; text-align: center; opacity: 0.3; font-size: 0.6rem; letter-spacing: 2px; }
                 
                 @media (min-width: 600px) {
                     .hero-title { font-size: 1.8rem; letter-spacing: 6px; }
                     .main-logo { max-width: 420px; }
                     .game-area { height: 200px; }
+                    .floating-neologism { font-size: 2.5rem; }
                 }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisGenerativo;
+export default IndexPrakxisMetaGenerativo;
