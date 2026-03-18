@@ -26,9 +26,9 @@ const IndexPrakxisDefinitivo = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    // Lógica del juego v2.0
+    // Lógica del juego v2.0 (Cuadrado Minimalista)
     const jump = (e) => {
-        if (e && e.cancelable) e.preventDefault();
+        if (e && e.cancelable) e.preventDefault(); // Evita scroll/zoom en móvil
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
             setJumpTextVisible(true);
@@ -89,6 +89,7 @@ const IndexPrakxisDefinitivo = () => {
             </Head>
 
             <style jsx global>{`
+                /* Tipografía Chakra Petch para TODA la web */
                 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap');
                 html { scroll-behavior: smooth; touch-action: manipulation; }
                 body { 
@@ -121,7 +122,7 @@ const IndexPrakxisDefinitivo = () => {
                             <img src="/images/prensa/ufro_salud.jpg" className="press-thumb" />
                             <div className="press-txt">
                                 <span className="medio">Contacto Salud</span>
-                                <span className="tit">UFRO presentó plataforma de salud pública</span>
+                                <span className="tit">UFRO presentó plataforma georreferenciada de salud pública</span>
                             </div>
                         </a>
                         <a href="https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233" target="_blank" className="press-item">
@@ -145,7 +146,7 @@ const IndexPrakxisDefinitivo = () => {
                     </div>
                 </section>
 
-                {/* 03. AUDIOVISUAL */}
+                {/* 03. AUDIOVISUAL CON RUIDO */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
                     <div className="vimeo-stack">
@@ -160,7 +161,7 @@ const IndexPrakxisDefinitivo = () => {
                     </div>
                 </section>
 
-                {/* 04. CONTACTO */}
+                {/* 04. CONTACTO CON BOTÓN */}
                 <section id="contacto" className="section-block">
                     <div className="section-header"><span className="numb">04</span><h3>Contacto</h3></div>
                     <div className="contact-clean">
@@ -170,17 +171,19 @@ const IndexPrakxisDefinitivo = () => {
                     </div>
                 </section>
 
-                {/* 0.5 JUEGO GLITCH CORE v2.0 */}
+                {/* 0.5 JUEGO GLITCH CORE v2.0 (MODIFICADO Minimalista) */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Mode_v2.0</h3></div>
+                    {/* El parpadeo #fff va en el contenedor .game-area */}
                     <div className={`game-area ${glitchFlash ? 'glitch-flash' : ''}`} onTouchStart={jump} onClick={jump}>
                         {!gameStarted && <div className="game-overlay">PULSA PARA DECODIFICAR HUELLA</div>}
                         {gameOver && <div className="game-overlay">SYSTEM_FAILURE [PULSA_REBOOT]</div>}
                         <div className="score-board">REBOOTS: {score}</div>
                         
-                        {/* Agente de texto */}
+                        {/* Agente de texto: Cuadrado Minimalista */}
                         <div className={`agent ${isJumping ? 'jumping' : ''}`}>
                             <span className="agent-text">&lt;PX_AGENT_v2&gt;</span>
+                            {/* Feedback del salto */}
                             <span className={`jump-msg ${jumpTextVisible ? 'visible' : ''}`}>[JUMP_DECODED]</span>
                         </div>
                         
@@ -211,9 +214,11 @@ const IndexPrakxisDefinitivo = () => {
                 .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                    /* Fondo de Red Neuronal Profunda Forzado similar a image_12.png, muy oscuro y presente */
-                    background-image: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.98) 100%), url("/images/fondo-prakxis-red.jpg"); 
+                    /* Fondo de Red Neuronal Profunda Forzado, muy oscuro y presente - CORREGIDO FONDO */
+                    background-image: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.98) 100%), 
+                                      url("/images/fondo-prakxis.jpg"); 
                     background-size: cover; background-position: center;
+                    background-attachment: fixed;
                 }
                 .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.15; z-index: 999; pointer-events: none; }
                 .site-header { padding: 80px 20px 40px; text-align: center; position: relative; z-index: 100; }
@@ -255,13 +260,13 @@ const IndexPrakxisDefinitivo = () => {
                 .video-glitch-wrapper:hover .video-noise-overlay { opacity: 0; }
                 .video-glitch-wrapper:hover iframe { filter: grayscale(0); }
 
-                /* JUEGO GLITCH CORE v2.0 AGRANDADO Y MEJORADO */
+                /* JUEGO GLITCH CORE v2.0 (Minimalista) */
                 .game-area { width: 100%; height: 180px; background: rgba(0,0,0,0.8); border: 2px solid #fff; position: relative; overflow: hidden; transition: background 0.05s;}
-                .game-area.glitch-flash { background: #fff !important; }
+                .game-area.glitch-flash { background: #fff !important; } /* Flash blanco */
                 .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.7rem; letter-spacing: 4px; text-align: center; }
                 .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; }
                 
-                /* Agente de texto */
+                /* Agente de texto: Cuadrado minimalista */
                 .agent { position: absolute; bottom: 15px; left: 40px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); z-index: 5;}
                 .agent.jumping { bottom: 100px; }
                 .agent-text { font-size: 0.8rem; font-weight: 700; color: #fff; }
