@@ -2,22 +2,21 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 
 const IndexPrakxisFinal = () => {
-    // Lógica del Juego
-    const [score, setScore] = useState(0);
-    const [target, setTarget] = useState({ x: 50, y: 50 });
+    const [word1, setWord1] = useState("RIGOR");
+    const [word2, setWord2] = useState("VISUAL");
+    const [isGlitching, setIsGlitching] = useState(false);
 
-    const handleHit = () => {
-        setScore(s => s + 1);
-        setTarget({
-            x: Math.random() * 80 + 10,
-            y: Math.random() * 80 + 10
-        });
+    const lista1 = ["RIGOR", "CIENCIA", "DATOS", "EVIDENCIA", "ESTRATEGIA", "MEMORIA"];
+    const lista2 = ["VISUAL", "NARRATIVO", "ESTÉTICO", "BRUTALISTA", "CRÍTICO", "SISTÉMICO"];
+
+    const decodificar = () => {
+        setIsGlitching(true);
+        setTimeout(() => {
+            setWord1(lista1[Math.floor(Math.random() * lista1.length)]);
+            setWord2(lista2[Math.floor(Math.random() * lista2.length)]);
+            setIsGlitching(false);
+        }, 300);
     };
-
-    const notasPrensa = [
-        { titulo: "UFRO presentó plataforma georreferenciada de salud pública", url: "https://contactosalud.cl/ufro-presento-plataforma-georreferenciada-de-salud-publica-a-municipios-e-instituciones-regionales/", medio: "Contacto Salud", img: "/images/prensa/ufro_salud.jpg" },
-        { titulo: "Nuevo libro 'Del despojo surge la esperanza'", url: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", medio: "Araucanía Noticias", img: "/images/prensa/libro_despojo.jpg" }
-    ];
 
     return (
         <div className="main-container">
@@ -29,12 +28,8 @@ const IndexPrakxisFinal = () => {
             <style jsx global>{`
                 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap');
                 html { scroll-behavior: smooth; }
-                body {
-                    margin: 0; padding: 0; background: #000;
-                    font-family: 'Chakra Petch', sans-serif !important;
-                    color: #fff;
-                }
-                h1, h2, h3, h4, p, a, span { font-family: 'Chakra Petch', sans-serif !important; color: #fff !important; text-decoration: none; }
+                body { margin: 0; padding: 0; background: #000; font-family: 'Chakra Petch', sans-serif !important; color: #fff; }
+                a, button { cursor: pointer; }
             `}</style>
 
             <div className="grain-overlay"></div>
@@ -51,36 +46,38 @@ const IndexPrakxisFinal = () => {
             </header>
 
             <main className="main-content">
-                
                 {/* 01. PRENSA */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">01</span><h3>Gestión de Prensa</h3></div>
                     <div className="press-list">
-                        {notasPrensa.map((nota, i) => (
-                            <a key={i} href={nota.url} target="_blank" rel="noopener noreferrer" className="press-item">
-                                <img src={nota.img} alt="" className="press-thumb" />
+                        {[
+                            { t: "UFRO presentó plataforma de salud pública", u: "https://contactosalud.cl/ufro-presento-plataforma-georreferenciada-de-salud-publica-a-municipios-e-instituciones-regionales/", m: "Contacto Salud", i: "/images/prensa/ufro_salud.jpg" },
+                            { t: "Nuevo libro 'Del despojo surge la esperanza'", u: "https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233", m: "Araucanía Noticias", i: "/images/prensa/libro_despojo.jpg" }
+                        ].map((nota, i) => (
+                            <a key={i} href={nota.u} target="_blank" rel="noopener noreferrer" className="press-item">
+                                <img src={nota.i} alt="" className="press-thumb" />
                                 <div className="press-txt">
-                                    <span className="medio">{nota.medio}</span>
-                                    <span className="tit">{nota.titulo}</span>
+                                    <span className="medio">{nota.m}</span>
+                                    <span className="tit">{nota.t}</span>
                                 </div>
                             </a>
                         ))}
                     </div>
                 </section>
 
-                {/* 02. DISEÑO EDITORIAL */}
+                {/* 02. DISEÑO EDITORIAL - RUTA ACTUALIZADA A /docs/diseno/portfolio.pdf */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">02</span><h3>Diseño Editorial</h3></div>
                     <div className="editorial-box">
-                        <a href="/diseno/portfolio.pdf" target="_blank" rel="noopener noreferrer" className="editorial-preview">
+                        <a href="/docs/diseno/portfolio.pdf" target="_blank" rel="noopener noreferrer" className="editorial-preview">
                             <div className="img-wrapper">
                                 <img src="/images/prensa/preview-portfolio.jpg" alt="Dosier" className="dossier-img" />
                                 <div className="dossier-overlay"><span className="dossier-btn-label">ABRIR DOSIER</span></div>
                             </div>
                         </a>
                         <div className="editorial-info">
-                            <p>Memorias institucionales y reportes técnicos. Visualización de datos y narrativa estratégica.</p>
-                            <a href="/diseno/portfolio.pdf" target="_blank" rel="noopener noreferrer" className="full-btn">VER PORTAFOLIO_COMPLETO [PDF]</a>
+                            <p>Memorias institucionales y reportes técnicos de alta complejidad.</p>
+                            <a href="/docs/diseno/portfolio.pdf" target="_blank" rel="noopener noreferrer" className="full-btn">VER PORTAFOLIO_COMPLETO [PDF]</a>
                         </div>
                     </div>
                 </section>
@@ -97,20 +94,16 @@ const IndexPrakxisFinal = () => {
                     </div>
                 </section>
 
-                {/* JUEGO (GUEGO) */}
+                {/* JUEGO: DECODIFICADOR */}
                 <section className="section-block">
-                    <div className="section-header"><span className="numb">0.5</span><h3>Guego_Experimental</h3></div>
-                    <div className="game-area">
-                        <div className="game-canvas">
-                            <div className="score-display">DATA_COLLECTED: {score}</div>
-                            <div 
-                                className="game-target" 
-                                onClick={handleHit}
-                                style={{ left: `${target.x}%`, top: `${target.y}%` }}
-                            >
-                                <div className="target-cross"></div>
-                            </div>
+                    <div className="section-header"><span className="numb">0.5</span><h3>Concept_Decoder_v1.0</h3></div>
+                    <div className="decoder-box">
+                        <div className={`decoder-display ${isGlitching ? 'glitch' : ''}`}>
+                            <span className="word">{word1}</span>
+                            <span className="separator">_</span>
+                            <span className="word">{word2}</span>
                         </div>
+                        <button className="decode-btn" onClick={decodificar}>[ RE_GENERAR_CONCEPTO ]</button>
                     </div>
                 </section>
 
@@ -131,72 +124,47 @@ const IndexPrakxisFinal = () => {
             </main>
 
             <footer className="footer">
-                <p>© 2026 PRAKXIS_CORE_SYSTEM // ANALOG_GRAIN_v3</p>
+                <p>© 2026 PRAKXIS_CORE_SYSTEM // ANALOG_FIX_FINAL_v2</p>
             </footer>
 
             <style jsx>{`
                 .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
-                
-                /* FONDO: SIN DESENFOQUE, MANTENIENDO CALIDAD 35mm */
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url("/images/fondo-prakxis.jpg");
+                    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url("/images/fondo-prakxis.jpg");
                     background-size: cover; background-position: center;
-                    filter: none; /* Eliminado el blur */
                 }
-
                 .grain-overlay {
                     position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
                     background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png");
                     opacity: 0.06; z-index: 999; pointer-events: none; animation: grain 1s steps(10) infinite;
                 }
                 @keyframes grain { 0%, 100% { transform:translate(0,0) } 50% { transform:translate(5%, 5%) } }
-
                 .site-header { padding: 100px 20px; text-align: center; position: relative; z-index: 100; }
                 .top-contact-btn { position: absolute; top: 40px; right: 40px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.7rem; letter-spacing: 2px; }
                 .logo-container { max-width: 420px; margin: 0 auto; }
                 .main-logo { width: 100%; height: auto; filter: invert(100%); }
-                .hero-title { font-size: 1.8rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 40px; }
-                .hero-subline { letter-spacing: 4px; font-size: 0.9rem; opacity: 0.7; }
-
+                .hero-title { font-size: 1.8rem; letter-spacing: 8px; text-transform: uppercase; margin-top: 40px; line-height: 1.4; }
                 .main-content { max-width: 900px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
                 .section-block { margin-bottom: 120px; }
                 .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
-                .numb { font-weight: 700; }
-                h3 { text-transform: uppercase; letter-spacing: 4px; margin: 0; font-size: 1.2rem; }
-
-                /* PRENSA */
-                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.2); padding: 20px; margin-bottom: 15px; background: rgba(0,0,0,0.4); transition: 0.3s; }
-                .press-item:hover { border-color: #fff; transform: translateX(10px); background: #000; }
+                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.2); padding: 20px; margin-bottom: 15px; background: rgba(0,0,0,0.4); }
                 .press-thumb { width: 100px; height: 100px; object-fit: cover; filter: grayscale(1); }
-                .press-item:hover .press-thumb { filter: grayscale(0); }
-
-                /* EDITORIAL */
-                .img-wrapper { position: relative; border: 1px solid #fff; overflow: hidden; }
-                .dossier-img { width: 100%; display: block; filter: grayscale(1) brightness(0.5); transition: 0.5s; }
-                .editorial-preview:hover .dossier-img { filter: grayscale(0) brightness(1); }
+                .img-wrapper { border: 1px solid #fff; overflow: hidden; position: relative; }
+                .dossier-img { width: 100%; display: block; filter: grayscale(1) brightness(0.4); }
                 .dossier-btn-label { background: #000; padding: 15px 35px; border: 1px solid #fff; letter-spacing: 5px; font-weight: 700; }
                 .editorial-info { padding: 40px; text-align: center; border: 1px solid #fff; border-top: 0; background: rgba(0,0,0,0.5); }
-                .full-btn { display: inline-block; background: #fff; color: #000 !important; padding: 18px 40px; font-weight: 800; margin-top: 20px; }
-
-                /* VIMEO */
+                .full-btn { display: inline-block; background: #fff; color: #000 !important; padding: 18px 40px; font-weight: 800; margin-top: 20px; letter-spacing: 2px; }
                 .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 30px; border: 1px solid #fff; }
                 .vimeo-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; filter: grayscale(1); }
-
-                /* GUEGO */
-                .game-canvas { width: 100%; height: 350px; border: 1px solid #fff; position: relative; background: rgba(0,0,0,0.8); cursor: crosshair; }
-                .score-display { position: absolute; top: 15px; left: 15px; font-size: 0.7rem; letter-spacing: 3px; }
-                .game-target { position: absolute; width: 40px; height: 40px; border: 1px solid #fff; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; animation: pulse 1s infinite; }
-                @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-                .target-cross { width: 100%; height: 1px; background: #fff; position: relative; }
-                .target-cross::after { content: ''; position: absolute; width: 1px; height: 40px; background: #fff; top: -20px; left: 20px; }
-
-                /* CONTACTO */
+                .decoder-box { background: rgba(255,255,255,0.05); border: 1px solid #fff; padding: 60px 20px; text-align: center; }
+                .decoder-display { margin-bottom: 40px; min-height: 80px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+                .word { font-size: 2.5rem; font-weight: 800; letter-spacing: 5px; }
+                .decode-btn { background: transparent; border: 1px solid #fff; color: #fff; padding: 15px 30px; font-weight: 700; letter-spacing: 3px; font-family: 'Chakra Petch'; }
+                .glitch { animation: glitch-anim 0.2s infinite; opacity: 0.5; }
+                @keyframes glitch-anim { 0% { transform: translate(2px, 0); } 50% { transform: translate(-2px, 0); } }
                 .contact-clean { text-align: center; padding: 60px 0; border: 1px solid #fff; background: rgba(0,0,0,0.6); }
-                .c-row { margin-bottom: 40px; }
-                .c-label { display: block; font-size: 0.7rem; opacity: 0.5; letter-spacing: 4px; }
                 .c-val { font-size: 1.6rem; display: block; margin-top: 10px; }
-
                 .footer { padding: 80px; text-align: center; opacity: 0.4; font-size: 0.7rem; letter-spacing: 4px; }
             `}</style>
         </div>
