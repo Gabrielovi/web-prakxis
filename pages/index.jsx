@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
-const IndexPrakxisDefinitivo = () => {
-    // --- LÓGICA JUEGO DINOSAURIO ---
+const IndexPrakxisFinal = () => {
+    // --- LÓGICA JUEGO "KERNEL DECODING" ---
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [isJumping, setIsJumping] = useState(false);
     const [obstaclePos, setObstaclePos] = useState(800);
     const [gameOver, setGameOver] = useState(false);
 
+    // Fonemas para obstáculos y decodificación
+    const phonemes = ["PX", "PX", "core", "SYS", "void", "NULL", "ø", "X", "CT", "A"];
+    const [currentDecodingText, setCurrentDecodingText] = useState("cyclemdmmat1Rx");
+
+    // Lógica para cambiar la letra aleatoria en el header ('COT.')
+    const changingChars = ['T', 'D', 'X', 'R', 'S', 'Ø', '0', '!', '?'];
+    const [changingLetter, setChangingLetter] = useState('O');
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setChangingLetter(changingChars[Math.floor(Math.random() * changingChars.length)]);
+        }, 1500); // Cambia cada 1.5 segundos
+        return () => clearInterval(intervalId);
+    }, []);
+
+    // Lógica del juego
     const jump = (e) => {
-        if (e) e.preventDefault();
+        if (e && e.cancelable) e.preventDefault(); // Evita scroll/zoom en móvil
         if (!isJumping && gameStarted && !gameOver) {
             setIsJumping(true);
             setTimeout(() => setIsJumping(false), 500);
+            
+            // Simular decodificación de fonemas al saltar
+            const randomPhoneme = phonemes[Math.floor(Math.random() * phonemes.length)];
+            setCurrentDecodingText(prev => prev + randomPhoneme + "..");
+            
         } else if (!gameStarted || gameOver) {
             resetGame();
         }
@@ -24,6 +45,7 @@ const IndexPrakxisDefinitivo = () => {
         setObstaclePos(800);
         setGameOver(false);
         setGameStarted(true);
+        setCurrentDecodingText("cyclemdmmat1Rx"); // Reset texto
     };
 
     useEffect(() => {
@@ -35,8 +57,10 @@ const IndexPrakxisDefinitivo = () => {
                         setScore(s => s + 1);
                         return 800;
                     }
-                    if (pos > 10 && pos < 50 && !isJumping) setGameOver(true);
-                    return pos - (window.innerWidth < 600 ? 9 : 14);
+                    if (pos > 10 && pos < 50 && !isJumping) {
+                        setGameOver(true);
+                    }
+                    return pos - (window.innerWidth < 600 ? 9 : 14); // Velocidad
                 });
             }, 20);
         }
@@ -57,42 +81,48 @@ const IndexPrakxisDefinitivo = () => {
             </Head>
 
             <style jsx global>{`
+                /* Tipografía Chakza Petch para TODA la web */
                 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&display=swap');
                 html { scroll-behavior: smooth; touch-action: manipulation; }
-                body { margin: 0; padding: 0; background: #000; font-family: 'Chakra Petch', sans-serif !important; overflow-x: hidden; }
-                h1, h2, h3, h4, p, a, span { color: #ffffff !important; text-decoration: none; }
+                body { 
+                    margin: 0; padding: 0; background: #000; 
+                    font-family: 'Chakra Petch', sans-serif !important; 
+                    overflow-x: hidden; color: #fff;
+                }
+                h1, h2, h3, h4, p, a, span { color: #ffffff !important; text-decoration: none; font-family: 'Chakra Petch', sans-serif !important;}
             `}</style>
 
             <div className="grain-overlay"></div>
 
             <header className="site-header">
+                <a href="#contacto" className="top-contact-btn">[ CONTACTO ]</a>
                 <div className="logo-container">
                     <img src="/images/logo_prakxis.png" alt="PRAKXIS" className="main-logo" />
-                    {/* BAJADA AJUSTADA EXACTAMENTE COMO PEDISTE */}
-                    <div className="sub-header-text">
-                        <p className="tagline-fixed">
-                            NARRATIVAS VISUALES CON RIGOR CIENTÍFICO.
-                            <span className="px-code-inline">[PX] ——— CO.</span>
-                        </p>
-                    </div>
+                </div>
+                <div className="sub-header-text">
+                    <h2 className="tagline">NARRATIVAS VISUALES CON RIGOR CIENTÍFICO.</h2>
+                    {/* Letra aleatoria aquí */}
+                    <p className="px-code">[PX] ——— C<span className="changing-char">{changingLetter}</span>.</p>
                 </div>
             </header>
 
             <main className="main-content">
-                {/* 01. PRENSA */}
+                {/* 01. PRENSA CON HOVER COLOR */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">01</span><h3>Gestión de Prensa</h3></div>
                     <div className="press-list">
                         <a href="https://contactosalud.cl/ufro-presento-plataforma-georreferenciada-de-salud-publica-a-municipios-e-instituciones-regionales/" target="_blank" className="press-item">
                             <img src="/images/prensa/ufro_salud.jpg" className="press-thumb" />
                             <div className="press-txt">
-                                <span className="tit">Contacto Salud UFRO presentó plataforma georreferenciada de salud pública</span>
+                                <span className="medio">Contacto Salud</span>
+                                <span className="tit">UFRO presentó plataforma de salud pública</span>
                             </div>
                         </a>
                         <a href="https://araucanianoticias.cl/2026/nuevo-libro-del-despojo-surge-la-esperanza-releva-las-historias-de-vida-de-mujeres-sindicalistas-de-la-araucana/0113298233" target="_blank" className="press-item">
                             <img src="/images/prensa/libro_despojo.jpg" className="press-thumb" />
                             <div className="press-txt">
-                                <span className="tit">Araucanía Noticias Nuevo libro historias relevantes de vida de mujeres sindicalistas</span>
+                                <span className="medio">Araucanía Noticias</span>
+                                <span className="tit">Libro historias de vida de mujeres sindicalistas</span>
                             </div>
                         </a>
                     </div>
@@ -109,35 +139,49 @@ const IndexPrakxisDefinitivo = () => {
                     </div>
                 </section>
 
-                {/* 03. AUDIOVISUAL */}
+                {/* 03. AUDIOVISUAL CON RUIDO */}
                 <section className="section-block">
                     <div className="section-header"><span className="numb">03</span><h3>Audiovisual</h3></div>
                     <div className="vimeo-stack">
-                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
-                        <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                        <div className="video-glitch-wrapper">
+                            <div className="video-noise-overlay"></div>
+                            <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706044?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                        </div>
+                        <div className="video-glitch-wrapper">
+                            <div className="video-noise-overlay"></div>
+                            <div className="vimeo-container"><iframe src="https://player.vimeo.com/video/1156706575?badge=0" frameBorder="0" allow="autoplay; fullscreen"></iframe></div>
+                        </div>
                     </div>
                 </section>
 
-                {/* 04. CONTACTO */}
+                {/* 04. CONTACTO CON BOTÓN */}
                 <section id="contacto" className="section-block">
                     <div className="section-header"><span className="numb">04</span><h3>Contacto</h3></div>
                     <div className="contact-clean">
                         <a href="mailto:contacto@prakxis.cl" className="c-val">contacto@prakxis.cl</a>
                         <p style={{ marginTop: '10px', opacity: 0.5, fontSize: '0.8rem' }}>TEMUCO / DISPONIBLE_2026</p>
+                        <a href="#" className="contact-btn">[ ENVIAR MENSAJE ]</a>
                     </div>
                 </section>
 
-                {/* JUEGO DINOSAURIO */}
+                {/* 0.5 JUEGO DE FONEMAS */}
                 <section className="section-block">
-                    <div className="section-header"><span className="numb">0.5</span><h3>Error del kernel</h3></div>
+                    <div className="section-header"><span className="numb">0.5</span><h3>Kernel_Mode</h3></div>
                     <div className="game-area" onTouchStart={jump} onClick={jump}>
                         {!gameStarted && <div className="game-overlay">PULSA PARA INICIAR</div>}
-                        {gameOver && <div className="game-overlay">EXCEPCIÓN DE PUNTERO NULO <br/> [PULSA]</div>}
+                        {gameOver && <div className="game-overlay">NULL_POINTER_EXCEPTION <br/> [PULSA]</div>}
                         <div className="score-board">REBOOTS: {score}</div>
+                        
                         <div className={`dino ${isJumping ? 'jumping' : ''}`}></div>
-                        <div className="obstacle" style={{ left: `${obstaclePos}px` }}></div>
+                        
+                        {/* Obstáculos de Fonemas (puedes añadir más bloques si quieres) */}
+                        <div className="obstacle phoneme-block" style={{ left: `${obstaclePos}px` }}>SYSø</div>
+                        <div className="obstacle phoneme-block" style={{ left: `${obstaclePos + 30}px`, bottom: '40px' }}>coreX</div>
+                        
                         <div className="ground"></div>
                     </div>
+                    {/* Texto de decodificación */}
+                    <p className="decoding-log">DECODIFICANDO SECUENCIA: <span className="decoding-text">{currentDecodingText}</span></p>
                 </section>
             </main>
 
@@ -149,67 +193,80 @@ const IndexPrakxisDefinitivo = () => {
                 .main-container { min-height: 100vh; position: relative; background: #000; overflow-x: hidden; }
                 .main-container::before {
                     content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98)), url("/images/fondo-prakxis.jpg");
+                    /* Fondo de Red Neuronal Profunda similar a image_12.png, muy oscuro */
+                    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98)), url("/images/fondo-prakxis-red.jpg"); 
                     background-size: cover; background-position: center;
                 }
-                .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.1; z-index: 999; pointer-events: none; }
-                
+                .grain-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_processing_grain_texture.png"); opacity: 0.12; z-index: 999; pointer-events: none; }
                 .site-header { padding: 80px 20px 40px; text-align: center; position: relative; z-index: 100; }
-                .main-logo { width: 100%; max-width: 300px; filter: invert(100%); margin-bottom: 25px; }
+                .main-logo { width: 100%; max-width: 300px; filter: invert(100%); transition: 0.3s; }
+                .main-logo:hover { filter: invert(0%) sepia(1) hue-rotate(180deg); } /* Efecto color logo */
+                .tagline { font-size: 1.2rem; font-weight: 700; letter-spacing: 5px; line-height: 1.4; }
+                .changing-char { color: #ff6600 !important; font-weight: 800; animation: glitchBlink 0.3s infinite; }
                 
-                /* ESTILO EXACTO DE LA BAJADA */
-                .tagline-fixed { 
-                    font-size: 0.7rem; 
-                    font-weight: 700; 
-                    letter-spacing: 3px; 
-                    text-transform: uppercase;
-                    display: inline-block;
-                }
-                .px-code-inline { 
-                    margin-left: 10px; 
-                    font-weight: 400; 
-                    opacity: 0.7; 
-                }
+                .top-contact-btn { position: absolute; top: 20px; right: 20px; border: 1px solid #fff; padding: 10px 20px; font-size: 0.6rem; letter-spacing: 2px; }
                 
                 .main-content { max-width: 800px; margin: 0 auto; padding: 0 20px 100px; position: relative; z-index: 100; }
                 .section-block { margin-bottom: 100px; }
                 .section-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #fff; padding-bottom: 10px; margin-bottom: 40px; }
                 .numb { font-size: 0.7rem; opacity: 0.5; }
 
-                .press-item { display: flex; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.1); padding: 20px; background: rgba(0,0,0,0.5); transition: 0.3s; margin-bottom: 15px; }
+                /* PRENSA: EFECTO HOVER COLOR */
+                .press-item { display: flex; gap: 20px; border: 1px solid rgba(255,255,255,0.1); padding: 20px; background: rgba(0,0,0,0.5); transition: 0.3s; margin-bottom: 15px; }
                 .press-item:hover { border-color: #fff; background: #000; }
-                .press-thumb { width: 60px; height: 60px; object-fit: cover; filter: grayscale(1); }
-                .tit { font-size: 0.95rem; line-height: 1.4; }
+                .press-thumb { width: 80px; height: 80px; object-fit: cover; filter: grayscale(1); transition: 0.4s; }
+                .press-item:hover .press-thumb { filter: grayscale(0); }
+                .tit { font-size: 1.1rem; line-height: 1.4; }
                 
                 .dossier-img { width: 100%; filter: grayscale(1); opacity: 0.6; transition: 0.5s; border: 1px solid rgba(255,255,255,0.1); }
                 .editorial-preview:hover .dossier-img { filter: grayscale(0); opacity: 1; border-color: #fff; }
-                .full-btn { display: block; border: 1px solid #fff; text-align: center; padding: 12px; margin-top: 5px; font-size: 0.6rem; letter-spacing: 2px; }
+                .full-btn { display: block; border: 1px solid #fff; text-align: center; padding: 15px; margin-top: 10px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;}
                 
+                /* AUDIOVISUAL CON MÁSCARA */
                 .vimeo-stack { display: flex; flex-direction: column; gap: 20px; }
-                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; border: 1px solid rgba(255,255,255,0.1); }
-                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.5s; }
-                .vimeo-container:hover iframe { filter: grayscale(0); }
+                .video-glitch-wrapper { position: relative; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+                .video-noise-overlay { 
+                    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                    background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/TV_static.gif"); 
+                    opacity: 0.15; z-index: 5; pointer-events: none; transition: 0.4s;
+                }
+                .vimeo-container { position: relative; padding-bottom: 56.25%; height: 0; }
+                .vimeo-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
 
+                .video-glitch-wrapper:hover { border-color: #fff; }
+                .video-glitch-wrapper:hover .video-noise-overlay { opacity: 0; }
+                .video-glitch-wrapper:hover iframe { filter: grayscale(0); }
+
+                /* JUEGO FONEMAS ABSTRACTOS */
                 .game-area { width: 100%; height: 160px; background: rgba(0,0,0,0.8); border: 1px solid #fff; position: relative; overflow: hidden; }
                 .game-overlay { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; z-index: 10; font-size: 0.6rem; letter-spacing: 4px; text-align: center; }
-                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.5rem; opacity: 0.4; letter-spacing: 1px; }
-                .dino { width: 20px; height: 20px; border: 1px solid #fff; position: absolute; bottom: 10px; left: 30px; transition: bottom 0.4s; }
-                .dino.jumping { bottom: 80px; }
-                .obstacle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 10px; }
-                .ground { width: 100%; height: 1px; background: #fff; position: absolute; bottom: 10px; }
+                .score-board { position: absolute; top: 10px; left: 10px; font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; }
+                .dino { width: 22px; height: 22px; border: 2px solid #fff; position: absolute; bottom: 15px; left: 40px; transition: bottom 0.4s cubic-bezier(0.5, 0, 0.5, 1); z-index: 5;}
+                .dino.jumping { bottom: 90px; }
+                
+                .obstacle.phoneme-block { 
+                    width: auto; height: auto; border: 1px dashed #fff; color: #fff; background: rgba(0,0,0,0.8); 
+                    position: absolute; bottom: 15px; font-size: 0.6rem; padding: 5px 8px; z-index: 5; font-weight: 700;
+                }
+                .ground { width: 100%; height: 1px; background: #fff; position: absolute; bottom: 15px; }
 
-                .contact-clean { text-align: center; padding: 60px 20px; border: 1px solid #fff; }
-                .c-val { font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; }
-                .footer { padding: 60px; text-align: center; opacity: 0.3; font-size: 0.6rem; letter-spacing: 2px; }
+                .decoding-log { margin-top: 15px; font-size: 0.6rem; color: #fff; font-family: monospace !important; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;}
+                .decoding-text { animation: blink 0.15s infinite; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;}
+
+                @keyframes blink { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+                @keyframes glitchBlink { 0% { opacity: 1; transform: translateX(-1px);} 20% { opacity: 0.5; } 50% { opacity: 1; transform: translateX(1px);} 80% { opacity: 0.7; } 100% { opacity: 1; } }
+
+                .contact-clean { text-align: center; padding: 60px 20px; border: 1px solid #fff; background: rgba(0,0,0,0.5); }
+                .c-val { font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; }
+                .contact-btn { display: inline-block; background: #fff; color: #000 !important; padding: 15px 30px; font-weight: 800; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;}
+                .footer { padding: 60px; text-align: center; opacity: 0.3; font-size: 0.6rem; letter-spacing: 2px;}
                 
                 @media (min-width: 600px) {
                     .main-logo { max-width: 420px; }
-                    .tagline-fixed { font-size: 0.9rem; }
-                    .tit { font-size: 1.1rem; }
                 }
             `}</style>
         </div>
     );
 };
 
-export default IndexPrakxisDefinitivo;
+export default IndexPrakxisFinal;
