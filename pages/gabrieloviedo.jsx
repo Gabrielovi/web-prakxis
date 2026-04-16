@@ -15,7 +15,6 @@ const GabrielOviedoPortfolio = () => {
     useEffect(() => {
         setMounted(true);
         
-        // Solo ejecutamos lógica de DOM si estamos en el cliente
         if (typeof window !== 'undefined') {
             const dot = document.querySelector('.cursor-dot');
             const outline = document.querySelector('.cursor-outline');
@@ -163,16 +162,19 @@ const GabrielOviedoPortfolio = () => {
                     background-attachment: fixed; background-size: cover;
                     color: white; min-height: 100vh; font-family: 'Inter', sans-serif;
                 }
-                .art-nav { padding: 40px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+                .art-nav { padding: 40px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; align-items: center; }
+                .back-link { font-size: 10px; font-weight: 800; color: ${colors.textMuted}; text-decoration: none; letter-spacing: 2px; }
+                .back-link:hover { color: ${colors.accent}; }
                 .artist-name { font-family: 'Chakra Petch', sans-serif; letter-spacing: 4px; color: ${colors.accent}; font-size: 0.8rem; }
                 .hero { padding: 15vh 40px 10vh; }
-                .title { font-size: clamp(5rem, 18vw, 12rem); font-weight: 900; line-height: 0.8; letter-spacing: -8px; }
+                .title { font-size: clamp(5rem, 18vw, 12rem); font-weight: 900; line-height: 0.8; letter-spacing: -8px; margin: 0; }
                 .title span { color: transparent; -webkit-text-stroke: 1px ${colors.accent}; }
                 .bio-container { margin-top: 50px; border-left: 1px solid ${colors.accent}; padding-left: 30px; max-width: 700px; }
-                .bio-text { font-size: 1.2rem; color: #ccc; line-height: 1.8; font-weight: 300; }
+                .bio-text { font-size: 1.2rem; color: #ccc; line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
                 .featured-section { padding: 100px 40px; background: rgba(0, 242, 255, 0.01); border-top: 1px solid ${colors.borderGlass}; }
                 .ns-main-card { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
                 .ns-info h3 { font-size: 2.5rem; font-weight: 900; color: ${colors.accent}; margin: 0 0 20px; }
+                .ns-desc { font-style: italic; opacity: 0.7; color: #eee; line-height: 1.6; }
                 .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
                 .series-item { position: relative; padding-bottom: 56.25%; border: 1px solid ${colors.borderGlass}; background: #000; }
                 .series-item iframe { position: absolute; width: 100%; height: 100%; }
@@ -181,12 +183,20 @@ const GabrielOviedoPortfolio = () => {
                 .video-holder { position: relative; padding-bottom: 56.25%; background: #000; overflow: hidden; }
                 .video-holder iframe { position: absolute; width: 100%; height: 100%; filter: grayscale(1); transition: 0.6s; }
                 .obra-card:hover iframe { filter: grayscale(0); }
-                .obra-meta h3 { font-size: 1.4rem; margin: 20px 0 10px; color: ${colors.accent}; }
+                .obra-meta h3 { font-size: 1.4rem; margin: 20px 0 10px; color: ${colors.accent}; letter-spacing: 2px; }
+                .obra-meta p { font-size: 0.9rem; color: #bbb; line-height: 1.6; }
                 .contact-frame { border: 1px solid white; padding: 60px; display: flex; justify-content: center; align-items: center; gap: 40px; max-width: 900px; margin: 0 auto; background: rgba(0,0,0,0.2); }
-                .msg-btn { background: white; color: black; padding: 15px 30px; text-decoration: none; font-weight: 900; font-size: 0.7rem; letter-spacing: 2px; }
-                .cursor-dot { width: 4px; height: 4px; background: ${colors.accent}; position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%); }
-                .cursor-outline { width: 30px; height: 30px; border: 1px solid ${colors.accent}; position: fixed; border-radius: 50%; z-index: 9998; pointer-events: none; transform: translate(-50%, -50%); }
-                @media (max-width: 1024px) { .ns-main-card, .video-grid, .contact-frame { grid-template-columns: 1fr; flex-direction: column; } }
+                .email-text { font-size: 1.1rem; letter-spacing: 2px; }
+                .msg-btn { background: white; color: black; padding: 15px 30px; text-decoration: none; font-weight: 900; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s; }
+                .msg-btn:hover { background: ${colors.accent}; transform: scale(1.05); }
+                .location-tag { text-align: center; margin-top: 40px; font-size: 0.6rem; letter-spacing: 4px; opacity: 0.4; }
+                .cursor-dot { width: 4px; height: 4px; background: ${colors.accent}; position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%); top: 0; left: 0; }
+                .cursor-outline { width: 30px; height: 30px; border: 1px solid ${colors.accent}; position: fixed; border-radius: 50%; z-index: 9998; pointer-events: none; transform: translate(-50%, -50%); top: 0; left: 0; }
+                .section-label { font-size: 0.6rem; letter-spacing: 6px; color: ${colors.accent}; margin-bottom: 50px; opacity: 0.6; }
+                @media (max-width: 1024px) { 
+                    .ns-main-card, .video-grid, .contact-frame { grid-template-columns: 1fr; flex-direction: column; }
+                    .contact-frame { padding: 40px; gap: 20px; }
+                }
             `}</style>
         </div>
     );
